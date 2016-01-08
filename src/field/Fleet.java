@@ -20,14 +20,14 @@ public class Fleet extends Ownable {
 	public boolean landOn(GameController gameController) {
 		if (this.owner == null && gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().getBalance() >= this.price){
 			
-			String i = GUI.getUserButtonPressed("Do you want to buy this Fleet ", "Yes","No");
-			if (i == "Yes"){
+			boolean i = gameController.getGUIController().askYesNoQuestion("Do you want to buy this Fleet");
+			if (i == true){
 		gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().adjustBalance(-price);
 		owner = gameController.getPlayerController().getPlayer(gameController.getTurn()-1);
 		return true;
 		
 			}
-			if (i == "No"){
+			if (i == false){
 			return true;}
 	}
 		
