@@ -1,5 +1,7 @@
 package controllers;
 
+import player.Player;
+
 /**
  * Date: 08/01/2016
  *
@@ -15,5 +17,10 @@ package controllers;
  */
 
 public class PlayerController {
+
+	public Player getPlayer() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

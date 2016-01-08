@@ -9,7 +9,7 @@ public class Brewery extends Ownable {
 		// TODO Auto-generated constructor stub
 	}
 	@Override
-	public boolean landOn(GameController gameController) {
+	public boolean landOn(GameController GameController) {
 		
 		if (this.owner == null){
 			if (GameController.getPlayerController().getPlayer()[GameController.getTurn].getBalance() >= price){

@@ -37,7 +37,7 @@ public class Ownable extends Field {
 		return 0;
 		}
 	@Override
-	public boolean landOn(GameController gameController) {
+	public boolean landOn(GameController GameController) {
 		// TODO Auto-generated method stub
 		return false;
 	}

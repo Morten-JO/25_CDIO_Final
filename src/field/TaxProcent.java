@@ -12,7 +12,7 @@ public class TaxProcent extends Tax {
 		this.taxProcent = taxPro;
 	}
 	@Override
-	public boolean landOn(GameController gameController){
+	public boolean landOn(GameController GameController){
 		
 		String i = GUI.getUserButtonPressed("Do you want to Pay?", "4000","10 %");
 		if (i == "4000"){

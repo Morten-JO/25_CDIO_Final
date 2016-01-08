@@ -34,5 +34,10 @@ public class GameController {
 	public PlayerController getPlayerController(){
 		return null;
 	}
+
+	public int getTurn() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 }

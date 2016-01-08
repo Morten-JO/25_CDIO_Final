@@ -4,25 +4,25 @@ import controllers.GameController;
 
 public class Bonus extends Field {
 		
-	protected int Bonus; 
+	protected int bonus; 
 	
-	public Bonus(String Titel, String Sub, String Desc, int fieldNo, int Bonus) {
-		super(Titel, Sub, Desc, fieldNo);
-		this.Bonus = Bonus;
+	public Bonus(String titel, String sub, String desc, int fieldNo, int Bonus) {
+		super(titel, sub, desc, fieldNo);
+		this.bonus = Bonus;
 	}
 	
 	public int getBonus(){
-		return Bonus;
+		return bonus;
 	}
 	
 	public void setBonus(int b){
-		this.Bonus = b;
+		this.bonus = b;
 	}
 
 	@Override
-	public boolean landOn(GameController gameController) {
-		GameController.getPlayerController().getPlayer()[GameController.getTurn()].adjustBalance(Bonus);
-		return true;
+	public boolean landOn(GameController GameController) {
+		GameController.getPlayerController().getPlayer()[GameController.getTurn()].adjustBalance(bonus);
+		return false;
 		
 	}
 }

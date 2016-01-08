@@ -10,7 +10,7 @@ public class VisitJail extends Field {
 	}
 
 	@Override
-	public boolean landOn(GameController gameController) {
+	public boolean landOn(GameController GameController) {
 		// TODO Auto-generated method stub
 		return true;
 	}

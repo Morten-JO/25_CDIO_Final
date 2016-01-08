@@ -16,7 +16,7 @@ public abstract class Field {
 		
 	}
 
-	public abstract boolean landOn(GameController gameController);
+	public abstract boolean landOn(GameController GameController);
 
 	public String getName() {
 		return name;

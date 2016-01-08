@@ -12,7 +12,7 @@ public class Jail extends Field {
 	
 
 	@Override
-	public boolean landOn(GameController gameController) {
+	public boolean landOn(GameController GameController) {
 		return GameController.getPlayerController().getPlayer()[GameController.getTurn].isJailed(true);
 		
 	}
