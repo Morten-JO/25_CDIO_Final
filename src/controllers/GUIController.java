@@ -3,6 +3,7 @@ package controllers;
 import java.awt.Color;
 import java.util.ArrayList;
 
+import ChanceCards.CCTexts;
 import desktop_codebehind.Car;
 import desktop_fields.Tax;
 import desktop_resources.GUI;
@@ -169,10 +170,7 @@ public class GUIController {
 			else if(arrayOfFields[i].getClass().equals(Jail.class)){
 				list[i] = new desktop_fields.Jail.Builder().build();
 			}
-			else if(arrayOfFields[i].getClass().equals(Tax.class)){
-				list[i] = new desktop_fields.Tax.Builder().build();
-			}
-			else if(arrayOfFields[i].getClass().equals(TaxProcent.class)){
+			else if(arrayOfFields[i] instanceof field.Tax){
 				list[i] = new desktop_fields.Tax.Builder().build();
 			}
 			else if(arrayOfFields[i].getClass().equals(Bonus.class)){
@@ -180,7 +178,6 @@ public class GUIController {
 			}
 			else if(arrayOfFields[i].getClass().equals(VisitJail.class)){
 				list[i] = new desktop_fields.Jail.Builder().build();
-				System.out.println("created jail");
 			}
 			else if(arrayOfFields[i].getClass().equals(Fleet.class)){
 				list[i] = new desktop_fields.Shipping.Builder().build();
