@@ -275,5 +275,4 @@ public class GUIController {
 		GUI.setDice(diceOne, diceTwo);
 	}
 
-	
 }
