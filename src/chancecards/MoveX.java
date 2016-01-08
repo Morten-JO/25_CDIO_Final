@@ -18,7 +18,7 @@ public class MoveX extends ChanceCard {
 		
 		if(positionTo>40){
 			positionTo -= 40;
-			gc.getPlayerController().getPlayer(i)
+			gc.getPlayerController().getPlayer(currentPlayerIndex);
 		}
 		
 		gc.getFieldController().getFields()[positionTo].landOn(gc);

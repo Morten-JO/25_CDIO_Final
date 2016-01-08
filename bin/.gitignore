@@ -1,9 +1,6 @@
-/ChanceCards/
-/Player/
-/playerMO/
-/field/
-/controllers/
-/player/
-/dices/
-/main/
 /chancecards/
+/controllers/
+/dices/
+/field/
+/main/
+/player/

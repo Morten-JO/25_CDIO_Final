@@ -4,7 +4,7 @@ import controllers.GameController;
 import player.Player;
 
 public class Ownable extends Field {
- protected player.Player owner ;
+ protected Player owner ;
  protected int price ; 
  protected int pawnPrice;
 	public Ownable(String Titel, String Sub, String Desc, int fieldNo, int price,int pawnPrice) {

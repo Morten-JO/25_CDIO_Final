@@ -23,9 +23,9 @@ public class PlayerController {
 		return players.get(i);
 	}
 	
-	//index of current player
-	public int getCurrentPlayer(){
-		return currentPlayer;
+	//get current player object
+	public Player getCurrentPlayer(){
+		return players.get(currentPlayer);
 	}
 	
 	//set index of current player

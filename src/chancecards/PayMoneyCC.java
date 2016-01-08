@@ -1,6 +1,7 @@
 package chancecards;
 
 import controllers.GameController;
+import player.Player;
 
 public class PayMoneyCC extends ChanceCard {
 	
@@ -13,8 +14,8 @@ public class PayMoneyCC extends ChanceCard {
 	
 	@Override
 	public boolean drawCardAction(GameController gc){
-		int currentPlayerIndex = gc.getPlayerController().getCurrentPlayer();
-		return gc.getPlayerController().getPlayer(currentPlayerIndex).adjustBalance(-amount);
+		Player currentPlayer =  gc.getPlayerController().getCurrentPlayer();
+		return currentPlayer.adjustBalance(-amount);
 	}
 
 }
