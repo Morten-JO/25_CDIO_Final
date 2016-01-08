@@ -6,21 +6,15 @@ public class Player {
 	private int position;
 	private boolean isJailed;
 	
-	public Player(){
+	public Player(String name){
+		this.name = name;
 		position = 0;
 		account = new Account(30000);
 	}
 	
-	public boolean adjustPoints(int dif){
-		return account.adjustBalance(dif);
-	}
 	
-	public boolean setBalance(int balance){
-		return account.setBalance(balance);
-	}
-	
-	public int getBalance(){
-		return account.getBalance();
+	public Account getAccount(){
+		return account;
 	}
 	
 	public String getName(){

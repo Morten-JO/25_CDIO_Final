@@ -228,13 +228,13 @@ public class GUIController {
 
 	//Update a specific players balance
 	public void updatePlayerBalance(Player player){
-		GUI.setBalance(player.getName(), player.getBalance());
+		GUI.setBalance(player.getName(), player.getAccount().getBalance());
 	}
 	
 	//Updates all players balance
 	public void updateAllPlayersBalance(ArrayList<Player> player){
 		for(int i = 0; i < player.size(); i++){
-			GUI.setBalance(player.get(i).getName(), player.get(i).getBalance());
+			GUI.setBalance(player.get(i).getName(), player.get(i).getAccount().getBalance());
 		}
 	}
 
