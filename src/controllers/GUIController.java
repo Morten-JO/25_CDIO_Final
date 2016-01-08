@@ -270,4 +270,18 @@ public class GUIController {
 		GUI.setDice(diceOne, diceTwo);
 	}
 
+	
+	public void updateHouses(field.Field[] arrayOfFields){
+		for(int i = 0; i < arrayOfFields.length; i++){
+			if(arrayOfFields[i] instanceof field.Street){
+				if(((Street)arrayOfFields[i]).getamountOfHouses() <= 4){
+					GUI.setHouses(i, ((Street)arrayOfFields[i]).getamountOfHouses());
+				}
+				else{
+					GUI.setHotel(i, true);
+				}
+				
+			}
+		}
+	}
 }
