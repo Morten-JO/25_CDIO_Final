@@ -3,10 +3,10 @@ package field;
 import controllers.GameController;
 import desktop_resources.GUI;
 
-public class TaxProcent extends Tax {
+public class TaxPercent extends Tax {
 	private int taxProcent;
 	
-	public TaxProcent(String Titel, String Sub, String Desc, int fieldNo, int tax,int taxPro) {
+	public TaxPercent(String Titel, String Sub, String Desc, int fieldNo, int tax,int taxPro) {
 		super(Titel, Sub, Desc, fieldNo, tax);
 		
 		this.taxProcent = taxPro;
