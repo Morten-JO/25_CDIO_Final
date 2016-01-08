@@ -1,36 +1,61 @@
 package player;
-
 public class Player {
-	
-	private int balance;
-	private String name;
-	private int position;
+
+	private String name = "";
 	private Account account;
+	private int position;
+	private boolean isJailed;
+	
+	public Player(){
+		position = 0;
+		account = new Account(30000);
+	}
+	
+	public boolean adjustPoints(int dif){
+		return account.adjustBalance(dif);
+	}
+	
+	public boolean setBalance(int balance){
+		return account.setBalance(balance);
+	}
 	
 	public int getBalance(){
-		return balance;
+		return account.getBalance();
 	}
 	
 	public String getName(){
 		return name;
 	}
 	
+	public void setName(String name){
+		this.name = name;
+	}
+	
 	public int getPosition(){
 		return position;
 	}
 	
-	public boolean Jail(boolean b) {
-		return b;
-		
+	public void setPosition(int newPos){
+		this.position = newPos;
 	}
 
-	public boolean JailNoMoney(boolean b) {
-		return b;
-		
+	/**
+	 * @return  
+	 * return true if a player is jailed, or false if player is not jailed.
+	 */
+	public boolean getJailed() {
+		if (isJailed==true){
+		return true;}
+		else {
+			return false;
+		}
+	}
+
+	/**
+	 * @param Puts a player in jail
+	 */
+	public void setInJail() {
+		this.isJailed = true;
 	}
 	
-	public Account getAccount(){
-		return account;
-	}
-
 }
