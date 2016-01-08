@@ -15,7 +15,7 @@ public class GameController {
 	private PlayerController playerController;
 	private FieldController fieldController;
 	private ChanceCardController chanceCardController;
-	public Cup cup;
+	public Cup cup;//WHY ARE TURN AND CUP PUBLIC?
 	private boolean gameOver;
 	
 	public GameController(){

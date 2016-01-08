@@ -3,13 +3,10 @@ package chancecards;
 import controllers.GameController;
 import player.Player;
 
-public class PlayersGetMoneyCC extends ChanceCard {
-	
-	private int amount;
+public class PlayersGetMoneyCC extends GetMoneyCC {
 
 	public PlayersGetMoneyCC(String description, int amount) {
-		super(description);
-		this.amount = amount;
+		super(description, amount);
 	}
 	
 	@Override

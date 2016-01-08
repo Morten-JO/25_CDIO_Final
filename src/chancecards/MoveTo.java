@@ -1,6 +1,7 @@
 package chancecards;
 
 import controllers.GameController;
+import player.Player;
 
 public class MoveTo extends ChanceCard {
 	
@@ -13,7 +14,20 @@ public class MoveTo extends ChanceCard {
 	
 	@Override
 	public boolean drawCardAction(GameController gc){
-		return gc.getFieldController().getFields()[fieldID].landOn(gc);
+		Player currentPlayer = gc.getPlayerController().getCurrentPlayer();
+		int pos = currentPlayer.getPosition();
+		
+		//add 4k if player pass start
+		if(fieldID<pos){
+			if(fieldID!=39)//townhallCC no reward for passing start
+				currentPlayer.adjustBalance(4000);
+		}
+		
+		//set new player pos
+		currentPlayer.setPosition(fieldID);
+		
+		//not calling landOn because player is only moved to field; NO ACTION TAKEN
+		return true;
 	}
 
 }
