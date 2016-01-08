@@ -78,8 +78,7 @@ public class FieldController {
 	}
 
 	public Field[] getFields() {
-		// TODO Auto-generated method stub
-		return null;
+		return gameFields;
 	}
 }
 

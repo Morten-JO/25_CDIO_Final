@@ -33,7 +33,7 @@ public class GUIController {
 		this.game = game;
 		GUI.create(createList(game.getFieldController().getFields()));
 		GUI.showMessage("Welcome to matador!");
-		ArrayList<String> addPlayers = addPlayers();
+		ArrayList<String> addPlayers = choosePlayers();
 		String[] names = new String[addPlayers.size()];
 		names = addPlayers.toArray(names);
 		game.getPlayerController().createPlayers(names);
@@ -41,7 +41,7 @@ public class GUIController {
 	}
 	
 	//adds players from minimum 3 to maximum 6, also asks the player to personalize their car
-	private ArrayList<String> addPlayers(){
+	private ArrayList<String> choosePlayers(){
 		ArrayList<String> players = new ArrayList<String>();
 		boolean stillAdding = true;
 		while(stillAdding){
@@ -175,7 +175,7 @@ public class GUIController {
 				list[i] = new desktop_fields.Tax.Builder().build();
 			}
 			else if(arrayOfFields[i].getClass().equals(Bonus.class)){
-				list[i] = new desktop_fields.Empty.Builder().build();
+				list[i] = new desktop_fields.Refuge.Builder().build();
 			}
 			else if(arrayOfFields[i].getClass().equals(VisitJail.class)){
 				list[i] = new desktop_fields.Jail.Builder().build();
