@@ -185,29 +185,29 @@ public class GUIController {
 			}
 			else if(arrayOfFields[i].getClass().equals(Street.class)){
 				desktop_fields.Street.Builder builder = new desktop_fields.Street.Builder();
-				switch(arrayOfFields[i].getDescriptionText()){
-					case "blue":
+				switch(((field.Street)arrayOfFields[i]).getStreetCategory()){
+					case 0:
 						builder.setBgColor(Color.BLUE);
 						break;
-					case "orange":
+					case 1:
 						builder.setBgColor(Color.ORANGE);
 						break;
-					case "green":
+					case 2:
 						builder.setBgColor(Color.GREEN);
 						break;
-					case "gray":
+					case 3:
 						builder.setBgColor(Color.GRAY);
 						break;
-					case "red":
+					case 4:
 						builder.setBgColor(Color.RED);
 						break;
-					case "white":
+					case 5:
 						builder.setBgColor(Color.WHITE);
 						break;
-					case "yellow":
+					case 6:
 						builder.setBgColor(Color.YELLOW);
 						break;
-					case "pink":
+					case 7:
 						builder.setBgColor(Color.MAGENTA);
 						break;
 				}
