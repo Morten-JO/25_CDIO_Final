@@ -18,7 +18,8 @@ import chancecards.ScholarshipCC;
 
 public class ChanceCardController {
 	
-	protected ChanceCard[] chanceCards;
+	private ChanceCard[] chanceCards;
+	private int cardsDrawn;
 
 	public ChanceCardController() {
 		
@@ -26,7 +27,7 @@ public class ChanceCardController {
 		//CCTexts texts = new CCTexts(); STATIC methods so no need this
 		
 		//initialize pile
-		chanceCards = new ChanceCard[11];
+		chanceCards = new ChanceCard[47];
 		
 		chanceCards[0] = new JailFreeCC(CCTexts.jailFreeTxt);
 		chanceCards[1] = new JailFreeCC(CCTexts.jailFreeTxt);
@@ -81,6 +82,8 @@ public class ChanceCardController {
 		
 		//shuffle pile
 		shuffleCards();
+		
+		cardsDrawn = 0;
 	}
 	
 	
@@ -100,6 +103,12 @@ public class ChanceCardController {
 	}
 	
 	public boolean drawCard(GameController gc){
+		//shuffle pile after all cards have been drawn once
+		if(cardsDrawn>chanceCards.length){
+			shuffleCards();
+			cardsDrawn = 0;
+		}
+		
 		boolean result = false;
 		//draw card from end of pile, validate object type, do action
 		// could use SWITCH - very low priority
@@ -134,7 +143,20 @@ public class ChanceCardController {
 				e.printStackTrace();
 			}
 		}
+		
+		moveCardFromTopToBottom();
+		
 		return result;
+	}
+	
+	public void moveCardFromTopToBottom(){
+		ChanceCard cardToMove = chanceCards[0];
+		
+		for (int i = 0; i < chanceCards.length; i++) {
+			chanceCards[i] = chanceCards[i+1];
+		}
+		
+		chanceCards[chanceCards.length-1] = cardToMove;
 	}
 	
 	public String toString(){
