@@ -1,4 +1,4 @@
-package ChanceCards;
+package chancecards;
 
 import controllers.*;
 
@@ -10,7 +10,7 @@ public class MainChanceCard {
 	public static void main(String[] args) {
 		GameController gc = new GameController();
 		ChanceCardController controllerCC = new ChanceCardController();
-		gc.se
+		
 	
 		for(int i = 0;i<10;i++){
 			controllerCC.drawCard(gc);

@@ -1,4 +1,4 @@
-package ChanceCards;
+package chancecards;
 
 import controllers.GameController;
 

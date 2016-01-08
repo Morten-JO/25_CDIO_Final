@@ -2,15 +2,15 @@ package controllers;
 
 import java.util.*;
 
-import ChanceCards.CCTexts;
-import ChanceCards.ChanceCard;
-import ChanceCards.GetMoneyCC;
-import ChanceCards.JailFreeCC;
-import ChanceCards.MoveTo;
-import ChanceCards.MoveToNearestFleetCC;
-import ChanceCards.PayMoneyCC;
-import ChanceCards.PayTaxRiseCC;
-import ChanceCards.ScholarshipCC;
+import chancecards.CCTexts;
+import chancecards.ChanceCard;
+import chancecards.GetMoneyCC;
+import chancecards.JailFreeCC;
+import chancecards.MoveTo;
+import chancecards.MoveToNearestFleetCC;
+import chancecards.PayMoneyCC;
+import chancecards.PayTaxRiseCC;
+import chancecards.ScholarshipCC;
 
 public class ChanceCardController {
 	

@@ -1,4 +1,4 @@
-package ChanceCards;
+package chancecards;
 
 import controllers.GameController;
 
@@ -16,8 +16,10 @@ public class MoveX extends ChanceCard {
 		int currentPlayerIndex = gc.getPlayerController().getCurrentPlayer();
 		int positionTo = gc.getPlayerController().getPlayer(currentPlayerIndex).getPosition() + amountToMove;
 		
-		if(positionTo>40)
+		if(positionTo>40){
 			positionTo -= 40;
+			gc.getPlayerController().getPlayer(i)
+		}
 		
 		gc.getFieldController().getFields()[positionTo].landOn(gc);
 		

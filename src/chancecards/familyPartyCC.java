@@ -1,4 +1,4 @@
-package ChanceCards;
+package chancecards;
 
 public class familyPartyCC extends GetMoneyCC {
 

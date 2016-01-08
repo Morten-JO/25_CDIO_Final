@@ -1,4 +1,4 @@
-package ChanceCards;
+package chancecards;
 
 import controllers.PlayerController;
 
@@ -9,7 +9,8 @@ public class GameControllerold {
 	public GameControllerold() {
 		 names = new String[] {"anders", "johan", "svend", "bjarne"};
 		
-		 pc = new PlayerController(names);
+		 pc = new PlayerController();
+		 pc.createPlayers(names);
 	}
 	
 	//landon for test

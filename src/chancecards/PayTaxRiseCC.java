@@ -1,20 +1,22 @@
-package ChanceCards;
+package chancecards;
 
 import controllers.GameController;
 
-public class GetMoneyCC extends ChanceCard {
-	
-	private int amount;
+public class PayTaxRiseCC extends PayMoneyCC {
 
-	public GetMoneyCC(String description, int amount) {
-		super(description);
-		this.amount = amount;
+	public PayTaxRiseCC(String description) {
+		super(description, 0);
+		
+		//calc amount to pay based on housed and hotels owned
+		//redraw from player
+		
+		//this.amount = _RESULT;
 	}
 
 	@Override
 	public boolean drawCardAction(GameController gc){
 		int currentPlayerIndex = gc.getPlayerController().getCurrentPlayer();
+		
 		return gc.getPlayerController().getPlayer(currentPlayerIndex).adjustBalance(amount);
 	}
-
 }
