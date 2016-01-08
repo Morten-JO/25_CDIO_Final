@@ -13,10 +13,11 @@ public class Brewery extends Ownable {
 	public boolean landOn(GameController gameController) {
 		
 		if (this.owner == null){
-			if ( gameController.getPlayerController().getPlayers[gameController.getTurn()-1]).getBalance() >= price){
+			if ( gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getBalance() >= price){
+				String i = GUI.getUserButtonPressed("Do you want to buy this Brewery ", "Yes","No");
 				if (i=="Ja"){
-					owner = gameController.getPlayerController().getPlayer()[gameController.getTurn];
-					gameController.getPlayerController().getPlayer()([gameController.getTurn]-1).adjustBalance(-price);
+					owner = gameController.getPlayerController().getPlayer(gameController.getTurn()-1);
+					gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().adjustBalance(-price);
 					return true;
 				}
 				else if (i=="nej"){
@@ -25,10 +26,10 @@ public class Brewery extends Ownable {
 			}
 			}
 			
-			if  (this.owner != null && this.owner != gameController.getPlayerController().getPlayer()[GameController.getTurn()]){
+			if  (this.owner != null && this.owner != gameController.getPlayerController().getPlayer(gameController.getTurn())){
 				int pay = rents * gameController.getCup().getDiceSum();
-				if (GameController.getPlayerController().getPlayer()[GameController.getTurn].getBalance>pay){
-				GameController.getPlayerController().getPlayer()[GameController.getTurn].adjustBalance(-pay);
+				if (gameController.getPlayerController().getPlayer(gameController.getTurn()).getAccount().getBalance()>pay){
+				gameController.getPlayerController().getPlayer(gameController.getTurn()).getAccount().adjustBalance(-pay);
 				return true;
 				}
 				else return false;
@@ -36,7 +37,7 @@ public class Brewery extends Ownable {
 		
 	}
 	
-
+			return true;
 }
 	
 }

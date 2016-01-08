@@ -1,28 +1,20 @@
 package controllers;
 
-import player.Player;
+import java.util.ArrayList;
 
-/**
- * Date: 08/01/2016
- *
- * Project: 25_cdio-final
- *
- * File: PlayerController.java
- *
- * Created by: Morten Jørvad
- *
- * Github: https://github.com/Mortenbaws
- *
- * Email: morten2094@gmail.com
- */
+import player.Player;
 
 public class PlayerController {
 
-	public Object[] Player;
+	public ArrayList<Player> players = new ArrayList<Player>();
+	
 
-	public Player getPlayer() {
-		// TODO Auto-generated method stub
-		return null;
+	public Player getPlayer(int i) {
+		return players.get(i);
 	}
+	public void setPlayers(ArrayList<String> players){
+		//add players here
+	}
+
 
 }

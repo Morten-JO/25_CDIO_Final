@@ -34,5 +34,10 @@ public class FieldController {
 		}
 		return count;
 	}
+
+	public Field[] getFields() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
 

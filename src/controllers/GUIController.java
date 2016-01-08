@@ -33,7 +33,7 @@ public class GUIController {
 	
 	public GUIController(){
 		GameController game = new GameController();
-		GUI.create(createList(game.getFields()));
+		GUI.create(createList(game.getFieldController().getFields()));
 		GUI.showMessage("Welcome to matador!");
 		game.setPlayers(addPlayers());
 		game.startGame();

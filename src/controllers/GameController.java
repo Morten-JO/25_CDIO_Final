@@ -5,25 +5,22 @@ import java.util.ArrayList;
 import field.Field;
 import field.Jail;
 import player.Player;
+import dices.Cup;
+
 
 public class GameController {
-
+	public PlayerController playerController;
+	public FieldController fieldController;
+	public ChancecardController chancecardController;
+	public Cup cup;
 	private boolean gameOver;
-	private Field[] fields = new Field[40];
-	private ArrayList<Player> players;
+	
 	public GameController(){
-		for(int i = 0; i < fields.length; i++){
-			fields[i] = new Jail("j", "g", "b", i);
-		}
+	
 	}
 	
-	public void setPlayers(ArrayList<String> players){
-		//add players here
-	}
 	
-	public Field[] getFields(){
-		return fields;
-	}
+
 	
 	public void startGame(){
 		while(!gameOver){
@@ -39,5 +36,33 @@ public class GameController {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
+
+	public void setPlayerController(PlayerController playerController) {
+		this.playerController = playerController;
+	}
+
+
+
+
+	public void setPlayers(ArrayList<String> addPlayers) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public FieldController getFieldController(){
+		return fieldController;
+	}
+
+
+
+
+	public Cup getCup() {
+		// TODO Auto-generated method stub
+		return cup;
+	}
+
+
 	
 }
