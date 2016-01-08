@@ -1,7 +1,7 @@
 package field;
 
-import player.Player;
 import controllers.GameController;
+import playerMO.Player;
 
 public class Ownable extends Field {
  protected Player owner ;

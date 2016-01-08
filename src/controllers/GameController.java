@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import field.Field;
 import field.Jail;
-import player.Player;
+import playerMO.Player;
 import dices.Cup;
 
 

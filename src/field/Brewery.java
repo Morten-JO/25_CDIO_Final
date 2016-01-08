@@ -1,7 +1,7 @@
 package field;
 import controllers.GameController;
 import desktop_resources.GUI;
-import player.Player;
+import playerMO.Player;
 
 public class Brewery extends Ownable {
 	private int rents = 100 ;

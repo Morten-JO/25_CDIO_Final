@@ -3,16 +3,11 @@ package controllers;
 import java.awt.Color;
 import java.util.ArrayList;
 
-
-
-
-
-
-import player.Player;
 import desktop_codebehind.Car;
 import desktop_fields.Tax;
 import desktop_resources.GUI;
 import field.*;
+import playerMO.Player;
 
 
 /**
@@ -22,7 +17,7 @@ import field.*;
  *
  * File: GUIController.java
  *
- * Created by: Morten Jørvad
+ * Created by: Morten Jï¿½rvad
  *
  * Github: https://github.com/Mortenbaws
  *

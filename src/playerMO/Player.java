@@ -1,4 +1,4 @@
-package player;
+package playerMO;
 public class Player {
 
 	private String name = "";

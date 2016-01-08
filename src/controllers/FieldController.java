@@ -1,16 +1,16 @@
 package controllers;
 
-import player.Player;
 import field.Brewery;
 import field.Field;
 import field.Fleet;
 import field.Ownable;
+import playerMO.Player;
 
 public class FieldController {
 	private int[] noob = {1,2,3,4,5};
 	private Field[] gameFields = new Field[40];
 	
-	//gameFields[1] = new Street("nøøb", "Magnus", "noob", 1, 200, 400,noob,4000);
+	//gameFields[1] = new Street("nï¿½ï¿½b", "Magnus", "noob", 1, 200, 400,noob,4000);
 	
 	
 	public int getOwnerShipOfFleets(Player p) {
