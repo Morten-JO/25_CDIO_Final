@@ -31,4 +31,8 @@ public class GameController {
 		}
 	}
 	
+	public PlayerController getPlayerController(){
+		return null;
+	}
+	
 }
