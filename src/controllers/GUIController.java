@@ -192,7 +192,7 @@ public class GUIController {
 					case "orange":
 						builder.setBgColor(Color.ORANGE);
 						break;
-					case "lime":
+					case "green":
 						builder.setBgColor(Color.GREEN);
 						break;
 					case "gray":
@@ -208,7 +208,7 @@ public class GUIController {
 						builder.setBgColor(Color.YELLOW);
 						break;
 					case "pink":
-						builder.setBgColor(Color.PINK);
+						builder.setBgColor(Color.MAGENTA);
 						break;
 				}
 				list[i] = builder.build();
