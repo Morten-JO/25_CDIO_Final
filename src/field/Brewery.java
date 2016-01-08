@@ -3,9 +3,10 @@ import controllers.GameController;
 import desktop_resources.GUI;
 
 public class Brewery extends Ownable {
-	private int rents = 100 ;
-	public Brewery(String titel, String sub, String desc, int fieldNo, int price, int pawnPrice) {
+	private int[] rents = {100, 200};
+	public Brewery(String titel, String sub, String desc, int fieldNo, int price, int pawnPrice, int[] rents) {
 		super(titel, sub, desc, fieldNo, price, pawnPrice);
+		this.rents = rents;
 		// TODO Auto-generated constructor stub
 	}
 	@Override
@@ -26,7 +27,8 @@ public class Brewery extends Ownable {
 			}
 			
 			if  (this.owner != null && this.owner != gameController.getPlayerController().getPlayer(gameController.getTurn())){
-				int pay = rents * gameController.getCup().getDiceSum();
+				int i = gameController.getFieldController().getOwnerShipOfBreweries(gameController.getPlayerController().getPlayer(gameController.getTurn()));
+				int pay = rents[i] * gameController.getCup().getDiceSum();
 				if (gameController.getPlayerController().getPlayer(gameController.getTurn()).getAccount().getBalance()>pay){
 				gameController.getPlayerController().getPlayer(gameController.getTurn()).getAccount().adjustBalance(-pay);
 				return true;
