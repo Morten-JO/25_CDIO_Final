@@ -24,10 +24,10 @@ public class FieldController {
 		gameFields[8] = new Street("Valby Langgade", "orange", "koster 2000", 8, 2000, 1000, new int [] {100, 200, 600,1800,5400,8000,11000}, 1000);
 		gameFields[9] = new Street("Allégade", "orange", "koster 2400", 9, 2400, 1200, new int [] {150, 300, 800,2000,6000,9000,12000}, 1000);
 		gameFields[10] = new VisitJail("På besøg i fængslet", "Du har helle her", "", 10);
-		gameFields[11] = new Street("Frederiksberg Allé", "lime", "koster 2800", 11, 2800, 1400, new int [] {200, 400, 1000,3000,9000,12500,15000}, 2000);
+		gameFields[11] = new Street("Frederiksberg Allé", "green", "koster 2800", 11, 2800, 1400, new int [] {200, 400, 1000,3000,9000,12500,15000}, 2000);
 		gameFields[12] = new Brewery("Squash", "Tag en Squash", "", 12, 3000, 1500,  new int[] {100,200});
-		gameFields[13] = new Street("Bülowsvej", "lime", "koster 2800", 13, 2800, 1400, new int [] {200, 400, 1000,3000,9000,12500,15000}, 2000);
-		gameFields[14] = new Street("Gl. Kongevej", "lime", "koster 3200", 14, 3200, 1600, new int [] {250, 500, 1250, 3750, 10000, 14000, 18000}, 2000);
+		gameFields[13] = new Street("Bülowsvej", "green", "koster 2800", 13, 2800, 1400, new int [] {200, 400, 1000,3000,9000,12500,15000}, 2000);
+		gameFields[14] = new Street("Gl. Kongevej", "green", "koster 3200", 14, 3200, 1600, new int [] {250, 500, 1250, 3750, 10000, 14000, 18000}, 2000);
 		gameFields[15] = new Fleet("Mols-Linien", "Rederi", "Koster kr. 4000", 15, 4000, 2000, new int[]{500,1000,2000,4000});
 		gameFields[16] = new Street("Bernstorffsvej", "gray", "koster 3600", 16, 3600, 1800, new int [] {300, 600, 1400, 4000, 11000, 15000, 18000}, 2000);
 		gameFields[17] = new Chance("Prøv Lykken", "Træk et kort", "", 17);
