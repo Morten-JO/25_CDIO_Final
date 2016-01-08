@@ -27,8 +27,10 @@ import player.Player;
 
 public class GUIController {	
 	
-	public GUIController(){
-		GameController game = new GameController();
+	private GameController game;
+	
+	public GUIController(GameController game){
+		this.game = game;
 		GUI.create(createList(game.getFieldController().getFields()));
 		GUI.showMessage("Welcome to matador!");
 		ArrayList<String> addPlayers = addPlayers();
@@ -36,7 +38,6 @@ public class GUIController {
 		names = addPlayers.toArray(names);
 		game.getPlayerController().createPlayers(names);
 		game.startGame();
-		
 	}
 	
 	//adds players from minimum 3 to maximum 6, also asks the player to personalize their car

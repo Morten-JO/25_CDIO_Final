@@ -1,11 +1,12 @@
 package main;
 
 import controllers.GUIController;
+import controllers.GameController;
 
 public class Main {
 
 	
 	public static void main(String[] args) {
-		GUIController controller = new GUIController();
+		GameController controller = new GameController();
 	}
 }

@@ -11,6 +11,7 @@ import dices.Cup;
 public class GameController {
 	
 	public int turn;
+	private GUIController guiController;
 	private PlayerController playerController;
 	private FieldController fieldController;
 	private ChanceCardController chanceCardController;
@@ -21,6 +22,7 @@ public class GameController {
 		fieldController = new FieldController();
 		chanceCardController = new ChanceCardController();
 		playerController = new PlayerController();
+		guiController = new GUIController();
 	}
 	
 	public void startGame(){
