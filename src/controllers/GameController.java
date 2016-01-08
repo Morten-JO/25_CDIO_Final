@@ -9,18 +9,25 @@ import dices.Cup;
 
 
 public class GameController {
+	
+	public int turn;
 	public PlayerController playerController;
 	public FieldController fieldController;
-	public ChancecardController chancecardController;
+	public ChancecardController chanceCardController;
 	public Cup cup;
 	private boolean gameOver;
 	
 	public GameController(){
-	
+		fieldController = new FieldController();
+		chanceCardController = new ChanceCardController();
+		
 	}
-	
-	
 
+	public void setPlayers(ArrayList<String> addPlayers) {
+		String[] names = new String[addPlayers.size()];
+		names = addPlayers.toArray(names);
+		playerController = new PlayerController(names);
+	}
 	
 	public void startGame(){
 		while(!gameOver){
@@ -29,7 +36,7 @@ public class GameController {
 	}
 	
 	public PlayerController getPlayerController(){
-		return null;
+		return playerController;
 	}
 
 	public int getTurn() {
@@ -38,18 +45,7 @@ public class GameController {
 	}
 
 
-
-	public void setPlayerController(PlayerController playerController) {
-		this.playerController = playerController;
-	}
-
-
-
-
-	public void setPlayers(ArrayList<String> addPlayers) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	public FieldController getFieldController(){
 		return fieldController;
