@@ -1,6 +1,6 @@
 package ChanceCards;
 
-import controllers.ChanceCardController;
+import controllers.*;
 
 public class MainChanceCard {
 
@@ -8,11 +8,12 @@ public class MainChanceCard {
 	}
 
 	public static void main(String[] args) {
-		GameControllerold gc = new GameControllerold();
+		GameController gc = new GameController();
 		ChanceCardController controllerCC = new ChanceCardController();
+		gc.se
 	
 		for(int i = 0;i<10;i++){
-			//controllerCC.drawCard(gc);
+			controllerCC.drawCard(gc);
 			controllerCC.shuffleCards();
 		}
 		

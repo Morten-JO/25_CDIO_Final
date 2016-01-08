@@ -8,12 +8,14 @@ public class PlayerController {
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private int currentPlayer;
 
-	public PlayerController(String[] names) {
+	public PlayerController() {
+		setCurrentPlayer(0);
+	}
+	
+	public void createPlayers(String[] names){
 		for(int i = 0; i<names.length; i++){
 			players.add(new Player(names[i]));
 		}
-		
-		setCurrentPlayer(0);
 	}
 	
 	//get a specified Player object
