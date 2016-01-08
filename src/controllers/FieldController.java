@@ -50,9 +50,9 @@ public class FieldController {
 		gameFields[34] = new Street("Nygade", "yellow", "koster 6400", 34, 6400, 3200, new int [] {600, 1200, 3000, 9000, 20000, 24000, 28000},4000);
 		gameFields[35] = new Fleet("Rødby-Puttgarden", "Rederi", "Koster 4000", 35, 4000, 2000, new int[]{500,1000,2000,4000});
 		gameFields[36] = new Chance("Prøv Lykken", "Træk et kort", "", 36);
-		gameFields[37] = new Street("Frederiksberggade", "purple", "koster 7000", 37, 7000, 3500, new int [] {700, 1400, 3500, 10000, 22000, 26000, 30000},4000);
+		gameFields[37] = new Street("Frederiksberggade", "pink", "koster 7000", 37, 7000, 3500, new int [] {700, 1400, 3500, 10000, 22000, 26000, 30000},4000);
 		gameFields[38] = new Tax("Statsskat", "Betal kr. 2000", "", 38, 2000);
-		gameFields[39] = new Street("Rådhuspladsen", "purple", "koster 8000", 39, 8000, 4000, new int [] {1000, 2000, 4000, 12000, 28000, 34000, 40000},4000);
+		gameFields[39] = new Street("Rådhuspladsen", "pink", "koster 8000", 39, 8000, 4000, new int [] {1000, 2000, 4000, 12000, 28000, 34000, 40000},4000);
 		}
 	
 	public int getOwnerShipOfFleets(Player p) {
