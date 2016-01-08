@@ -20,7 +20,7 @@ public class TaxProcent extends Tax {
 		}
 		else if (i == "10 %"){
 			int taxpay =gameController.getTotalValueOfPlayer(gameController.getPlayerController().getPlayer(gameController.getTurn()-1));
-			gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().adjustBalance(-(taxpay*(0.01*taxProcent)));
+			gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().adjustBalance((int)-(taxpay*(0.01*taxProcent)));
 		}
 		
 		

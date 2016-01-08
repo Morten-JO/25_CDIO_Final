@@ -15,7 +15,7 @@ public class Player {
 	}
 	
 	public int getBalance(int i){
-		return acc.getBalance();
+		return (int)acc.getBalance();
 	}
 	
 	public boolean adjustBalance(int amount){

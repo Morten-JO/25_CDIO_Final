@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import field.Field;
 import field.Jail;
+import player.Player;
 import dices.Cup;
 
 
@@ -60,6 +61,11 @@ public class GameController {
 
 	public ChanceCardController getChanceCardController(){
 		return chanceCardController;
+	}
+
+	public int getTotalValueOfPlayer(Player player) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	

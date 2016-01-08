@@ -10,11 +10,11 @@ public class Account {
 	
 	/**
 	 * 
-	 * @param i - the amount to adjust
+	 * @param d - the amount to adjust
 	 * @return false if player cant play (decide if remove from game)
 	 */
-	public boolean adjustBalance(int i){
-		int newBalance = balance + i;
+	public boolean adjustBalance(int d){
+		int newBalance = balance + d;
 		if(newBalance<0){
 			//do stuff to handle not able to pay
 			return false;
@@ -25,7 +25,7 @@ public class Account {
 		}
 	}
 	
-	public int getBalance(){
+	public double getBalance(){
 		return balance;
 	}
 
