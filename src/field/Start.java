@@ -1,8 +1,10 @@
 package field;
 
-public class start extends Field {
+import controllers.GameController;
 
-	public start(String Titel, String Sub, String Desc, int fieldNo) {
+public class Start extends Field {
+
+	public Start(String Titel, String Sub, String Desc, int fieldNo) {
 		super(Titel, Sub, Desc, fieldNo);
 		// TODO Auto-generated constructor stub
 	}

@@ -1,5 +1,7 @@
 package field;
 
+import controllers.FieldController;
+import controllers.GameController;
 import desktop_resources.GUI;
 
 public class Fleet extends Ownable {
@@ -30,7 +32,7 @@ public class Fleet extends Ownable {
 	}
 		// MANGLER DENN HER !!!!!!!!! skal finde hvor mange fleets en ejer har .
 		if (this.owner != null && this.owner != GameController.getPlayerController().getPlayer()[GameController.getTurn()]){
-			int totalPay = field.FieldController. 
+			int totalPay = controllers.FieldController. 
 					rents[FieldController.this.owner.getOwnershipOfFleets-1]
 }
 }

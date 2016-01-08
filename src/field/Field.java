@@ -1,54 +1,42 @@
 package field;
 
+import controllers.GameController;
+
 public abstract class Field {
 	
-	private String Title, Subtitle, Description ; 
-	private int fieldnum;
+	protected String name, subText, descriptionText ; 
+	private int number;
 	
 	
-	public Field (String Titel, String Sub, String Desc, int fieldNum) {
-		this.Title = Titel;
-		this.Subtitle = Sub;
-		this.Description = Desc;
-		this.fieldnum = fieldNum;
+	public Field (String name, String descriptionText, String subText, int number) {
+		this.name = name;
+		this.subText = subText;
+		this.descriptionText = descriptionText;
+		this.number = number;
 		
 	}
 
 	public abstract boolean landOn(GameController gameController);
 
-	public String getTitle() {
-		return Title;
+	public String getName() {
+		return name;
 	}
 
-	public void setTitle(String title) {
-		Title = title;
+	public String getSubText() {
+		return subText;
 	}
 
-	public String getSubtitle() {
-		return Subtitle;
-	}
-
-	public void setSubtitle(String subtitle) {
-		Subtitle = subtitle;
-	}
-
-	public String getDescription() {
-		return Description;
-	}
-
-	public void setDescription(String description) {
-		Description = description;
-	}
-
-	public int getFieldNo() {
-		return fieldnum;
-	}
-
-	public void setFieldNo(int fieldNo) {
-		this.fieldnum = fieldNo;
+	public String getDescriptionText() {
+		return descriptionText;
 	}
 	
+	public int getNumber(){
+		return number;
+	}
 
+	
+	
+	
 }
 	
 	

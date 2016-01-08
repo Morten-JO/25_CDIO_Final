@@ -1,4 +1,10 @@
-package field;
+package controllers;
+
+import player.Player;
+import field.Brewery;
+import field.Field;
+import field.Fleet;
+import field.Ownable;
 
 public class FieldController {
 	private int[] noob = {1,2,3,4,5};

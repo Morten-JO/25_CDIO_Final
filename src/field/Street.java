@@ -2,6 +2,7 @@ package field;
 
 import java.util.Arrays;
 
+import controllers.GameController;
 import desktop_resources.GUI;
 
 

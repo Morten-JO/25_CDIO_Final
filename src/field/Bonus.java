@@ -1,5 +1,7 @@
 package field;
 
+import controllers.GameController;
+
 public class Bonus extends Field {
 		
 	protected int Bonus; 

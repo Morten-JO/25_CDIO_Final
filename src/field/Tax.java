@@ -1,4 +1,7 @@
 package field;
+
+import controllers.GameController;
+
 /* 
  * Mangler taxprocent, den skal laves 
  */

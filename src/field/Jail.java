@@ -1,5 +1,7 @@
 package field;
 
+import controllers.GameController;
+
 public class Jail extends Field {
 
 	public Jail(String Titel, String Sub, String Desc, int fieldNo) {

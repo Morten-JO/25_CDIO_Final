@@ -1,5 +1,6 @@
 package field;
 
+import controllers.GameController;
 import desktop_resources.GUI;
 
 public class TaxProcent extends Tax {
