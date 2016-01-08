@@ -3,6 +3,7 @@ package controllers;
 import java.awt.Color;
 import java.util.ArrayList;
 
+import player.Player;
 import ChanceCards.CCTexts;
 import desktop_codebehind.Car;
 import desktop_fields.Tax;
