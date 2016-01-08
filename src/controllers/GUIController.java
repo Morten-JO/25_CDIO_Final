@@ -166,7 +166,7 @@ public class GUIController {
 				list[i] = new desktop_fields.Start.Builder().build();
 			}
 			else if(arrayOfFields[i].getClass().equals(Chance.class)){
-				list[i] = new desktop_fields.Chance.Builder().build();
+				list[i] = new desktop_fields.Chance.Builder().setBgColor(Color.BLACK).setFgColor(Color.GREEN).build();
 			}
 			else if(arrayOfFields[i].getClass().equals(Jail.class)){
 				list[i] = new desktop_fields.Jail.Builder().build();
@@ -184,10 +184,37 @@ public class GUIController {
 				list[i] = new desktop_fields.Shipping.Builder().build();
 			}
 			else if(arrayOfFields[i].getClass().equals(Street.class)){
-				list[i] = new desktop_fields.Street.Builder().build();
+				desktop_fields.Street.Builder builder = new desktop_fields.Street.Builder();
+				switch(arrayOfFields[i].getDescriptionText()){
+					case "blue":
+						builder.setBgColor(Color.BLUE);
+						break;
+					case "orange":
+						builder.setBgColor(Color.ORANGE);
+						break;
+					case "lime":
+						builder.setBgColor(Color.GREEN);
+						break;
+					case "gray":
+						builder.setBgColor(Color.GRAY);
+						break;
+					case "red":
+						builder.setBgColor(Color.RED);
+						break;
+					case "white":
+						builder.setBgColor(Color.WHITE);
+						break;
+					case "yellow":
+						builder.setBgColor(Color.YELLOW);
+						break;
+					case "pink":
+						builder.setBgColor(Color.PINK);
+						break;
+				}
+				list[i] = builder.build();
 			}
 			else if(arrayOfFields[i].getClass().equals(Brewery.class)){
-				list[i] = new desktop_fields.Brewery.Builder().build();
+				list[i] = new desktop_fields.Brewery.Builder().setBgColor(Color.GREEN).build();
 			}
 			else{
 				System.out.println("A bug occured, shutting down program");
