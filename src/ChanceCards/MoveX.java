@@ -1,5 +1,7 @@
 package ChanceCards;
 
+import controllers.GameController;
+
 public class MoveX extends ChanceCard {
 	
 	private int amountToMove;
@@ -10,14 +12,14 @@ public class MoveX extends ChanceCard {
 	}
 	
 	@Override
-	public boolean drawCardAction(GameControllerold gc){
-		int currentPlayerIndex = gc.pc.getCurrentPlayer();
-		int positionTo = gc.pc.getPlayer(currentPlayerIndex).getPosition() + amountToMove;
+	public boolean drawCardAction(GameController gc){
+		int currentPlayerIndex = gc.getPlayerController().getCurrentPlayer();
+		int positionTo = gc.getPlayerController().getPlayer(currentPlayerIndex).getPosition() + amountToMove;
 		
 		if(positionTo>40)
 			positionTo -= 40;
 		
-		gc.landOn(currentPlayerIndex, positionTo);
+		gc.getFieldController().getFields()[positionTo].landOn(gc);
 		
 		return true;
 	}

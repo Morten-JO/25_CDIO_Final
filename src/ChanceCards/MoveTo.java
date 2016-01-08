@@ -1,5 +1,7 @@
 package ChanceCards;
 
+import controllers.GameController;
+
 public class MoveTo extends ChanceCard {
 	
 	private int fieldID;
@@ -10,8 +12,8 @@ public class MoveTo extends ChanceCard {
 	}
 	
 	@Override
-	public boolean drawCardAction(GameControllerold gc){
-		return gc.landOn(gc.pc.getCurrentPlayer(), fieldID);
+	public boolean drawCardAction(GameController gc){
+		return gc.getFieldController().getFields()[fieldID].landOn(gc);
 	}
 
 }

@@ -1,5 +1,7 @@
 package ChanceCards;
 
+import controllers.GameController;
+
 public class JailFreeCC extends ChanceCard {
 
 	public JailFreeCC(String description) {
@@ -7,7 +9,7 @@ public class JailFreeCC extends ChanceCard {
 	}
 	
 	@Override
-	public boolean drawCardAction(GameControllerold gc){
+	public boolean drawCardAction(GameController gc){
 		
 		return true;
 	}

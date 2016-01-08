@@ -1,5 +1,7 @@
 package ChanceCards;
 
+import controllers.GameController;
+
 public class ScholarshipCC extends PayMoneyCC {
 
 	public ScholarshipCC(String description, int amount) {
@@ -9,7 +11,7 @@ public class ScholarshipCC extends PayMoneyCC {
 	}
 	
 	@Override
-	public boolean drawCardAction(GameControllerold gc){
+	public boolean drawCardAction(GameController gc){
 		
 		//if player total val < xx GUARD
 		//add 40k to player acc
