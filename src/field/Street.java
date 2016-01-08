@@ -12,12 +12,13 @@ public class Street extends Ownable {
 	private int rents [] = new int [7];
 	private int buildingPrice;
 	private int amountOfHouses;
+	private int streetCategory;
 	private boolean isPawn;
-	public Street(String Titel, String Sub, String Desc, int fieldNo, int price, int pawnPrice,int rents[],int buildingPrice) {
+	public Street(String Titel, String Sub, String Desc, int fieldNo, int price, int pawnPrice,int rents[],int buildingPrice, int streetCategory) {
 		super(Titel, Sub, Desc, fieldNo, price, pawnPrice);
 		this.rents = rents;
 		this.buildingPrice = buildingPrice;
-		
+		this.streetCategory = streetCategory;
 	}
 
 	
