@@ -20,13 +20,7 @@ public class GameController {
 	public GameController(){
 		fieldController = new FieldController();
 		chanceCardController = new ChanceCardController();
-		
-	}
-
-	public void setPlayers(ArrayList<String> addPlayers) {
-		String[] names = new String[addPlayers.size()];
-		names = addPlayers.toArray(names);
-		playerController = new PlayerController(names);
+		playerController = new PlayerController();
 	}
 	
 	public void startGame(){

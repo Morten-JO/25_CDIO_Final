@@ -30,7 +30,10 @@ public class GUIController {
 		GameController game = new GameController();
 		GUI.create(createList(game.getFieldController().getFields()));
 		GUI.showMessage("Welcome to matador!");
-		game.setPlayers(addPlayers());
+		ArrayList<String> addPlayers = addPlayers();
+		String[] names = new String[addPlayers.size()];
+		names = addPlayers.toArray(names);
+		game.getPlayerController().createPlayers(names);
 		game.startGame();
 		
 	}
