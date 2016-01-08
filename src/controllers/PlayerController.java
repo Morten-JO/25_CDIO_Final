@@ -18,6 +18,8 @@ import player.Player;
 
 public class PlayerController {
 
+	public Object[] Player;
+
 	public Player getPlayer() {
 		// TODO Auto-generated method stub
 		return null;
