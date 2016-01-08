@@ -4,7 +4,7 @@ import field.Brewery;
 import field.Field;
 import field.Fleet;
 import field.Ownable;
-import playerMO.Player;
+import player.Player;
 
 public class FieldController {
 	private int[] noob = {1,2,3,4,5};

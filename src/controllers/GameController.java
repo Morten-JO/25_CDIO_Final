@@ -4,16 +4,15 @@ import java.util.ArrayList;
 
 import field.Field;
 import field.Jail;
-import playerMO.Player;
 import dices.Cup;
 
 
 public class GameController {
 	
 	public int turn;
-	public PlayerController playerController;
-	public FieldController fieldController;
-	public ChancecardController chanceCardController;
+	private PlayerController playerController;
+	private FieldController fieldController;
+	private ChanceCardController chanceCardController;
 	public Cup cup;
 	private boolean gameOver;
 	
@@ -59,6 +58,9 @@ public class GameController {
 		return cup;
 	}
 
+	public ChanceCardController getChanceCardController(){
+		return chanceCardController;
+	}
 
 	
 }

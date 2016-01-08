@@ -1,10 +1,10 @@
 package field;
 
 import controllers.GameController;
-import playerMO.Player;
+import player.Player;
 
 public class Ownable extends Field {
- protected Player owner ;
+ protected player.Player owner ;
  protected int price ; 
  protected int pawnPrice;
 	public Ownable(String Titel, String Sub, String Desc, int fieldNo, int price,int pawnPrice) {

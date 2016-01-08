@@ -2,7 +2,7 @@ package controllers;
 
 import java.util.ArrayList;
 
-import Player.Player;
+import player.Player;
 
 public class PlayerController {
 	private ArrayList<Player> players = new ArrayList<Player>();

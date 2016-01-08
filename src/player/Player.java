@@ -1,4 +1,4 @@
-package Player;
+package player;
 
 public class Player {
 	
@@ -43,7 +43,7 @@ public class Player {
 		return name;
 	}
 
-	public Account getAcc() {
+	public Account getAccount() {
 		return acc;
 	}
 

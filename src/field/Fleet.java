@@ -18,21 +18,28 @@ public class Fleet extends Ownable {
 	}
 	@Override
 	public boolean landOn(GameController gameController) {
-		if (this.owner == null && gameController.getPlayerController().getPlayer()[gameController.getTurn()].getBalance() >= this.price){
+		if (this.owner == null && gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().getBalance() >= this.price){
 			
 			String i = GUI.getUserButtonPressed("Do you want to buy this Fleet ", "Yes","No");
 			if (i == "Yes"){
-		gameController.getPlayerController().getPlayer()[gameController.getTurn()].adjustBalance(-price);
-		owner = gameController.getPlayerController().getPlayer()[gameController.getTurn()];
+		gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().adjustBalance(-price);
+		owner = gameController.getPlayerController().getPlayer(gameController.getTurn()-1);
 		return true;
 		
 			}
 			if (i == "No"){
 			return true;}
 	}
-		// MANGLER DENN HER !!!!!!!!! skal finde hvor mange fleets en ejer har .
-		if (this.owner != null && this.owner != GameController.getPlayerController().getPlayer()[GameController.getTurn()]){
-			int totalPay = controllers.FieldController. 
-					rents[FieldController.this.owner.getOwnershipOfFleets-1]
+		
+		if (this.owner != null && this.owner != gameController.getPlayerController().getPlayer(gameController.getTurn()-1)){
+			int totalPay = gameController.getFieldController().getOwnerShipOfFleets(this.owner);
+			totalPay = rents [totalPay-1];
+			if(gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().getBalance()>totalPay){
+			gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().adjustBalance(-totalPay);
+}		
+			else return false;
+	
+}
+		return true;
 }
 }

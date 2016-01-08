@@ -4,7 +4,6 @@ import java.util.*;
 
 import ChanceCards.CCTexts;
 import ChanceCards.ChanceCard;
-import ChanceCards.GameControllerold;
 import ChanceCards.GetMoneyCC;
 import ChanceCards.JailFreeCC;
 import ChanceCards.MoveTo;
@@ -57,7 +56,7 @@ public class ChanceCardController {
 		
 	}
 	
-	public boolean drawCard(GameControllerold gc){
+	public boolean drawCard(GameController gc){
 		
 		
 		//draw card from end of pile, validate object type, do action
@@ -87,7 +86,7 @@ public class ChanceCardController {
 	public String toString(){
 		String myString = new String();
 		for(int i = 0;i<chanceCards.length;i++){
-			myString += "chanceCards["+i+"] = " + chanceCards[i].cardDescription+"\n";
+			myString += "chanceCards["+i+"] = " + chanceCards[i].getCardDescription()+"\n";
 			
 		}
 		return myString;

@@ -1,7 +1,6 @@
 package field;
 import controllers.GameController;
 import desktop_resources.GUI;
-import playerMO.Player;
 
 public class Brewery extends Ownable {
 	private int rents = 100 ;
@@ -13,7 +12,7 @@ public class Brewery extends Ownable {
 	public boolean landOn(GameController gameController) {
 		
 		if (this.owner == null){
-			if ( gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getBalance() >= price){
+			if ( gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().getBalance() >= price){
 				String i = GUI.getUserButtonPressed("Do you want to buy this Brewery ", "Yes","No");
 				if (i=="Ja"){
 					owner = gameController.getPlayerController().getPlayer(gameController.getTurn()-1);

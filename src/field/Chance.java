@@ -10,8 +10,9 @@ public class Chance extends Field {
 	}
 
 	@Override
-	public boolean landOn(GameController GameController) {
-		GameController.ChanceCardController.drawCard(GameController);
+	public boolean landOn(GameController gameController) {
+		
+		gameController.getChanceCardController().drawCard(gameController);
 		return false;
 	}
 

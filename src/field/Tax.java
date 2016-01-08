@@ -7,7 +7,7 @@ import controllers.GameController;
  */
 public class Tax extends Field {
 	
-	private int tax ;
+	protected int tax ;
 	
 	public Tax (String Titel, String Sub, String Desc, int fieldNo, int tax){
 		super(Titel,Sub,Desc,fieldNo);
@@ -24,9 +24,9 @@ public class Tax extends Field {
 	}
 
 	@Override
-	public boolean landOn(GameController GameController) {
-		if (GameController.getPlayerController().getPlayer()[GameController.getTurn].getBalance()>tax){
-		GameController.getPlayerController().getPlayer()[GameController.getTurn].adjustBalance(tax);
+	public boolean landOn(GameController gameController) {
+		if (gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().getBalance()>tax){
+		gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().adjustBalance(tax);
 		return true;
 		}
 		else return false;

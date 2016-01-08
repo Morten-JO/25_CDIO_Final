@@ -7,7 +7,7 @@ import desktop_codebehind.Car;
 import desktop_fields.Tax;
 import desktop_resources.GUI;
 import field.*;
-import playerMO.Player;
+import player.Player;
 
 
 /**

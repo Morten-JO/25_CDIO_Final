@@ -21,8 +21,8 @@ public class Street extends Ownable {
 	}
 
 	
-	public boolean buyBuilding (String playerName){
-		if (GameController.getPlayerController().getPlayer()[GameController.getTurn].getBalance() >= buildingPrice){
+	public boolean buyBuilding (GameController gameController){
+		if (gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().getBalance() >= buildingPrice){
 		String i = GUI.getUserButtonPressed("Do you want to buy a building?", "Yes","No");
 		if (i == "Yes"){
 			this.amountOfHouses +=1; // Ved ikke helt med denne, vi skal have noget der holder styr på dette.
@@ -31,7 +31,8 @@ public class Street extends Ownable {
 		else {
 			return true;
 		}
-		}	
+		}
+		return true;	
 			
 	}
 	public int getamountOfHouses(){

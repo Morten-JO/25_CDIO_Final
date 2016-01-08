@@ -17,5 +17,9 @@ public class ChanceCard {
 		//OVERRIDE
 		return true;
 	}
+	
+	public String getCardDescription(){
+		return cardDescription;
+	}
 
 }
