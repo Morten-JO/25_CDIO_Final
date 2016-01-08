@@ -22,7 +22,7 @@ public class GameController {
 		fieldController = new FieldController();
 		chanceCardController = new ChanceCardController();
 		playerController = new PlayerController();
-		guiController = new GUIController();
+		guiController = new GUIController(this);
 	}
 	
 	public void startGame(){
@@ -62,6 +62,10 @@ public class GameController {
 	public int getTotalValueOfPlayer(Player player) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	
+	public GUIController getGUIController(){
+		return guiController;
 	}
 
 	

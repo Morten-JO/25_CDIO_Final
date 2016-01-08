@@ -3,12 +3,12 @@ package controllers;
 import java.awt.Color;
 import java.util.ArrayList;
 
+import player.Player;
 import ChanceCards.CCTexts;
 import desktop_codebehind.Car;
 import desktop_fields.Tax;
 import desktop_resources.GUI;
 import field.*;
-import player.Player;
 
 
 /**
@@ -33,7 +33,7 @@ public class GUIController {
 		this.game = game;
 		GUI.create(createList(game.getFieldController().getFields()));
 		GUI.showMessage("Welcome to matador!");
-		ArrayList<String> addPlayers = addPlayers();
+		ArrayList<String> addPlayers = choosePlayers();
 		String[] names = new String[addPlayers.size()];
 		names = addPlayers.toArray(names);
 		game.getPlayerController().createPlayers(names);
@@ -41,7 +41,7 @@ public class GUIController {
 	}
 	
 	//adds players from minimum 3 to maximum 6, also asks the player to personalize their car
-	private ArrayList<String> addPlayers(){
+	private ArrayList<String> choosePlayers(){
 		ArrayList<String> players = new ArrayList<String>();
 		boolean stillAdding = true;
 		while(stillAdding){
@@ -166,7 +166,7 @@ public class GUIController {
 				list[i] = new desktop_fields.Start.Builder().build();
 			}
 			else if(arrayOfFields[i].getClass().equals(Chance.class)){
-				list[i] = new desktop_fields.Chance.Builder().build();
+				list[i] = new desktop_fields.Chance.Builder().setBgColor(Color.BLACK).setFgColor(Color.GREEN).build();
 			}
 			else if(arrayOfFields[i].getClass().equals(Jail.class)){
 				list[i] = new desktop_fields.Jail.Builder().build();
@@ -175,7 +175,7 @@ public class GUIController {
 				list[i] = new desktop_fields.Tax.Builder().build();
 			}
 			else if(arrayOfFields[i].getClass().equals(Bonus.class)){
-				list[i] = new desktop_fields.Empty.Builder().build();
+				list[i] = new desktop_fields.Refuge.Builder().build();
 			}
 			else if(arrayOfFields[i].getClass().equals(VisitJail.class)){
 				list[i] = new desktop_fields.Jail.Builder().build();
@@ -184,10 +184,37 @@ public class GUIController {
 				list[i] = new desktop_fields.Shipping.Builder().build();
 			}
 			else if(arrayOfFields[i].getClass().equals(Street.class)){
-				list[i] = new desktop_fields.Street.Builder().build();
+				desktop_fields.Street.Builder builder = new desktop_fields.Street.Builder();
+				switch(((field.Street)arrayOfFields[i]).getStreetCategory()){
+					case 0:
+						builder.setBgColor(Color.BLUE);
+						break;
+					case 1:
+						builder.setBgColor(Color.ORANGE);
+						break;
+					case 2:
+						builder.setBgColor(Color.GREEN);
+						break;
+					case 3:
+						builder.setBgColor(Color.GRAY);
+						break;
+					case 4:
+						builder.setBgColor(Color.RED);
+						break;
+					case 5:
+						builder.setBgColor(Color.WHITE);
+						break;
+					case 6:
+						builder.setBgColor(Color.YELLOW);
+						break;
+					case 7:
+						builder.setBgColor(Color.MAGENTA);
+						break;
+				}
+				list[i] = builder.build();
 			}
 			else if(arrayOfFields[i].getClass().equals(Brewery.class)){
-				list[i] = new desktop_fields.Brewery.Builder().build();
+				list[i] = new desktop_fields.Brewery.Builder().setBgColor(Color.GREEN).build();
 			}
 			else{
 				System.out.println("A bug occured, shutting down program");
@@ -284,5 +311,9 @@ public class GUIController {
 				
 			}
 		}
+	}
+	
+	public String askDropDownQuestion(String message, String... options){
+		return GUI.getUserSelection(message, options);
 	}
 }
