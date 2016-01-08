@@ -56,4 +56,8 @@ public class Street extends Ownable {
 		return "Street [rents=" + Arrays.toString(rents) + "]";
 	}
 	
+	public int getStreetCategory(){
+		return streetCategory;
+	}
+	
 }
