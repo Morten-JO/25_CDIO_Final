@@ -47,9 +47,6 @@ public class GameController {
 			else{
 				playerController.setCurrentPlayer(turn);
 				System.out.println(playerController.getPlayerList().size());
-				if(playerController.getCurrentPlayer() == null){
-					System.out.println("PLAYER IS NULL LOL");
-				}
 				System.out.println("name of player is: "+playerController.getCurrentPlayer().getName());
 				guiController.showMessage(playerController.getCurrentPlayer().getName()+"'s turn to roll dices!");
 				cup.rollDices();
@@ -75,6 +72,7 @@ public class GameController {
 						playerController.getCurrentPlayer().adjustBalance(4000);
 						guiController.showMessage("You get 4000 for coming over start!");
 					}
+					guiController.updateAllPlayersBalance(playerController.getPlayerList());
 					guiController.showMessage(fieldController.getFields()[playerController.getCurrentPlayerNumber()].getDescriptionText());
 					if(!fieldController.getFields()[playerController.getCurrentPlayer().getPosition()].landOn(this)){
 						if(fieldController.getPropertyValue(playerController.getCurrentPlayer()) > 0){
@@ -91,6 +89,8 @@ public class GameController {
 					
 				}
 			}
+			handleTurnChange();
+			guiController.updateAllPlayersBalance(playerController.getPlayerList());
 			guiController.updatePlayerPositions(playerController.getPlayerList());
 			handleWinningConditions();
 		}
