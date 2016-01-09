@@ -56,7 +56,7 @@ public class Street extends Ownable {
 				this.owner.adjustBalance(this.rents[1]);
 					} else return false ;
 					}
-				// you need to add 2, because in our array it is [1 * rent, 2*rent, 1 house,2 house,ect.....]
+				// you need to add 1, because in our array it is [1 * rent, 2*rent, 1 house,2 house,ect.....]
 				else if (payToOwner >= 1){if (gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getBalance()>this.rents[1+payToOwner]){
 					gameController.getPlayerController().getPlayer(gameController.getTurn() -1).getAccount().adjustBalance(- this.rents[1+payToOwner]);
 					this.owner.adjustBalance(this.rents[1+ payToOwner]);
