@@ -1,8 +1,7 @@
 package field;
 
-import controllers.FieldController;
 import controllers.GameController;
-import desktop_resources.GUI;
+
 
 public class Fleet extends Ownable {
 	private int[] rents = {500,1000,2000,4000};

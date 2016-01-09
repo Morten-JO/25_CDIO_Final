@@ -3,7 +3,7 @@ package field;
 import java.util.Arrays;
 
 import controllers.GameController;
-import desktop_resources.GUI;
+
 
 
 public class Street extends Ownable {
@@ -130,8 +130,8 @@ public class Street extends Ownable {
 
 		public boolean sellBuilding(GameController gameController) {
 		if (this.owner.equals(gameController.getPlayerController().getCurrentPlayer())) {
-			boolean i = gameController.getGUIController().askYesNoQuestion("Vil du frasælge en bygning?");
-			if (i = true) {
+			boolean answer = gameController.getGUIController().askYesNoQuestion("Vil du frasælge en bygning?");
+			if (answer = true) {
 
 				if (this.getamountOfHouses() > 0) {
 					this.amountOfHouses--;
@@ -144,7 +144,7 @@ public class Street extends Ownable {
 					return true;
 				}
 			}
-			 else if (i == false) {
+			 else if (answer == false) {
 					return false;
 				}
 		}

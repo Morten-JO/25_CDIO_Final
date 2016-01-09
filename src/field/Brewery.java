@@ -1,7 +1,7 @@
 package field;
 
 import controllers.GameController;
-import desktop_resources.GUI;
+
 
 public class Brewery extends Ownable {
 	private int[] rents = { 100, 200 };
@@ -38,6 +38,7 @@ public class Brewery extends Ownable {
 				gameController.getPlayerController().getPlayer(gameController.getTurn()).getAccount()
 						.adjustBalance(-pay);
 				((Ownable)gameController.getFieldController().getFields()[this.getNumber()]).getOwner().getAccount().adjustBalance(pay);
+				// ^^^^kan man ikke bare lave dette kald i stedet for this.owner.adjustBalance(pay)
 				return true;
 				
 			} else
