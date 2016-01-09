@@ -211,4 +211,8 @@ public class Street extends Ownable {
 		}
 		return count;
 	}
+	
+	public int getBuildingPrice(){
+		return buildingPrice;
+	}
 }

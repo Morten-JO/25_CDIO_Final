@@ -61,4 +61,14 @@ public class Cup {
 	public int getAmountOfDices(){
 		return diceArray.size();
 	}
+	
+	public boolean isSameHit(){
+		boolean isSameHit = true;
+		for(int i = 0; i < diceArray.size()-1; i++){
+			if(diceArray.get(i) != diceArray.get(i+1)){
+				isSameHit = false;
+			}
+		}
+		return true;
+	}
 }

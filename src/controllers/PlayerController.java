@@ -48,4 +48,8 @@ public class PlayerController {
 		return players.get(i).getAcc().adjustBalance(amount);
 	}*/
 
+	public int getCurrentPlayerNumber(){
+		return currentPlayer;
+	}
+	
 }

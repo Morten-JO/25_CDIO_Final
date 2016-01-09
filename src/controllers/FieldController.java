@@ -92,27 +92,45 @@ public class FieldController {
 	public int getOwnerShipOfFleets(Player p) {
 		int count = 0;
 		for(int i = 0 ; i<=40; i++){
-			if (gameFields[i] instanceof Fleet  && ((Ownable)gameFields[i]).getOwner() == p){
-				count +=1;
+			if (gameFields[i] instanceof Fleet ){
+				if(((Ownable)gameFields[i]).getOwner() == p){
+					count++;
+				}
 			}
-			
 		}
 		return count;
 	}
 	
 	public int getOwnerShipOfBreweries(Player p) {
 		int count = 0;
-		for(int i = 0 ; i<=40; i++){
-			if (gameFields[i] instanceof Brewery  && ((Ownable)gameFields[i]).getOwner() == p){
-				count +=1;
+		for(int i = 0 ; i < gameFields.length; i++){
+			if (gameFields[i] instanceof Brewery){
+				if(((Ownable)gameFields[i]).getOwner() == p){
+					count++;
+				}
 			}
-			
 		}
 		return count;
 	}
 
 	public Field[] getFields() {
 		return gameFields;
+	}
+
+	public int getPropertyValue(Player player){
+		int amount = 0;
+		for(int i = 0; i < gameFields.length; i++){
+			if(gameFields[i] instanceof Ownable){
+				if(((Ownable)gameFields[i]).getOwner() == player){
+					if(gameFields[i] instanceof Street){
+						amount += ((Street)gameFields[i]).getamountOfHouses() * ((Street)gameFields[i]).getBuildingPrice();
+						amount += ((Street)gameFields[i]).getamountOfHotels() * ((Street)gameFields[i]).getBuildingPrice();
+					}
+					amount += ((Ownable)gameFields[i]).getPrice();
+				}
+			}
+		}
+		return amount;
 	}
 }
 

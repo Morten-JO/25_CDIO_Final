@@ -315,4 +315,8 @@ public class GUIController {
 	public String askDropDownQuestion(String message, String... options){
 		return GUI.getUserSelection(message, options);
 	}
+	
+	public void showMessage(String message){
+		GUI.showMessage(message);
+	}
 }
