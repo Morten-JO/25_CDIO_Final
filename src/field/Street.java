@@ -33,9 +33,10 @@ public class Street extends Ownable {
 		if ( this.owner == null){
 			//If no, would you buy it
 			if(gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getBalance()> price ){
-				String answer = GUI.getUserButtonPressed("BUY??", "YES", "NO");//gameController.getGUIController().askYesNoQuestion("Do you want to buy Street?");
+				String answer = GUI.getUserButtonPressed("Do you want to buy this Street??", "YES", "NO");//gameController.getGUIController().askYesNoQuestion("Do you want to buy Street?");
 				if (answer == "YES"){
 					this.owner = gameController.getPlayerController().getPlayer(gameController.getTurn()-1);
+					System.out.println("du har købt dette felt");
 				result =	owner.adjustBalance(-price);
 				} else if (answer.equals("NO")) result = true;
 			}
@@ -44,10 +45,12 @@ public class Street extends Ownable {
 			if (this.owner != null && this.owner != gameController.getPlayerController().getPlayer(gameController.getTurn()-1 ) ){
 			if (this.owner.isJailed()== false){
 				int streets = this.getAmountOfStreetsInCategory(this.getStreetCategory(),gameController);
+				System.out.println("så mange gader har jeg " +streets);
 			switch ( streets){
 			case 1 : if ( gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getBalance()> this.rents[0]){
 					gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().adjustBalance(- this.rents[0]);
 					result =this.owner.adjustBalance(this.rents[0]);
+					
 			} else return false;
 					break;
 			case 2 : if ( this.getStreetCategory() == 0 ||this.getStreetCategory() == 7){
@@ -93,7 +96,7 @@ public class Street extends Ownable {
 	public boolean buyBuilding(GameController gameController) {
 
 		int streets = this.getAmountOfStreetsInCategory(this.getStreetCategory(), gameController);
-		if (gameController.getPlayerController().getPlayer(gameController.getTurn() - 1).getAccount()
+		if (gameController.getPlayerController().getCurrentPlayer().getAccount()
 				.getBalance() >= buildingPrice) {
 					boolean i = gameController.getGUIController().askYesNoQuestion("Do you want to buy a building");
 			if (i == true && this.isPawn == false

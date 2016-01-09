@@ -27,14 +27,14 @@ public class Fleet extends Ownable {
 	public boolean landOn(GameController gameController) {
 		boolean result = true;
 		//check if player has enough balance to buy field, and that field has no owner
-		if (this.owner == null && gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().getBalance() >= this.price){
+		if (this.owner == null && gameController.getPlayerController().getCurrentPlayer().getAccount().getBalance() >= this.price){
 			
 			//boolean question = gameController.getGUIController().askYesNoQuestion("Do you want to buy this Fleet");
 			String question = GUI.getUserButtonPressed("Do you want to buy this Fleet","YES","NO");
 			//if want to buy field = true
 			if (question.equals("YES")){
-				result = gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().adjustBalance(-price);
-				this.owner = gameController.getPlayerController().getPlayer(gameController.getTurn()-1);
+				result = gameController.getPlayerController().getCurrentPlayer().getAccount().adjustBalance(-price);
+				this.owner = gameController.getPlayerController().getCurrentPlayer();
 				
 			}else{
 				result = true;
@@ -44,13 +44,13 @@ public class Fleet extends Ownable {
 		}
 		
 		//check owner not NULL, currentPlayer not owner, owner not jailed. PAY ACCORDINGLY
-		if (this.owner != null && this.owner != gameController.getPlayerController().getPlayer(gameController.getTurn()-1) && this.owner.isJailed()==false){
+		if (this.owner != null && this.owner != gameController.getPlayerController().getCurrentPlayer() && this.owner.isJailed()==false){
 			int fleetsowned = gameController.getFieldController().getOwnerShipOfFleets(this.owner);
 			int toPay = rents [fleetsowned-1];
 			
 			//check if user has enough balance to pay
-			if(gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().getBalance()>toPay){
-				gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().adjustBalance(-toPay);
+			if(gameController.getPlayerController().getCurrentPlayer().getAccount().getBalance()>toPay){
+				gameController.getPlayerController().getCurrentPlayer().getAccount().adjustBalance(-toPay);
 			result = this.owner.getAccount().adjustBalance(toPay);
 			   }else{
 				result = false;}

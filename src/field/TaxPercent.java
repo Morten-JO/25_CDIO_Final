@@ -16,11 +16,11 @@ public class TaxPercent extends Tax {
 		
 		String answer  = gameController.getGUIController().askQuestion("Do you want to pay", "4000","10%");
 		if (answer == "4000"){
-			return gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().adjustBalance(- tax);
+			return gameController.getPlayerController().getCurrentPlayer().getAccount().adjustBalance(- tax);
 		}
 		else {
 			int taxpay = gameController.getPlayerController().getTotalValueOfPlayer(gameController.getPlayerController().getCurrentPlayer(), gameController.getFieldController());
-			return gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().adjustBalance((int)-(taxpay*(0.01*taxProcent)));
+			return gameController.getPlayerController().getCurrentPlayer().getAccount().adjustBalance((int)-(taxpay*(0.01*taxProcent)));
 		}
 	}
 }
