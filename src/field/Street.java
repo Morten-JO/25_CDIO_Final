@@ -5,6 +5,7 @@ import java.util.Arrays;
 import controllers.GameController;
 import desktop_resources.GUI;
 
+
 public class Street extends Ownable {
 	private int rents[] = new int[7];
 	private int buildingPrice;
@@ -22,17 +23,79 @@ public class Street extends Ownable {
 		this.streetCategory = streetCategory;
 	}
 
+	
+	
+	@Override
+	public boolean landOn(GameController gameController) {
+		
+		//is this street owned ?? 
+		if ( this.owner == null){
+			//If no, would you buy it
+			if(gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getBalance()> price ){
+				boolean answer = gameController.getGUIController().askYesNoQuestion("Do you want to buy Street?");
+				if (answer = true){
+					this.owner = gameController.getPlayerController().getPlayer(gameController.getTurn()-1);
+				} else if (answer = false) return true;
+			}
+		}
+		
+			if (this.owner != null && this.owner != gameController.getPlayerController().getPlayer(gameController.getTurn()-1 ) ){
+			if (this.owner.isJailed()== false){
+				int streets = this.getAmountOfStreetsInCategory(this.getStreetCategory(),gameController);
+			switch ( streets){
+			case 1 : if ( gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getBalance()> this.rents[0]){
+					gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().adjustBalance(- this.rents[0]);
+					this.owner.adjustBalance(this.rents[0]);
+			} else return false;
+					break;
+			case 2 : if ( this.getStreetCategory() == 0 ||this.getStreetCategory() == 7){
+				int payToOwner = this.getHousesInSection(this.getStreetCategory(), gameController);
+				if ( payToOwner == 0){
+					if (gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getBalance()>this.rents[1]){
+				gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().adjustBalance(- this.rents[1]);
+				this.owner.adjustBalance(this.rents[1]);
+					} else return false ;
+					}
+				// you need to add 2, because in our array it is [1 * rent, 2*rent, 1 house,2 house,ect.....]
+				else if (payToOwner >= 1){if (gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getBalance()>this.rents[1+payToOwner]){
+					gameController.getPlayerController().getPlayer(gameController.getTurn() -1).getAccount().adjustBalance(- this.rents[1+payToOwner]);
+					this.owner.adjustBalance(this.rents[1+ payToOwner]);
+				}else return false;	
+				}
+			}
+				break;
+			case 3 : 
+				int payToOwner = this.getHousesInSection(this.getStreetCategory(), gameController);
+				if ( payToOwner == 0){
+					if ( gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getBalance()> this.rents[1]){
+					gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().adjustBalance(- this.rents[1]);
+					this.owner.adjustBalance(this.rents[1]);
+					} else return false;
+					
+					}
+				// you need to add , because in our array it is [1 * rent, 2*rent, 1 house,2 house,ect.....]
+				else if (payToOwner >= 1){
+					if(gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getBalance()>rents[1+payToOwner]){
+					gameController.getPlayerController().getPlayer(gameController.getTurn() -1).getAccount().adjustBalance(- rents[1+payToOwner]);
+					this.owner.adjustBalance(rents[1+payToOwner]);
+					}else return false;
+				}
+			break;
+			}
+			}
+			}
+		
+		
+		return true;
+	}
 	public boolean buyBuilding(GameController gameController) {
 
 		int streets = this.getAmountOfStreetsInCategory(this.getStreetCategory(), gameController);
 		if (gameController.getPlayerController().getPlayer(gameController.getTurn() - 1).getAccount()
 				.getBalance() >= buildingPrice) {
-			// String i = GUI.getUserButtonPressed("Do you want to buy a
-			// building?", "Yes","No"); = Tobias' lortekode
-			boolean i = gameController.getGUIController().askYesNoQuestion("Do you want to buy a building");
+					boolean i = gameController.getGUIController().askYesNoQuestion("Do you want to buy a building");
 			if (i == true && this.isPawn == false
-					&& this.getamountOfHouses() <= this.getHousesInSection(this.getStreetCategory(), gameController)
-							/ streets) {
+					&& this.getamountOfHouses() <= this.getHousesInSection(this.getStreetCategory(), gameController)/ streets) {
 				if (this.amountOfHouses < maxAmountofHouses) {
 					this.amountOfHouses += 1; // Ved ikke helt med denne, vi
 												// skal have noget der holder
