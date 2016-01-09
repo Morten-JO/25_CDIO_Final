@@ -11,7 +11,7 @@ import dices.Cup;
 
 public class GameController {
 	
-	private int turn = 1;
+	private int turn = 0;
 	private GUIController guiController;
 	private PlayerController playerController;
 	private FieldController fieldController;
@@ -25,6 +25,7 @@ public class GameController {
 		chanceCardController = new ChanceCardController();
 		playerController = new PlayerController();
 		guiController = new GUIController(this);
+		cup = new Cup(2, 6);
 	}
 	
 	public void startGame(){
@@ -45,6 +46,11 @@ public class GameController {
 			}
 			else{
 				playerController.setCurrentPlayer(turn);
+				System.out.println(playerController.getPlayerList().size());
+				if(playerController.getCurrentPlayer() == null){
+					System.out.println("PLAYER IS NULL LOL");
+				}
+				System.out.println("name of player is: "+playerController.getCurrentPlayer().getName());
 				guiController.showMessage(playerController.getCurrentPlayer().getName()+"'s turn to roll dices!");
 				cup.rollDices();
 				guiController.updateDices(cup.getSumOfDice(0), cup.getSumOfDice(1));
@@ -71,12 +77,14 @@ public class GameController {
 					}
 					guiController.showMessage(fieldController.getFields()[playerController.getCurrentPlayerNumber()].getDescriptionText());
 					if(!fieldController.getFields()[playerController.getCurrentPlayer().getPosition()].landOn(this)){
-						if(fieldController.)
-						guiController.showMessage("You couldnt pay and have to pawn");
-						handlePawnPlayer();
+						if(fieldController.getPropertyValue(playerController.getCurrentPlayer()) > 0){
+							
+							handlePawnPlayer();
+						}
+						if(!fieldController.getFields()[playerController.getCurrentPlayer().getPosition()].landOn(this)){
+							handleRemovePlayer();
+						}
 					}
-					
-					
 					if(cup.isSameHit()){
 						countDicesTheSame++;
 					}
@@ -84,6 +92,7 @@ public class GameController {
 				}
 			}
 			guiController.updatePlayerPositions(playerController.getPlayerList());
+			handleWinningConditions();
 		}
 	}
 	
@@ -104,17 +113,26 @@ public class GameController {
 	}
 
 	private void handleRemovePlayer(){
-		
+		guiController.showMessage("You couldnt pay and are now out of the game!");
+		guiController.removePlayer(playerController.getCurrentPlayer(), fieldController.getFields());
+		playerController.getPlayerList().remove(playerController.getCurrentPlayer());
+		turn--;
 	}
 	
 	private void handlePawnPlayer(){
+		guiController.showMessage("You couldnt pay and have to pawn");
+		guiController.showMessage("pawing isnt created yet, TEMP!");
 		
 	}
 	
 	private void handleTurnChange(){
-		turn++;
-		if(turn >= playerController.getPlayerList().size()){
-			turn = 0;
+		if(cup.isSameHit()){}
+		else{
+			turn++;
+			if(turn >= playerController.getPlayerList().size()){
+				turn = 0;
+			}
+			countDicesTheSame = 0;
 		}
 	}
 	
@@ -159,7 +177,12 @@ public class GameController {
 
 	}
 
-
+	private void handleWinningConditions(){
+		if(playerController.getPlayerList().size() == 1){
+			gameOver = true;
+			guiController.showMessage(playerController.getPlayerList().get(0)+" have won the game, congratulations!");
+		}
+	}
 
 	public Cup getCup() {
 		return cup;

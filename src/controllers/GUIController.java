@@ -35,8 +35,11 @@ public class GUIController {
 		ArrayList<String> addPlayers = choosePlayers();
 		String[] names = new String[addPlayers.size()];
 		names = addPlayers.toArray(names);
+		for(int i = 0; i < addPlayers.size(); i++){
+			System.out.println(i+" "+addPlayers.get(i));
+		}
+		System.out.println("addplayer length: "+addPlayers.size());
 		game.getPlayerController().createPlayers(names);
-		game.startGame();
 	}
 	
 	//adds players from minimum 3 to maximum 6, also asks the player to personalize their car
@@ -244,7 +247,7 @@ public class GUIController {
 	public void updatePlayerPositions(ArrayList<Player> players){
 		for(int i = 0; i < players.size(); i++){
 			GUI.removeAllCars(players.get(i).getName());
-			GUI.setCar(players.get(i).getPosition(), players.get(i).getName());
+			GUI.setCar(players.get(i).getPosition()+1, players.get(i).getName());
 		}
 	}
 
@@ -274,8 +277,10 @@ public class GUIController {
 	public void removeOwnerShipFromPlayer(field.Field[] arrayOfFields, Player player){
 		for(int i = 0; i < arrayOfFields.length; i++){
 			if(arrayOfFields[i] instanceof field.Ownable){
-				if(((Ownable)arrayOfFields[i]).getOwner().equals(player)){
-					GUI.removeOwner(i);
+				if(((Ownable)arrayOfFields[i]).getOwner() != null){
+					if(((Ownable)arrayOfFields[i]).getOwner().equals(player)){
+						GUI.removeOwner(i);
+					}
 				}
 			}
 		}
@@ -318,5 +323,11 @@ public class GUIController {
 	
 	public void showMessage(String message){
 		GUI.showMessage(message);
+	}
+	
+	public void removePlayer(Player player, field.Field[] arrayOfFields){
+		GUI.setBalance(player.getName(), 0);
+		this.removeOwnerShipFromPlayer(arrayOfFields, player);
+		GUI.removeCar(player.getPosition(), player.getName());
 	}
 }

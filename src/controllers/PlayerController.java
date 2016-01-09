@@ -6,7 +6,7 @@ import player.Player;
 
 public class PlayerController {
 	private ArrayList<Player> players = new ArrayList<Player>();
-	private int currentPlayer;
+	private int currentPlayer = 0;
 
 	public PlayerController() {
 		setCurrentPlayer(0);

@@ -14,17 +14,13 @@ public class TaxPercent extends Tax {
 	@Override
 	public boolean landOn(GameController gameController){
 		
- String answer  = gameController.getGUIController().askQuestion("Do you want to pay", "4000","10%");
+		String answer  = gameController.getGUIController().askQuestion("Do you want to pay", "4000","10%");
 		if (answer == "4000"){
-			gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().adjustBalance(- tax);
+			return gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().adjustBalance(- tax);
 		}
-		else if (answer == "10 %"){
+		else {
 			int taxpay =gameController.getTotalValueOfPlayer(gameController.getPlayerController().getPlayer(gameController.getTurn()-1));
-			gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().adjustBalance((int)-(taxpay*(0.01*taxProcent)));
+			return gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().adjustBalance((int)-(taxpay*(0.01*taxProcent)));
 		}
-		
-		
-		return false;
-		
 	}
 }
