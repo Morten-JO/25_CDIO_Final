@@ -26,8 +26,7 @@ public class Tax extends Field {
 	@Override
 	public boolean landOn(GameController gameController) {
 		if (gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().getBalance()>tax){
-		gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().adjustBalance(tax);
-		return true;
+		return gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().adjustBalance(tax);
 		}
 		else return false;
 	}

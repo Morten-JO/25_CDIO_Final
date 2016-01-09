@@ -1,6 +1,7 @@
 package field;
 
 import controllers.GameController;
+import desktop_resources.GUI;
 
 
 public class Brewery extends Ownable {
@@ -14,18 +15,19 @@ public class Brewery extends Ownable {
 
 	@Override
 	public boolean landOn(GameController gameController) {
-
+		boolean result = true;
 		if (this.owner == null) {
 			if (gameController.getPlayerController().getPlayer(gameController.getTurn() - 1).getAccount().getBalance() >= price) {
-				boolean answer = gameController.getGUIController().askYesNoQuestion("Do you want to buy this Brewery?");
-				if (answer == true) {
+				//boolean answer = gameController.getGUIController().askYesNoQuestion("Do you want to buy this Brewery?");
+				String answer = GUI.getUserButtonPressed("Do you want to buy this Brewery?","Yes","No");
+				if (answer.equals("Yes")) {
 					owner = gameController.getPlayerController().getPlayer(gameController.getTurn() - 1);
-					gameController.getPlayerController().getPlayer(gameController.getTurn() - 1).getAccount().adjustBalance(-price);
-					return true;
+					result = gameController.getPlayerController().getPlayer(gameController.getTurn() - 1).getAccount().adjustBalance(-price);
+					
 					
 				} 
-				else if (answer == false) {
-					return true;
+				else if (answer.equals("No")) {
+					result = true;
 				}
 			}
 		}
@@ -35,18 +37,16 @@ public class Brewery extends Ownable {
 			int pay = rents[i] * gameController.getCup().getDiceSum();
 			if (gameController.getPlayerController().getPlayer(gameController.getTurn()).getAccount()
 					.getBalance() > pay) {
-				gameController.getPlayerController().getPlayer(gameController.getTurn()).getAccount()
-						.adjustBalance(-pay);
-				((Ownable)gameController.getFieldController().getFields()[this.getNumber()]).getOwner().getAccount().adjustBalance(pay);
-				// ^^^^kan man ikke bare lave dette kald i stedet for this.owner.adjustBalance(pay)
-				return true;
+				 gameController.getPlayerController().getPlayer(gameController.getTurn()).getAccount().adjustBalance(-pay);
+				 result = this.owner.adjustBalance(pay);
+				
 				
 			} else
-				return false;
+				result = false;
 
 		}
 
-		return true;
+		return result; 
 	}
 
 }

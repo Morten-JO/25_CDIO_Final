@@ -21,8 +21,8 @@ public class Bonus extends Field {
 
 	@Override
 	public boolean landOn(GameController gameController) {
-		gameController.getPlayerController().getPlayer(gameController.getTurn()).getAccount().adjustBalance(bonus);
-		return true;
+		return gameController.getPlayerController().getPlayer(gameController.getTurn()).getAccount().adjustBalance(bonus);
+		
 		
 	}
 }

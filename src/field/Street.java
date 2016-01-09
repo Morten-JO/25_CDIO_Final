@@ -28,7 +28,7 @@ public class Street extends Ownable {
 	
 	@Override
 	public boolean landOn(GameController gameController) {
-		
+		boolean result = true;
 		//is this street owned ?? 
 		if ( this.owner == null){
 			//If no, would you buy it
@@ -36,8 +36,8 @@ public class Street extends Ownable {
 				String answer = GUI.getUserButtonPressed("BUY??", "YES", "NO");//gameController.getGUIController().askYesNoQuestion("Do you want to buy Street?");
 				if (answer == "YES"){
 					this.owner = gameController.getPlayerController().getPlayer(gameController.getTurn()-1);
-					owner.adjustBalance(-price);
-				} else if (answer.equals("NO")) return true;
+				result =	owner.adjustBalance(-price);
+				} else if (answer.equals("NO")) result = true;
 			}
 		}
 		
@@ -47,7 +47,7 @@ public class Street extends Ownable {
 			switch ( streets){
 			case 1 : if ( gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getBalance()> this.rents[0]){
 					gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().adjustBalance(- this.rents[0]);
-					this.owner.adjustBalance(this.rents[0]);
+					result =this.owner.adjustBalance(this.rents[0]);
 			} else return false;
 					break;
 			case 2 : if ( this.getStreetCategory() == 0 ||this.getStreetCategory() == 7){
@@ -55,13 +55,13 @@ public class Street extends Ownable {
 				if ( payToOwner == 0){
 					if (gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getBalance()>this.rents[1]){
 				gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().adjustBalance(- this.rents[1]);
-				this.owner.adjustBalance(this.rents[1]);
+				result = this.owner.adjustBalance(this.rents[1]);
 					} else return false ;
 					}
 				// you need to add 1, because in our array it is [1 * rent, 2*rent, 1 house,2 house,ect.....]
 				else if (payToOwner >= 1){if (gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getBalance()>this.rents[1+payToOwner]){
 					gameController.getPlayerController().getPlayer(gameController.getTurn() -1).getAccount().adjustBalance(- this.rents[1+payToOwner]);
-					this.owner.adjustBalance(this.rents[1+ payToOwner]);
+				result =	this.owner.adjustBalance(this.rents[1+ payToOwner]);
 				}else return false;	
 				}
 			}
@@ -71,7 +71,7 @@ public class Street extends Ownable {
 				if ( payToOwner == 0){
 					if ( gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getBalance()> this.rents[1]){
 					gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().adjustBalance(- this.rents[1]);
-					this.owner.adjustBalance(this.rents[1]);
+					result = this.owner.adjustBalance(this.rents[1]);
 					} else return false;
 					
 					}
@@ -79,7 +79,7 @@ public class Street extends Ownable {
 				else if (payToOwner >= 1){
 					if(gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getBalance()>rents[1+payToOwner]){
 					gameController.getPlayerController().getPlayer(gameController.getTurn() -1).getAccount().adjustBalance(- rents[1+payToOwner]);
-					this.owner.adjustBalance(rents[1+payToOwner]);
+					result = this.owner.adjustBalance(rents[1+payToOwner]);
 					}else return false;
 				}
 			break;
@@ -88,7 +88,7 @@ public class Street extends Ownable {
 			}
 		
 		
-		return true;
+		return result;
 	}
 	public boolean buyBuilding(GameController gameController) {
 
@@ -137,13 +137,12 @@ public class Street extends Ownable {
 
 				if (this.getamountOfHouses() > 0) {
 					this.amountOfHouses--;
-					gameController.getPlayerController().getCurrentPlayer().adjustBalance(buildingPrice);
-					return true;
-				} else if (this.getamountOfHotels() > 0) {
+					return gameController.getPlayerController().getCurrentPlayer().adjustBalance(buildingPrice);
+					} else if (this.getamountOfHotels() > 0) {
 					this.amountOfHouses += 4;
 					this.hotels--;
-					gameController.getPlayerController().getCurrentPlayer().adjustBalance(buildingPrice);
-					return true;
+					return gameController.getPlayerController().getCurrentPlayer().adjustBalance(buildingPrice);
+					
 				}
 			}
 			 else if (answer == false) {
