@@ -76,7 +76,7 @@ public class GameController {
 						guiController.showMessage("You get 4000 for coming over start!");
 					}
 					guiController.updateAllPlayersBalance(playerController.getPlayerList());
-					guiController.showMessage(fieldController.getFields()[playerController.getCurrentPlayerNumber()].getDescriptionText());
+					guiController.showMessage(fieldController.getFields()[playerController.getCurrentPlayer().getPosition()].getDescriptionText());
 					if(!fieldController.getFields()[playerController.getCurrentPlayer().getPosition()].landOn(this)){
 						if(fieldController.getPropertyValue(playerController.getCurrentPlayer()) > 0){
 							handlePawnPlayer();
