@@ -108,7 +108,7 @@ public class ChanceCardController {
 			shuffleCards();
 			cardsDrawn = 0;
 		}
-		System.out.println(chanceCards[0].getCardDescription());
+		gc.getGUIController().askQuestion(chanceCards[0].getCardDescription(), "OK");
 		
 		boolean result = false;
 		//draw card from end of pile, validate object type, do action
