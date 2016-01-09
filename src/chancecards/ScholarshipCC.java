@@ -13,8 +13,10 @@ public class ScholarshipCC extends PayMoneyCC {
 	@Override
 	public boolean drawCardAction(GameController gc){
 		
-		//if player total val < 15000 GUARD
-		//add 40k to player acc
+		int totalPlayerValue = gc.getPlayerController().getTotalValueOfPlayer(gc.getPlayerController().getCurrentPlayer(), gc.getFieldController());
+		
+		if(totalPlayerValue<15000)
+			gc.getPlayerController().getCurrentPlayer().adjustBalance(40000);
 		
 		return true;
 	}

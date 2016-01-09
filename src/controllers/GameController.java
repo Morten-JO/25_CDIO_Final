@@ -60,7 +60,7 @@ public class GameController {
 				else{
 					boolean startBonus = false;
 					int newPosition = playerController.getCurrentPlayer().getPosition() + cup.getDiceSum();
-					if(newPosition > 40){
+					if(newPosition > 39){
 						newPosition -= 40;
 						if(newPosition >= 1){
 							startBonus = true;

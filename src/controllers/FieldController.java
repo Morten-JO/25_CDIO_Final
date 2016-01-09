@@ -91,7 +91,7 @@ public class FieldController {
 	
 	public int getOwnerShipOfFleets(Player p) {
 		int count = 0;
-		for(int i = 0 ; i<gameFields.length; i++){
+		for(int i = 0 ; i < gameFields.length; i++){
 			if (gameFields[i] instanceof Fleet ){
 				if(((Ownable)gameFields[i]).getOwner() == p){
 					count++;

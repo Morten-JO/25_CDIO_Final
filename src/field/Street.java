@@ -35,20 +35,20 @@ public class Street extends Ownable {
 			if(gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getBalance()> price ){
 				String answer = GUI.getUserButtonPressed("Do you want to buy this Street??", "YES", "NO");//gameController.getGUIController().askYesNoQuestion("Do you want to buy Street?");
 				if (answer == "YES"){
-					this.owner = gameController.getPlayerController().getPlayer(gameController.getTurn()-1);
+					this.owner = gameController.getPlayerController().getPlayer(gameController.getTurn());
 					System.out.println("du har købt dette felt");
 				result =	owner.adjustBalance(-price);
 				} else if (answer.equals("NO")) result = true;
 			}
 		}
 		
-			if (this.owner != null && this.owner != gameController.getPlayerController().getPlayer(gameController.getTurn()-1 ) ){
+			if (this.owner != null && this.owner != gameController.getPlayerController().getPlayer(gameController.getTurn()) ){
 			if (this.owner.isJailed()== false){
 				int streets = this.getAmountOfStreetsInCategory(this.getStreetCategory(),gameController);
 				System.out.println("så mange gader har jeg " +streets);
 			switch ( streets){
-			case 1 : if ( gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getBalance()> this.rents[0]){
-					gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().adjustBalance(- this.rents[0]);
+			case 1 : if ( gameController.getPlayerController().getPlayer(gameController.getTurn()).getBalance()> this.rents[0]){
+					gameController.getPlayerController().getPlayer(gameController.getTurn()).getAccount().adjustBalance(- this.rents[0]);
 					result =this.owner.adjustBalance(this.rents[0]);
 					
 			} else return false;
@@ -56,14 +56,14 @@ public class Street extends Ownable {
 			case 2 : if ( this.getStreetCategory() == 0 ||this.getStreetCategory() == 7){
 				int payToOwner = this.getHousesInSection(this.getStreetCategory(), gameController);
 				if ( payToOwner == 0){
-					if (gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getBalance()>this.rents[1]){
-				gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().adjustBalance(- this.rents[1]);
+					if (gameController.getPlayerController().getPlayer(gameController.getTurn()).getBalance()>this.rents[1]){
+				gameController.getPlayerController().getPlayer(gameController.getTurn()).getAccount().adjustBalance(- this.rents[1]);
 				result = this.owner.adjustBalance(this.rents[1]);
 					} else return false ;
 					}
 				// you need to add 1, because in our array it is [1 * rent, 2*rent, 1 house,2 house,ect.....]
-				else if (payToOwner >= 1){if (gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getBalance()>this.rents[1+payToOwner]){
-					gameController.getPlayerController().getPlayer(gameController.getTurn() -1).getAccount().adjustBalance(- this.rents[1+payToOwner]);
+				else if (payToOwner >= 1){if (gameController.getPlayerController().getPlayer(gameController.getTurn()).getBalance()>this.rents[1+payToOwner]){
+					gameController.getPlayerController().getPlayer(gameController.getTurn()).getAccount().adjustBalance(- this.rents[1+payToOwner]);
 				result =	this.owner.adjustBalance(this.rents[1+ payToOwner]);
 				}else return false;	
 				}
@@ -72,16 +72,16 @@ public class Street extends Ownable {
 			case 3 : 
 				int payToOwner = this.getHousesInSection(this.getStreetCategory(), gameController);
 				if ( payToOwner == 0){
-					if ( gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getBalance()> this.rents[1]){
-					gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().adjustBalance(- this.rents[1]);
+					if ( gameController.getPlayerController().getPlayer(gameController.getTurn()).getBalance()> this.rents[1]){
+					gameController.getPlayerController().getPlayer(gameController.getTurn()).getAccount().adjustBalance(- this.rents[1]);
 					result = this.owner.adjustBalance(this.rents[1]);
 					} else return false;
 					
 					}
 				// you need to add , because in our array it is [1 * rent, 2*rent, 1 house,2 house,ect.....]
 				else if (payToOwner >= 1){
-					if(gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getBalance()>rents[1+payToOwner]){
-					gameController.getPlayerController().getPlayer(gameController.getTurn() -1).getAccount().adjustBalance(- rents[1+payToOwner]);
+					if(gameController.getPlayerController().getPlayer(gameController.getTurn()).getBalance()>rents[1+payToOwner]){
+					gameController.getPlayerController().getPlayer(gameController.getTurn()).getAccount().adjustBalance(- rents[1+payToOwner]);
 					result = this.owner.adjustBalance(rents[1+payToOwner]);
 					}else return false;
 				}

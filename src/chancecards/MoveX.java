@@ -1,5 +1,6 @@
 package chancecards;
 
+import java.util.ArrayList;
 import controllers.GameController;
 import player.Player;
 
@@ -27,6 +28,12 @@ public class MoveX extends ChanceCard {
 			//does player get 4k for passing start backwards?
 		}
 		System.out.println("Landing on FieldID: "+positionTo);
+		
+		//update car position on GUI (to bypass position not being updated due to app-stall from landOn)
+		ArrayList<Player> currPlayerInArray = new ArrayList<Player>();
+		currPlayerInArray.add(currentPlayer);
+		gc.getGUIController().updatePlayerPositions(currPlayerInArray);
+		
 		gc.getFieldController().getFields()[positionTo].landOn(gc);
 		
 		return true;
