@@ -14,14 +14,14 @@ public class MainChanceCard {
 	
 		for(int i = 0;i<10;i++){
 			controllerCC.drawCard(gc);
-			controllerCC.shuffleCards();
+			//controllerCC.shuffleCards();
 		}
 		
 		//gc.pc.adjustBalance(2, -3500);
-		//int bal = gc.getBalance(0);
+		int bal = gc.getPlayerController().getPlayer(0).getBalance();
 		
 		
-		//System.out.println(bal);
+		System.out.println(bal);
 		System.out.println(controllerCC.toString());
 	}
 

@@ -22,8 +22,11 @@ public class MoveX extends ChanceCard {
 			//check if we PASSED start field
 			if(positionTo>0)
 				currentPlayer.adjustBalance(4000);
+		}else if(positionTo<0){
+			positionTo += 40;
+			//does player get 4k for passing start backwards?
 		}
-		
+		System.out.println("Landing on FieldID: "+positionTo);
 		gc.getFieldController().getFields()[positionTo].landOn(gc);
 		
 		return true;

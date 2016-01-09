@@ -10,7 +10,7 @@ import dices.Cup;
 
 public class GameController {
 	
-	public int turn;
+	public int turn = 1;
 	private GUIController guiController;
 	private PlayerController playerController;
 	private FieldController fieldController;

@@ -23,5 +23,7 @@ public class ChanceCard {
 	public String getCardDescription(){
 		return cardDescription;
 	}
+	
+	
 
 }

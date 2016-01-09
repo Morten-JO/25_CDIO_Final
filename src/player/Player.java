@@ -14,7 +14,7 @@ public class Player {
 		isJailed = false;
 	}
 	
-	public int getBalance(int i){
+	public int getBalance(){
 		return acc.getBalance();
 	}
 	

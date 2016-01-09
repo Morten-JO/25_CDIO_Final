@@ -16,5 +16,9 @@ public class PlayersGetMoneyCC extends GetMoneyCC {
 		}
 		return true;
 	}
+	
+	public String toString(){
+		return cardDescription;
+	}
 
 }

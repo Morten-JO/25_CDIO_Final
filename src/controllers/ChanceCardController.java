@@ -104,10 +104,11 @@ public class ChanceCardController {
 	
 	public boolean drawCard(GameController gc){
 		//shuffle pile after all cards have been drawn once
-		if(cardsDrawn>chanceCards.length){
+		if(cardsDrawn>=chanceCards.length){
 			shuffleCards();
 			cardsDrawn = 0;
 		}
+		System.out.println(chanceCards[0].getCardDescription());
 		
 		boolean result = false;
 		//draw card from end of pile, validate object type, do action
@@ -152,7 +153,7 @@ public class ChanceCardController {
 	public void moveCardFromTopToBottom(){
 		ChanceCard cardToMove = chanceCards[0];
 		
-		for (int i = 0; i < chanceCards.length; i++) {
+		for (int i = 0; i < chanceCards.length-1; i++) {
 			chanceCards[i] = chanceCards[i+1];
 		}
 		

@@ -20,6 +20,7 @@ public class PlayerController {
 	
 	//get a specified Player object
 	public Player getPlayer(int i){
+		if(i<0)i=0;
 		return players.get(i);
 	}
 	
