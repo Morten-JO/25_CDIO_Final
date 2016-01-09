@@ -22,15 +22,19 @@ public class MoveToNearestFleetCC extends ChanceCard {
 		//fleets are placed at 5,15,25,35. start is 0
 		if(currentPos<5){
 			currentPlayer.setPosition(5);
+			((Fleet)fieldArray[5]).setRentMultiplier(2);
 			((Fleet)fieldArray[5]).landOn(gc);
 		}else if(currentPos<15){
 			currentPlayer.setPosition(15);
+			((Fleet)fieldArray[15]).setRentMultiplier(2);
 			((Fleet)fieldArray[15]).landOn(gc);
 		}else if(currentPos<25){
 			currentPlayer.setPosition(25);
+			((Fleet)fieldArray[25]).setRentMultiplier(2);
 			((Fleet)fieldArray[25]).landOn(gc);
 		}else if(currentPos<35){
 			currentPlayer.setPosition(35);
+			((Fleet)fieldArray[35]).setRentMultiplier(2);
 			((Fleet)fieldArray[35]).landOn(gc);
 		}
 		

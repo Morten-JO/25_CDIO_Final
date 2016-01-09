@@ -26,6 +26,12 @@ public class GameController {
 	}
 	
 	public void startGame(){
+		for(int i = 0; i<fieldController.getFields().length;i++){
+			fieldController.getFields()[i].landOn(this);
+			int bal = playerController.getCurrentPlayer().getBalance();
+			System.out.println("current balance("+i+"): " + bal);
+		}
+		
 		while(!gameOver){
 			
 		}

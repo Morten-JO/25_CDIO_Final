@@ -3,6 +3,7 @@ package field;
 import java.util.Arrays;
 
 import controllers.GameController;
+import desktop_resources.GUI;
 
 
 
@@ -32,10 +33,11 @@ public class Street extends Ownable {
 		if ( this.owner == null){
 			//If no, would you buy it
 			if(gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getBalance()> price ){
-				boolean answer = gameController.getGUIController().askYesNoQuestion("Do you want to buy Street?");
-				if (answer = true){
+				String answer = GUI.getUserButtonPressed("BUY??", "YES", "NO");//gameController.getGUIController().askYesNoQuestion("Do you want to buy Street?");
+				if (answer == "YES"){
 					this.owner = gameController.getPlayerController().getPlayer(gameController.getTurn()-1);
-				} else if (answer = false) return true;
+					owner.adjustBalance(-price);
+				} else if (answer.equals("NO")) return true;
 			}
 		}
 		
