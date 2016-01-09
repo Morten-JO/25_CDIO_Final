@@ -128,7 +128,7 @@ public class Street extends Ownable {
 
 	}
 
-	public boolean sellBuilding(GameController gameController) {
+		public boolean sellBuilding(GameController gameController) {
 		if (this.owner.equals(gameController.getPlayerController().getCurrentPlayer())) {
 			boolean i = gameController.getGUIController().askYesNoQuestion("Vil du frasælge en bygning?");
 			if (i = true) {

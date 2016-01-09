@@ -20,22 +20,24 @@ public class Fleet extends Ownable {
 	public boolean landOn(GameController gameController) {
 		if (this.owner == null && gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().getBalance() >= this.price){
 			
-			boolean i = false;//gameController.getGUIController().askYesNoQuestion("Do you want to buy this Fleet");
-			if (i == true){
+			boolean question = gameController.getGUIController().askYesNoQuestion("Do you want to buy this Fleet");
+			if (question == true){
 		gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().adjustBalance(-price);
-		owner = gameController.getPlayerController().getPlayer(gameController.getTurn()-1);
+		this.owner = gameController.getPlayerController().getPlayer(gameController.getTurn()-1);
 		return true;
 		
 			}
-			if (i == false){
+			if (question == false){
 			return true;}
 	}
 		
-		if (this.owner != null && this.owner != gameController.getPlayerController().getPlayer(gameController.getTurn()-1)){
-			int totalPay = gameController.getFieldController().getOwnerShipOfFleets(this.owner);
-			totalPay = rents [totalPay-1];
-			if(gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().getBalance()>totalPay){
-			gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().adjustBalance(-totalPay);
+		if (this.owner != null && this.owner != gameController.getPlayerController().getPlayer(gameController.getTurn()-1) && this.owner.isJailed()==false){
+			int fleetsowned = gameController.getFieldController().getOwnerShipOfFleets(this.owner);
+			int toPay = rents [fleetsowned-1];
+			if(gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().getBalance()>toPay){
+			gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().adjustBalance(-toPay);
+			((Ownable)gameController.getFieldController().getFields()[this.getNumber()]).getOwner().getAccount().adjustBalance(toPay);
+			return true;
 }		
 			else return false;
 	
