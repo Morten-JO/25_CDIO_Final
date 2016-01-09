@@ -65,10 +65,10 @@ public class Cup {
 	public boolean isSameHit(){
 		boolean isSameHit = true;
 		for(int i = 0; i < diceArray.size()-1; i++){
-			if(diceArray.get(i) != diceArray.get(i+1)){
+			if(diceArray.get(i).getSum() != diceArray.get(i+1).getSum()){
 				isSameHit = false;
 			}
 		}
-		return true;
+		return isSameHit;
 	}
 }

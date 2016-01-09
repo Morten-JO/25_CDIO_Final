@@ -38,16 +38,19 @@ public class GameController {
 		*/
 		
 		while(!gameOver){
+			//temp
+			boolean playerRemoved = false;
+			//temp
+			System.out.println("turn is: "+turn);
 			if(countDicesTheSame >= 3){
 				playerController.getCurrentPlayer().setJailed(true);
 				playerController.getCurrentPlayer().setPosition(20); // dunno where jail is TEMP
 				guiController.updatePlayerPositions(playerController.getPlayerList());
 				guiController.showMessage("You were jailed for hitting 2x same kind 3 rounds in a row");
+				countDicesTheSame = 0;
 			}
 			else{
 				playerController.setCurrentPlayer(turn);
-				System.out.println(playerController.getPlayerList().size());
-				System.out.println("name of player is: "+playerController.getCurrentPlayer().getName());
 				guiController.showMessage(playerController.getCurrentPlayer().getName()+"'s turn to roll dices!");
 				cup.rollDices();
 				guiController.updateDices(cup.getSumOfDice(0), cup.getSumOfDice(1));
@@ -76,11 +79,11 @@ public class GameController {
 					guiController.showMessage(fieldController.getFields()[playerController.getCurrentPlayerNumber()].getDescriptionText());
 					if(!fieldController.getFields()[playerController.getCurrentPlayer().getPosition()].landOn(this)){
 						if(fieldController.getPropertyValue(playerController.getCurrentPlayer()) > 0){
-							
 							handlePawnPlayer();
 						}
 						if(!fieldController.getFields()[playerController.getCurrentPlayer().getPosition()].landOn(this)){
 							handleRemovePlayer();
+							playerRemoved = true;
 						}
 					}
 					if(cup.isSameHit()){
@@ -89,7 +92,11 @@ public class GameController {
 					
 				}
 			}
-			handleTurnChange();
+			if(!playerRemoved){
+				System.out.println("handled turn1");
+				handleTurnChange();
+			}
+			playerRemoved = false;
 			guiController.updateAllPlayersBalance(playerController.getPlayerList());
 			guiController.updatePlayerPositions(playerController.getPlayerList());
 			handleWinningConditions();
@@ -101,13 +108,9 @@ public class GameController {
 	}
 
 	public int getTurn() {
-		// TODO Auto-generated method stub
-		return 0;
+		return turn;
 	}
-
-
 	
-
 	public FieldController getFieldController(){
 		return fieldController;
 	}
@@ -116,7 +119,9 @@ public class GameController {
 		guiController.showMessage("You couldnt pay and are now out of the game!");
 		guiController.removePlayer(playerController.getCurrentPlayer(), fieldController.getFields());
 		playerController.getPlayerList().remove(playerController.getCurrentPlayer());
-		turn--;
+		if(playerController.getPlayerList().size() > 0){
+			turn--;
+		}
 	}
 	
 	private void handlePawnPlayer(){
@@ -126,10 +131,14 @@ public class GameController {
 	}
 	
 	private void handleTurnChange(){
-		if(cup.isSameHit()){}
+		if(cup.isSameHit()){
+			System.out.println("was same hit!");
+		}
 		else{
+			System.out.println("wasnt same hit, switching turns");
 			turn++;
 			if(turn >= playerController.getPlayerList().size()){
+				System.out.println("setting turn to 0");
 				turn = 0;
 			}
 			countDicesTheSame = 0;
@@ -192,10 +201,6 @@ public class GameController {
 		return chanceCardController;
 	}
 
-	//THIS SHOULD BE DELETED, it shouldnt be here, it should be in playerController
-	public int getTotalValueOfPlayer(Player player) {
-		return 0;
-	}
 	
 	public GUIController getGUIController(){
 		return guiController;

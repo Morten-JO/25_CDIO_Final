@@ -52,4 +52,9 @@ public class PlayerController {
 		return currentPlayer;
 	}
 	
+	public int getTotalValueOfPlayer(Player player, FieldController controller) {
+		int value = player.getBalance() + controller.getPropertyValue(player);
+		return value;
+	}
+	
 }

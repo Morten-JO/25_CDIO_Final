@@ -19,7 +19,7 @@ public class TaxPercent extends Tax {
 			return gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().adjustBalance(- tax);
 		}
 		else {
-			int taxpay =gameController.getTotalValueOfPlayer(gameController.getPlayerController().getPlayer(gameController.getTurn()-1));
+			int taxpay = gameController.getPlayerController().getTotalValueOfPlayer(gameController.getPlayerController().getCurrentPlayer(), gameController.getFieldController());
 			return gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getAccount().adjustBalance((int)-(taxpay*(0.01*taxProcent)));
 		}
 	}
