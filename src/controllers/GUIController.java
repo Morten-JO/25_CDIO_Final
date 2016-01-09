@@ -330,4 +330,9 @@ public class GUIController {
 		this.removeOwnerShipFromPlayer(arrayOfFields, player);
 		GUI.removeCar(player.getPosition(), player.getName());
 	}
+	
+	public void updatePlayerPosition(Player player){
+		GUI.removeAllCars(player.getName());
+		GUI.setCar(player.getPosition()+1, player.getName());
+	}
 }
