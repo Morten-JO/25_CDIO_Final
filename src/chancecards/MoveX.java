@@ -29,10 +29,8 @@ public class MoveX extends ChanceCard {
 		}
 		System.out.println("Landing on FieldID: "+positionTo);
 		
-		//update car position on GUI (to bypass position not being updated due to app-stall from landOn)
-		ArrayList<Player> currPlayerInArray = new ArrayList<Player>();
-		currPlayerInArray.add(currentPlayer);
-		gc.getGUIController().updatePlayerPositions(currPlayerInArray);
+		//update car position on GUI (to bypass position not being updated before questions asked due to app-stall from landOn)
+		gc.getGUIController().updatePlayerPosition(currentPlayer);
 		
 		gc.getFieldController().getFields()[positionTo].landOn(gc);
 		

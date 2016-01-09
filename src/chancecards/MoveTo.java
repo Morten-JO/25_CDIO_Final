@@ -1,4 +1,4 @@
-package chancecards;
+ package chancecards;
 
 import controllers.GameController;
 import player.Player;
@@ -25,6 +25,9 @@ public class MoveTo extends ChanceCard {
 		System.out.println("Landing on FieldID: "+fieldID);
 		//set new player pos
 		currentPlayer.setPosition(fieldID);
+		
+		//update car position on GUI (to bypass position not being updated before questions asked due to app-stall from landOn)
+		gc.getGUIController().updatePlayerPosition(currentPlayer);
 		
 		//not calling landOn because player is only moved to field; NO ACTION TAKEN
 		return true;

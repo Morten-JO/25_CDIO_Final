@@ -44,6 +44,9 @@ public class MoveToNearestFleetCC extends ChanceCard {
 			currentPlayer.setPosition(5);
 			((Fleet)fieldArray[5]).landOn(gc);
 		}
+		
+		//update car position on GUI (to bypass position not being updated before questions asked due to app-stall from landOn)
+		gc.getGUIController().updatePlayerPosition(currentPlayer);
 			
 		
 		return true;

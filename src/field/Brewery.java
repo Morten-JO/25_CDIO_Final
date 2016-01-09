@@ -32,7 +32,7 @@ public class Brewery extends Ownable {
 			}
 		}
 
-		if (this.owner != null && this.owner != gameController.getPlayerController().getPlayer(gameController.getTurn()-1) && this.owner.isJailed()==false) {
+		if (this.owner != null && this.owner != gameController.getPlayerController().getPlayer(gameController.getTurn()) && this.owner.isJailed()==false) {
 			int i = gameController.getFieldController().getOwnerShipOfBreweries(gameController.getPlayerController().getPlayer(gameController.getTurn()));
 			int pay = rents[i] * gameController.getCup().getDiceSum();//REMOVED -1 CAUSING ARRAY_OOB. turn starts at 0
 			if (gameController.getPlayerController().getPlayer(gameController.getTurn()).getAccount()

@@ -32,7 +32,7 @@ public class Street extends Ownable {
 		//is this street owned ?? 
 		if ( this.owner == null){
 			//If no, would you buy it
-			if(gameController.getPlayerController().getPlayer(gameController.getTurn()-1).getBalance()> price ){
+			if(gameController.getPlayerController().getPlayer(gameController.getTurn()).getBalance()> price ){
 				String answer = GUI.getUserButtonPressed("Do you want to buy this Street??", "YES", "NO");//gameController.getGUIController().askYesNoQuestion("Do you want to buy Street?");
 				if (answer == "YES"){
 					this.owner = gameController.getPlayerController().getPlayer(gameController.getTurn());
