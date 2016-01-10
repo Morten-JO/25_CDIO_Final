@@ -23,10 +23,13 @@ public class Street extends Ownable {
 		this.rents = rents;
 		this.buildingPrice = buildingPrice;
 		this.streetCategory = streetCategory;
+		//category refering to the color of the street
 	}
 
 	
 	
+	
+	// landOn method for Streets, 
 	@Override
 	public boolean landOn(GameController gameController) {
 		boolean result = true;
@@ -37,7 +40,7 @@ public class Street extends Ownable {
 			if(currentPlayer.getBalance()> price ){
 				String NameOfStreet = gameController.getFieldController().getFields()[currentPlayer.getPosition()].getName();
 				boolean answer = gameController.getGUIController().askYesNoQuestion("Do you want to buy "+ NameOfStreet);
-				if (answer == true){
+				if (answer == true){ //Ja, jeg vil gerne købe
 					this.owner = currentPlayer;
 					System.out.println("du har købt dette felt");
 				result =	owner.adjustBalance(-price);
@@ -46,16 +49,20 @@ public class Street extends Ownable {
 		}
 		
 			if (this.owner != null && this.owner != currentPlayer ){
+				//Er feltets ejer i fængsel?
 			if (this.owner.isJailed()== false){
+				//Hvor mange felter i denne kategori er ejet af ham, der ejer dette felt?
 				int streets = gameController.getFieldController().getOwnershipOfStreetsInCat(this.owner, this.getStreetCategory());
 				GUI.showMessage(this.owner.getName() +" ejer dette felt og så mange streets "+streets);
 			switch (streets){
+			//Kun et felt
 			case 1 : if ( currentPlayer.getBalance()> this.rents[0]){
 					currentPlayer.adjustBalance(- this.rents[0]);
 					result = this.owner.adjustBalance(this.rents[0]);
 					
 			} else return false;
 					break;
+			//To felter, og vi undersøger først, om det kategorien svarer til de to, hvori der kun er 2 felter at eje.
 			case 2 : if ( this.getStreetCategory() == 0 ||this.getStreetCategory() == 7){
 				int payToOwner = this.getHousesInSection(this.getStreetCategory(), gameController);
 				if ( payToOwner == 0){
@@ -73,6 +80,7 @@ public class Street extends Ownable {
 			}
 				break;
 			case 3 : 
+				//tre felter = alle felter i kategorien og dobbelt leje
 				int payToOwner = this.getHousesInSection(this.getStreetCategory(), gameController);
 				if ( payToOwner == 0){
 					if ( currentPlayer.getBalance()> this.rents[1]){
@@ -96,14 +104,18 @@ public class Street extends Ownable {
 		
 		return result;
 	}
+	
+	//Buy property
 	public boolean buyBuilding(GameController gameController) {
 		Player currentPlayer = gameController.getPlayerController().getCurrentPlayer();
 		
-		int streets = this.getAmountOfStreetsInCategory(this.getStreetCategory(), gameController);
+		//How many streets in this category?
+				int streets = this.getAmountOfStreetsInCategory(this.getStreetCategory(), gameController);
 		if (currentPlayer.getBalance() >= buildingPrice) {
-					boolean i = gameController.getGUIController().askYesNoQuestion("Do you want to buy a building");
-			if (i == true && this.isPawn == false
-					&& this.getamountOfHouses() <= this.getHousesInSection(this.getStreetCategory(), gameController)/ streets) {
+					boolean answer = gameController.getGUIController().askYesNoQuestion("Do you want to buy a building");
+					
+					//Gets answer, pawnstatus and the average amount of houses per street in this category
+			if (answer == true && this.isPawn == false && this.getamountOfHouses() <= this.getHousesInSection(this.getStreetCategory(), gameController)/ streets) {
 				if (this.amountOfHouses < maxAmountofHouses) {
 					this.amountOfHouses += 1; // Ved ikke helt med denne, vi
 												// skal have noget der holder
@@ -163,7 +175,11 @@ public class Street extends Ownable {
 	}
 
 	public int getamountOfHouses() {
+		if (this.hotels > 0){
+			this.amountOfHouses += maxAmountofHouses+1;
+		}
 		return this.amountOfHouses;
+		
 
 	}
 
@@ -179,6 +195,9 @@ public class Street extends Ownable {
 
 				if (((Street) gameController.getFieldController().getFields()[j]).getStreetCategory() == i) {
 					houses += ((Street) gameController.getFieldController().getFields()[j]).getamountOfHouses();
+					if (this.hotels > 0){
+						houses += maxAmountofHouses+1;
+					}
 
 				}
 
