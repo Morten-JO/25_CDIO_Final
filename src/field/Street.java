@@ -132,7 +132,7 @@ public class Street extends Ownable {
 					return false;
 				}
 
-				else if (i == false) {
+				else if (answer == false) {
 					return false;
 				}
 			} else {
