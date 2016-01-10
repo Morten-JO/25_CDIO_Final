@@ -226,7 +226,7 @@ public class GUIController {
 					e.printStackTrace();
 				}
 			}
-			list[i].setDescription(arrayOfFields[i].getDescriptionText());
+			list[i].setDescription(arrayOfFields[i].getName());
 			list[i].setSubText(arrayOfFields[i].getSubText());
 			list[i].setTitle(arrayOfFields[i].getName());
 		}
