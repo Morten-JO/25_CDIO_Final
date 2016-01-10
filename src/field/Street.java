@@ -15,7 +15,7 @@ public class Street extends Ownable {
 	private int maxAmountofHouses;
 	private int streetCategory;
 	private int hotels;
-	private boolean isPawn;
+	
 
 	public Street(String Titel, String Sub, String Desc, int fieldNo, int price, int pawnPrice, int rents[],
 			int buildingPrice, int streetCategory) {

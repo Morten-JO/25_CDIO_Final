@@ -7,6 +7,9 @@ public class Ownable extends Field {
  protected Player owner ;
  protected int price ; 
  protected int pawnPrice;
+ protected boolean isPawn;
+ 
+ 
 	public Ownable(String Titel, String Sub, String Desc, int fieldNo, int price,int pawnPrice) {
 		super(Titel, Sub, Desc, fieldNo);
 		this.price = price;
@@ -41,4 +44,17 @@ public class Ownable extends Field {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	public boolean pawnProperty(Player player){
+		if (!this.isPawn){
+			this.isPawn = true;
+			player.adjustBalance(this.pawnPrice);
+			return true;
+		}
+		
+		return false;
+	}
+	
+	
+	
 	}
