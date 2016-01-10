@@ -108,6 +108,7 @@ public class ChanceCardController {
 			shuffleCards();
 			cardsDrawn = 0;
 		}
+		
 		gc.getGUIController().askQuestion(chanceCards[0].getCardDescription(), "OK");
 		
 		boolean result = false;

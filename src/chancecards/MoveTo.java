@@ -28,8 +28,8 @@ public class MoveTo extends ChanceCard {
 		
 		//update car position on GUI (to bypass position not being updated before questions asked due to app-stall from landOn)
 		gc.getGUIController().updatePlayerPosition(currentPlayer);
+		gc.getFieldController().getFields()[fieldID].landOn(gc);
 		
-		//not calling landOn because player is only moved to field; NO ACTION TAKEN
 		return true;
 	}
 
