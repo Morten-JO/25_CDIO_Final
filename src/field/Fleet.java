@@ -32,7 +32,7 @@ public class Fleet extends Ownable {
 			boolean question = gameController.getGUIController().askYesNoQuestion("Do you want to buy this Fleet");
 			// if want to buy field = true
 			if (question == true) {
-				result = currentPlayer.adjustBalance(-price);
+				result = currentPlayer.adjustBalance(-this.price);
 				this.owner = currentPlayer;
 
 			} else {

@@ -10,8 +10,8 @@ public class Start extends Field {
 	}
 
 	@Override
-	public boolean landOn(GameController GameController) {
-		// TODO Auto-generated method stub
+	public boolean landOn(GameController gameController) {
+		gameController.getGUIController().showMessage("You landed on Start and nothing happened");
 		return true;
 	}
 

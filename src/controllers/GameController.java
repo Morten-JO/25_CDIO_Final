@@ -76,7 +76,7 @@ public class GameController {
 						guiController.showMessage("You get 4000 for coming over start!");
 					}
 					guiController.updateAllPlayersBalance(playerController.getPlayerList());
-					guiController.showMessage(fieldController.getFields()[playerController.getCurrentPlayer().getPosition()].getDescriptionText());
+					guiController.showMessage(fieldController.getFields()[playerController.getCurrentPlayer().getPosition()].getName());
 					if(!fieldController.getFields()[playerController.getCurrentPlayer().getPosition()].landOn(this)){
 						if(fieldController.getPropertyValue(playerController.getCurrentPlayer()) > 0){
 							handlePawnPlayer();
@@ -126,7 +126,7 @@ public class GameController {
 	
 	private void handlePawnPlayer(){
 		guiController.showMessage("You couldnt pay and have to pawn");
-		guiController.showMessage("pawing isnt created yet, TEMP!");
+		guiController.showMessage("pawning isnt created yet, TEMP!");
 		
 	}
 	
