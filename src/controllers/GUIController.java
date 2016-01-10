@@ -216,7 +216,8 @@ public class GUIController {
 				list[i] = builder.build();
 			}
 			else if(arrayOfFields[i].getClass().equals(Brewery.class)){
-				list[i] = new desktop_fields.Brewery.Builder().setBgColor(Color.GREEN).build();
+				Color color = new Color(0.5f,0.1f,0.2f,1.0f);
+				list[i] = new desktop_fields.Brewery.Builder().setBgColor(color).build();
 			}
 			else{
 				System.out.println("A bug occured, shutting down program");

@@ -56,11 +56,15 @@ public class Street extends Ownable {
 				GUI.showMessage(this.owner.getName() +" ejer dette felt og så mange streets "+streets);
 			switch (streets){
 			//Kun et felt
-			case 1 : if ( currentPlayer.getBalance()> this.rents[0]){
-					currentPlayer.adjustBalance(- this.rents[0]);
-					result = this.owner.adjustBalance(this.rents[0]);
-					
-			} else return false;
+			case 1 :
+				int balance = currentPlayer.getBalance();
+				result = currentPlayer.adjustBalance(-this.rents[0]);
+	
+				if (balance < this.rents[0]) {
+					this.owner.adjustBalance(balance);
+				}else{
+					this.owner.adjustBalance(this.rents[0]);
+				}	
 					break;
 			//To felter, og vi undersøger først, om det kategorien svarer til de to, hvori der kun er 2 felter at eje.
 			case 2 : if ( this.getStreetCategory() == 0 ||this.getStreetCategory() == 7){
