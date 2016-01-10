@@ -141,8 +141,13 @@ public class GameController {
 							if(chosenField != null){
 								if(guiController.askYesNoQuestion("Are you sure you want to trade "+chosenInput+"?")){
 									int amount = guiController.getUserIntegerInput("How much do you want for "+chosenInput+"?");
-									Player[] players = new Player[playerController.getPlayerList().size()];
-									players = playerController.getPlayerList().toArray(players);
+									ArrayList<Player> modifiedPlayers = new ArrayList<Player>();
+									for(int i = 0; i < playerController.getPlayerList().size(); i++){
+										modifiedPlayers.add(playerController.getPlayerList().get(i));
+									}
+									modifiedPlayers.remove(playerController.getCurrentPlayer());
+									Player[] players = new Player[modifiedPlayers.size()];
+									players = modifiedPlayers.toArray(players);
 									String[] playerNames = new String[players.length];
 									for(int i = 0; i < playerNames.length; i++){
 										playerNames[i] = players[i].getName();
