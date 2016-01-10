@@ -55,6 +55,7 @@ public class Ownable extends Field {
 		return false;
 	}
 	
-	
-	
+	public boolean getIsPawn(){
+		return isPawn;
 	}
+}

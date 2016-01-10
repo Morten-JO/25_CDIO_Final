@@ -166,6 +166,24 @@ public class FieldController {
 		return amount;
 	}
 	
+	public int getPropertyValueNotPawned(Player player){
+		int amount = 0;
+		for(int i = 0; i < gameFields.length; i++){
+			if(gameFields[i] instanceof Ownable){
+				if(((Ownable)gameFields[i]).getOwner() == player){
+					if(((Ownable)gameFields[i]).getIsPawn()){
+						if(gameFields[i] instanceof Street){
+							amount += ((Street)gameFields[i]).getamountOfHouses() * ((Street)gameFields[i]).getBuildingPrice();
+							amount += ((Street)gameFields[i]).getamountOfHotels() * ((Street)gameFields[i]).getBuildingPrice();
+						}
+						amount += ((Ownable)gameFields[i]).getPrice();
+					}
+				}
+			}
+		}
+		return amount;
+	}
+	
 	public boolean ownsEntireStreet(Player player){
 		boolean ownsEntireStreet = false;
 		int[] streetIndexes = new int[8];

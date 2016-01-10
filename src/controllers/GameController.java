@@ -87,7 +87,7 @@ public class GameController {
 			}
 			
 			ArrayList<String> options = new ArrayList<String>();
-			if(fieldController.getPropertyValue(playerController.getCurrentPlayer()) > 0){
+			if(fieldController.getPropertyValueNotPawned(playerController.getCurrentPlayer()) > 0){
 				options.add("Trade");
 				options.add("Pawn");
 			}
@@ -202,7 +202,7 @@ public class GameController {
 						break;
 				}
 				options = new ArrayList<String>();
-				if(fieldController.getPropertyValue(playerController.getCurrentPlayer()) > 0){
+				if(fieldController.getPropertyValueNotPawned(playerController.getCurrentPlayer()) > 0){
 					System.out.println(fieldController.getPropertyValue(playerController.getCurrentPlayer()));
 					options.add("Trade");
 					options.add("Pawn");
@@ -246,6 +246,13 @@ public class GameController {
 		if(playerController.getPlayerList().size() > 0){
 			turn--;
 		}
+	}
+	
+	public void handleRemovePlayer(int playerId, int turn){
+		guiController.showMessage("You couldnt pay and are now out of the game!");
+		guiController.removePlayer(playerController.getCurrentPlayer(), fieldController.getFields());
+		playerController.getPlayerList().remove(playerId);
+		this.turn = turn;
 	}
 	
 	private void handlePawnPlayer(){
