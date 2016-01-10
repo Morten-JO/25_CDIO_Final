@@ -248,11 +248,14 @@ public class GameController {
 		}
 	}
 	
-	public void handleRemovePlayer(int playerId, int turn){
+	public void handleRemovePlayer(int playerId){
 		guiController.showMessage("You couldnt pay and are now out of the game!");
 		guiController.removePlayer(playerController.getCurrentPlayer(), fieldController.getFields());
+		if(turn > playerId){
+			turn--;
+		}
 		playerController.getPlayerList().remove(playerId);
-		this.turn = turn;
+
 	}
 	
 	private void handlePawnPlayer(){

@@ -171,7 +171,7 @@ public class FieldController {
 		for(int i = 0; i < gameFields.length; i++){
 			if(gameFields[i] instanceof Ownable){
 				if(((Ownable)gameFields[i]).getOwner() == player){
-					if(((Ownable)gameFields[i]).getIsPawn()){
+					if(!((Ownable)gameFields[i]).getIsPawn()){
 						if(gameFields[i] instanceof Street){
 							amount += ((Street)gameFields[i]).getamountOfHouses() * ((Street)gameFields[i]).getBuildingPrice();
 							amount += ((Street)gameFields[i]).getamountOfHotels() * ((Street)gameFields[i]).getBuildingPrice();
