@@ -93,8 +93,10 @@ public class FieldController {
 		ArrayList<Field> listOfProperties = new ArrayList<Field>();
 		for(int i = 0; i < gameFields.length; i++){
 			if(gameFields[i] instanceof Ownable){
-				if(((Ownable)gameFields[i]).getOwner().equals(player)){
-					listOfProperties.add(gameFields[i]);
+				if(((Ownable)gameFields[i]).getOwner() != null){
+					if(((Ownable)gameFields[i]).getOwner().equals(player)){
+						listOfProperties.add(gameFields[i]);
+					}
 				}
 			}
 		}
@@ -108,8 +110,10 @@ public class FieldController {
 		int count = 0;
 		for(int i = 0 ; i < gameFields.length; i++){
 			if (gameFields[i] instanceof Fleet ){
-				if(((Ownable)gameFields[i]).getOwner() == p){
-					count++;
+				if(((Ownable)gameFields[i]).getOwner() != null){
+					if(((Ownable)gameFields[i]).getOwner() == p){
+						count++;
+					}
 				}
 			}
 		}
@@ -166,15 +170,17 @@ public class FieldController {
 		boolean ownsEntireStreet = false;
 		int[] streetIndexes = new int[8];
 		for(int i = 0; i < gameFields.length; i++){
-			if(gameFields[i] instanceof Ownable){
+			if(gameFields[i] instanceof Street){
 				streetIndexes[((Street)gameFields[i]).getStreetCategory()]++;
 			}
 		}
 		int[] ownedIndexes = new int[8];
 		for(int i = 0; i < gameFields.length; i++){
-			if(gameFields[i] instanceof Ownable){
-				if(((Street)gameFields[i]).getOwner() == player){
-					ownedIndexes[((Street)gameFields[i]).getStreetCategory()]++;
+			if(gameFields[i] instanceof Street){
+				if(((Ownable)gameFields[i]).getOwner() != null){
+					if(((Street)gameFields[i]).getOwner().equals(player)){
+						ownedIndexes[((Street)gameFields[i]).getStreetCategory()]++;
+					}
 				}
 			}
 		}
@@ -190,15 +196,17 @@ public class FieldController {
 	public Field[] getOwnedFullStreets(Player player, GameController gameController){
 		int[] streetIndexes = new int[8];
 		for(int i = 0; i < gameFields.length; i++){
-			if(gameFields[i] instanceof Ownable){
+			if(gameFields[i] instanceof Street){
 				streetIndexes[((Street)gameFields[i]).getStreetCategory()]++;
 			}
 		}
 		int[] ownedIndexes = new int[8];
 		for(int i = 0; i < gameFields.length; i++){
-			if(gameFields[i] instanceof Ownable){
-				if(((Street)gameFields[i]).getOwner() == player){
-					ownedIndexes[((Street)gameFields[i]).getStreetCategory()]++;
+			if(gameFields[i] instanceof Street){
+				if(((Ownable)gameFields[i]).getOwner() != null){
+					if(((Street)gameFields[i]).getOwner().equals(player)){
+						ownedIndexes[((Street)gameFields[i]).getStreetCategory()]++;
+					}
 				}
 			}
 		}

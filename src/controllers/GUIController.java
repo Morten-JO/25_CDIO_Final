@@ -336,4 +336,7 @@ public class GUIController {
 		GUI.setCar(player.getPosition()+1, player.getName());
 	}
 	
+	public int getUserIntegerInput(String message){
+		return GUI.getUserInteger(message);
+	}
 }
