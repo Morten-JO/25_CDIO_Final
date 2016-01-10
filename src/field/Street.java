@@ -35,7 +35,8 @@ public class Street extends Ownable {
 		if ( this.owner == null){
 			//If no, would you buy it
 			if(currentPlayer.getBalance()> price ){
-				boolean answer = gameController.getGUIController().askYesNoQuestion("Do you want to buy this Street?");
+				String NameOfStreet = gameController.getFieldController().getFields()[currentPlayer.getPosition()].getName();
+				boolean answer = gameController.getGUIController().askYesNoQuestion("Do you want to buy "+ NameOfStreet);
 				if (answer == true){
 					this.owner = currentPlayer;
 					System.out.println("du har købt dette felt");
@@ -46,12 +47,12 @@ public class Street extends Ownable {
 		
 			if (this.owner != null && this.owner != currentPlayer ){
 			if (this.owner.isJailed()== false){
-				int streets = this.getAmountOfStreetsInCategory(this.getStreetCategory(),gameController);
-				System.out.println("så mange gader har jeg " +streets);
+				int streets = gameController.getFieldController().getOwnershipOfStreetsInCat(this.owner, this.getStreetCategory());
+				GUI.showMessage(this.owner.getName() +" ejer dette felt og så mange streets "+streets);
 			switch (streets){
 			case 1 : if ( currentPlayer.getBalance()> this.rents[0]){
 					currentPlayer.adjustBalance(- this.rents[0]);
-					result =this.owner.adjustBalance(this.rents[0]);
+					result = this.owner.adjustBalance(this.rents[0]);
 					
 			} else return false;
 					break;

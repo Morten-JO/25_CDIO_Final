@@ -100,7 +100,19 @@ public class FieldController {
 		}
 		return count;
 	}
-	
+	public int getOwnershipOfStreetsInCat(Player p, int cat) {
+		int count = 0;
+		for(int i = 0 ; i < gameFields.length; i++){
+			if ( gameFields[i] instanceof Street){
+			if (((Street)gameFields[i]).getStreetCategory() == cat ){
+				if(((Ownable)gameFields[i]).getOwner() == p){
+					count++;
+				}
+			}
+		}
+		}
+		return count;
+	}
 	public int getOwnerShipOfBreweries(Player p) {
 		int count = 0;
 		for(int i = 0 ; i < gameFields.length; i++){
@@ -112,6 +124,8 @@ public class FieldController {
 		}
 		return count;
 	}
+	
+		
 
 	public Field[] getFields() {
 		return gameFields;
