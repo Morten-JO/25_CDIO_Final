@@ -64,17 +64,17 @@ public class Street extends Ownable {
 					break;
 			//To felter, og vi undersøger først, om det kategorien svarer til de to, hvori der kun er 2 felter at eje.
 			case 2 : if ( this.getStreetCategory() == 0 ||this.getStreetCategory() == 7){
-				int payToOwner = this.getHousesInSection(this.getStreetCategory(), gameController);
-				if ( payToOwner == 0){
+				 
+				if ( this.amountOfHouses == 0){
 					if (currentPlayer.getBalance()>this.rents[1]){
 				currentPlayer.adjustBalance(- this.rents[1]);
 				result = this.owner.adjustBalance(this.rents[1]);
 					} else return false ;
 					}
 				// you need to add 1, because in our array it is [1 * rent, 2*rent, 1 house,2 house,ect.....]
-				else if (payToOwner >= 1){if (currentPlayer.getBalance()>this.rents[1+payToOwner]){
-					currentPlayer.adjustBalance(- this.rents[1+payToOwner]);
-				result =	this.owner.adjustBalance(this.rents[1+ payToOwner]);
+				else if (this.amountOfHouses >= 1){if (currentPlayer.getBalance()>this.rents[1+this.amountOfHouses]){
+					currentPlayer.adjustBalance(- this.rents[1+this.amountOfHouses]);
+				result =	this.owner.adjustBalance(this.rents[1+ this.amountOfHouses]);
 				}else return false;	
 				}
 			}
