@@ -52,6 +52,8 @@ public class Fleet extends Ownable {
 				currentPlayer.adjustBalance(-toPay);
 				result = this.owner.getAccount().adjustBalance(toPay);
 			} else {
+				int lastBalance = currentPlayer.getBalance();
+				this.owner.adjustBalance(lastBalance);
 				result = false;
 			}
 		}

@@ -69,13 +69,21 @@ public class Street extends Ownable {
 					if (currentPlayer.getBalance()>this.rents[1]){
 				currentPlayer.adjustBalance(- this.rents[1]);
 				result = this.owner.adjustBalance(this.rents[1]);
-					} else return false ;
+					} else {
+						int lastBalance = currentPlayer.getBalance();
+						this.owner.adjustBalance(lastBalance);
+						return false ;
+					}
 					}
 				// you need to add 1, because in our array it is [1 * rent, 2*rent, 1 house,2 house,ect.....]
 				else if (this.amountOfHouses >= 1){if (currentPlayer.getBalance()>this.rents[1+this.amountOfHouses]){
 					currentPlayer.adjustBalance(- this.rents[1+this.amountOfHouses]);
 				result =	this.owner.adjustBalance(this.rents[1+ this.amountOfHouses]);
-				}else return false;	
+				}else {
+					int lastBalance = currentPlayer.getBalance();
+					this.owner.adjustBalance(lastBalance);
+					return false;	
+				}
 				}
 			}
 				break;
@@ -86,7 +94,11 @@ public class Street extends Ownable {
 					if ( currentPlayer.getBalance()> this.rents[1]){
 					currentPlayer.adjustBalance(- this.rents[1]);
 					result = this.owner.adjustBalance(this.rents[1]);
-					} else return false;
+					} else {
+						int lastBalance = currentPlayer.getBalance();
+						this.owner.adjustBalance(lastBalance);
+						return false;
+					}
 					
 					}
 				// you need to add , because in our array it is [1 * rent, 2*rent, 1 house,2 house,ect.....]
@@ -94,7 +106,11 @@ public class Street extends Ownable {
 					if(currentPlayer.getBalance()>rents[1+payToOwner]){
 					currentPlayer.adjustBalance(- rents[1+payToOwner]);
 					result = this.owner.adjustBalance(rents[1+payToOwner]);
-					}else return false;
+					}else{
+						int lastBalance = currentPlayer.getBalance();
+						this.owner.adjustBalance(lastBalance);
+						return false;
+					}
 				}
 			break;
 			}

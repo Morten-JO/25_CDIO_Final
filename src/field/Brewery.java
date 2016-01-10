@@ -43,8 +43,12 @@ public class Brewery extends Ownable {
 				currentPlayer.adjustBalance(-pay);
 				result = this.owner.adjustBalance(pay);
 
-			} else
+			} else{
+				int lastBalance = currentPlayer.getBalance();
+				this.owner.adjustBalance(lastBalance);
 				result = false;
+			}
+				
 
 		}
 
