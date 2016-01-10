@@ -36,7 +36,7 @@ public class Ownable extends Field {
 		this.pawnPrice = pawnPrice;
 	}
 	
-	public int getRent(){
+	public int getRent(GameController gameController){
 		return 0;
 	}
 	@Override

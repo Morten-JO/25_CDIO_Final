@@ -64,17 +64,22 @@ public class GameController {
 					}
 					playerController.getCurrentPlayer().setPosition(newPosition);
 					guiController.updatePlayerPositions(playerController.getPlayerList());
-					if(startBonus){
-						playerController.getCurrentPlayer().adjustBalance(4000);
-						guiController.showMessage("You get 4000 for coming over start!");
+					if(playerController.getCurrentPlayer().getFirstRoundCompleted()){
+						if(startBonus){
+							playerController.getCurrentPlayer().adjustBalance(4000);
+							guiController.showMessage("You get 4000 for coming over start!");
+						}
 					}
+					playerController.getCurrentPlayer().setFirstRoundCompleted(true);
 					guiController.updateAllPlayersBalance(playerController.getPlayerList());
 					if(fieldController.getFields()[playerController.getCurrentPlayer().getPosition()] instanceof Ownable){
 						if(((Ownable)fieldController.getFields()[playerController.getCurrentPlayer().getPosition()]).getOwner() != playerController.getCurrentPlayer()){
-							if(!(playerController.getCurrentPlayer().getBalance() >= ((Ownable)fieldController.getFields()[playerController.getCurrentPlayer().getPosition()]).getRent())){
-								if(playerController.getTotalValueOfPlayer(playerController.getCurrentPlayer(), fieldController) > ((Ownable)fieldController.getFields()[playerController.getCurrentPlayer().getPosition()]).getRent()){
-									guiController.showMessage("You cant pay for landing on "+fieldController.getFields()[playerController.getCurrentPlayer().getPosition()].getName()+" and will have to pawn!");
-									handlePawnPlayer(((Ownable)fieldController.getFields()[playerController.getCurrentPlayer().getPosition()]).getRent() - playerController.getCurrentPlayer().getBalance(), playerController.getCurrentPlayer());
+							if(!((Ownable)fieldController.getFields()[playerController.getCurrentPlayer().getPosition()]).getIsPawn()){
+								if(!(playerController.getCurrentPlayer().getBalance() >= ((Ownable)fieldController.getFields()[playerController.getCurrentPlayer().getPosition()]).getRent(this))){
+									if(playerController.getTotalValueOfPlayer(playerController.getCurrentPlayer(), fieldController) > ((Ownable)fieldController.getFields()[playerController.getCurrentPlayer().getPosition()]).getRent(this)){
+										guiController.showMessage("You cant pay for landing on "+fieldController.getFields()[playerController.getCurrentPlayer().getPosition()].getName()+" and will have to pawn!");
+										handlePawnPlayer(((Ownable)fieldController.getFields()[playerController.getCurrentPlayer().getPosition()]).getRent(this) - playerController.getCurrentPlayer().getBalance(), playerController.getCurrentPlayer());
+									}
 								}
 							}
 						}
@@ -114,6 +119,7 @@ public class GameController {
 				array = options.toArray(array);
 				boolean boughtHouse = false;
 				while(stillDoingThings){
+					guiController.updateAllPlayersBalance(playerController.getPlayerList());
 					String option = guiController.askDropDownQuestion("What would you like to do?", array);
 					switch(option){
 						case "Trade":

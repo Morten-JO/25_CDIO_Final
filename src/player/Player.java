@@ -6,6 +6,7 @@ public class Player {
 	private Account acc;
 	private int position;
 	private boolean isJailed;
+	private boolean firstRoundCompleted;
 
 	public Player(String name) {
 		this.name = name;
@@ -45,6 +46,14 @@ public class Player {
 
 	public Account getAccount() {
 		return acc;
+	}
+	
+	public boolean getFirstRoundCompleted(){
+		return firstRoundCompleted;
+	}
+	
+	public void setFirstRoundCompleted(boolean newBool){
+		firstRoundCompleted = newBool;
 	}
 
 }

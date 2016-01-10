@@ -51,6 +51,7 @@ public class Brewery extends Ownable {
 		return result;
 	}
 
+	@Override
 	public int getRent(GameController gameController){
 		int rent = 0;
 		int breweries = gameController.getFieldController().getOwnerShipOfBreweries(gameController.getPlayerController().getCurrentPlayer());
