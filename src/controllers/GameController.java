@@ -153,7 +153,7 @@ public class GameController {
 			hittedOut = true;
 		}
 		while(!hittedOut){
-			guiController.showMessage("You have "+(3-1)+" more tries to get out of jail!");
+			guiController.showMessage("You have "+(2)+" more tries to get out of jail!");
 			guiController.showMessage("Roll the dice");
 			cup.rollDices();
 			guiController.updateDices(cup.getSumOfDice(0), cup.getSumOfDice(1));
@@ -182,8 +182,6 @@ public class GameController {
 				GUI.showMessage("You are out of jail!");
 			}
 		}
-		handleTurnChange();
-
 	}
 
 	private void handleWinningConditions(){
