@@ -1,6 +1,7 @@
 package controllers;
 
 import java.awt.Point;
+import java.util.ArrayList;
 
 import field.*;
 import player.Player;
@@ -88,6 +89,20 @@ public class FieldController {
 		return point;
 	}
 	
+	public Field[] getAllOwnedProperties(Player player){
+		ArrayList<Field> listOfProperties = new ArrayList<Field>();
+		for(int i = 0; i < gameFields.length; i++){
+			if(gameFields[i] instanceof Ownable){
+				if(((Ownable)gameFields[i]).getOwner().equals(player)){
+					listOfProperties.add(gameFields[i]);
+				}
+			}
+		}
+		Field[] array = new Field[listOfProperties.size()];
+		array = listOfProperties.toArray(array);
+		return array;
+	}
+	
 	
 	public int getOwnerShipOfFleets(Player p) {
 		int count = 0;
@@ -145,6 +160,65 @@ public class FieldController {
 			}
 		}
 		return amount;
+	}
+	
+	public boolean ownsEntireStreet(Player player){
+		boolean ownsEntireStreet = false;
+		int[] streetIndexes = new int[8];
+		for(int i = 0; i < gameFields.length; i++){
+			if(gameFields[i] instanceof Ownable){
+				streetIndexes[((Street)gameFields[i]).getStreetCategory()]++;
+			}
+		}
+		int[] ownedIndexes = new int[8];
+		for(int i = 0; i < gameFields.length; i++){
+			if(gameFields[i] instanceof Ownable){
+				if(((Street)gameFields[i]).getOwner() == player){
+					ownedIndexes[((Street)gameFields[i]).getStreetCategory()]++;
+				}
+			}
+		}
+		for(int i = 0; i < ownedIndexes.length; i++){
+			if(streetIndexes[i] == ownedIndexes[i]){
+				ownsEntireStreet = true;
+				break;
+			}
+		}
+		return ownsEntireStreet;
+	}
+	
+	public Field[] getOwnedFullStreets(Player player, GameController gameController){
+		int[] streetIndexes = new int[8];
+		for(int i = 0; i < gameFields.length; i++){
+			if(gameFields[i] instanceof Ownable){
+				streetIndexes[((Street)gameFields[i]).getStreetCategory()]++;
+			}
+		}
+		int[] ownedIndexes = new int[8];
+		for(int i = 0; i < gameFields.length; i++){
+			if(gameFields[i] instanceof Ownable){
+				if(((Street)gameFields[i]).getOwner() == player){
+					ownedIndexes[((Street)gameFields[i]).getStreetCategory()]++;
+				}
+			}
+		}
+		ArrayList<Field> listOfBuildings = new ArrayList<Field>();
+		for(int i = 0; i < gameFields.length; i++){
+			if(gameFields[i] instanceof Ownable){
+				if(ownedIndexes[((Street)gameFields[i]).getStreetCategory()] == streetIndexes[((Street)gameFields[i]).getStreetCategory()]){
+					listOfBuildings.add(gameFields[i]);
+				}
+			}
+		}
+		for(int i = 0; i < listOfBuildings.size(); i++){
+			if(((Street)listOfBuildings.get(i)).getamountOfHouses() <= ((Street)listOfBuildings.get(i)).getHousesInSection(((Street)listOfBuildings.get(i)).getStreetCategory(), gameController)/((Street)listOfBuildings.get(i)).getAmountOfStreetsInCategory(((Street)listOfBuildings.get(i)).getStreetCategory(),  gameController)){
+				listOfBuildings.remove(i);
+				i--;
+			}
+		}
+		Field[] fields = new Field[listOfBuildings.size()];
+		fields = listOfBuildings.toArray(fields);
+		return fields;
 	}
 }
 

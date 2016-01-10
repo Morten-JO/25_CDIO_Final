@@ -335,4 +335,5 @@ public class GUIController {
 		GUI.removeAllCars(player.getName());
 		GUI.setCar(player.getPosition()+1, player.getName());
 	}
+	
 }

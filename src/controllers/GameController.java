@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import field.Field;
 import field.Jail;
+import field.Street;
 import player.Player;
 import desktop_resources.GUI;
 import dices.Cup;
@@ -29,14 +30,6 @@ public class GameController {
 	}
 	
 	public void startGame(){
-		//what is this
-		/*for(int i = 0; i<fieldController.getFields().length;i++){
-			fieldController.getFields()[i].landOn(this);
-			int bal = playerController.getCurrentPlayer().getBalance();
-			System.out.println("current balance("+i+"): " + bal);
-		}
-		*/
-		
 		while(!gameOver){
 			//temp
 			boolean playerRemoved = false;
@@ -76,7 +69,7 @@ public class GameController {
 						guiController.showMessage("You get 4000 for coming over start!");
 					}
 					guiController.updateAllPlayersBalance(playerController.getPlayerList());
-					guiController.showMessage(fieldController.getFields()[playerController.getCurrentPlayer().getPosition()].getName());
+					guiController.showMessage(fieldController.getFields()[playerController.getCurrentPlayer().getPosition()].getDescriptionText());
 					if(!fieldController.getFields()[playerController.getCurrentPlayer().getPosition()].landOn(this)){
 						if(fieldController.getPropertyValue(playerController.getCurrentPlayer()) > 0){
 							handlePawnPlayer();
@@ -92,6 +85,56 @@ public class GameController {
 					
 				}
 			}
+			
+			ArrayList<String> options = new ArrayList<String>();
+			if(fieldController.getPropertyValue(playerController.getCurrentPlayer()) > 0){
+				options.add("Trade");
+				options.add("Pawn");
+			}
+			if(fieldController.ownsEntireStreet(playerController.getCurrentPlayer())){
+				options.add("Build house");
+			}
+			options.add("End turn");
+			boolean stillDoingThings = true;
+			String[] array = new String[options.size()];
+			array = options.toArray(array);
+			boolean boughtHouse = false;
+			while(stillDoingThings){
+				String option = guiController.askDropDownQuestion("What would you like to do?", array);
+				switch(option){
+					case "Trade":
+					
+						break;
+					case "Pawn":
+						
+						break;
+					case "Build house":
+						Field[] fields = fieldController.getOwnedFullStreets(playerController.getCurrentPlayer(), this);
+						String[] strings = new String[fields.length];
+						for(int i = 0; i < fields.length; i++){
+							strings[i] = fields[i].getName();
+						}
+						String answer = guiController.askDropDownQuestion("Which would you like to buy a house on?", strings);
+						for(int i = 0; i < strings.length; i++){
+							if(answer.equals(strings[i])){
+								if(guiController.askYesNoQuestion("Would you like to buy a house on "+fields[i].getName()+" for "+((Street)fields[i]).getPrice())){
+									((Street)fieldController.getFields()[fields[i].getNumber()]).buyBuilding(this);
+									guiController.updateHouses(fieldController.getFields());
+									boughtHouse = true;
+									break;
+								}
+								else{
+									break; 
+								}
+							}
+						}
+						break;
+					case "End turn":
+						stillDoingThings = false;
+						break;
+				}
+			}
+			
 			if(!playerRemoved){
 				System.out.println("handled turn1");
 				handleTurnChange();
@@ -126,7 +169,7 @@ public class GameController {
 	
 	private void handlePawnPlayer(){
 		guiController.showMessage("You couldnt pay and have to pawn");
-		guiController.showMessage("pawning isnt created yet, TEMP!");
+		guiController.showMessage("pawing isnt created yet, TEMP!");
 		
 	}
 	
