@@ -87,14 +87,24 @@ public class GameController {
 			}
 			
 			ArrayList<String> options = new ArrayList<String>();
-			if(fieldController.getPropertyValueNotPawned(playerController.getCurrentPlayer()) > 0){
-				options.add("Trade");
-				options.add("Pawn");
+			if(!playerController.getCurrentPlayer().isJailed()){
+				if(fieldController.getPropertyValueNotPawned(playerController.getCurrentPlayer()) > 0){
+					options.add("Trade");
+					options.add("Pawn");
+				}
+				if(fieldController.ownsEntireStreet(playerController.getCurrentPlayer())){
+					options.add("Build house");
+				}
+				if(cup.isSameHit()){
+					options.add("Roll Dice Again");
+				}
+				else{
+					options.add("End turn");
+				}
 			}
-			if(fieldController.ownsEntireStreet(playerController.getCurrentPlayer())){
-				options.add("Build house");
+			else{
+				options.add("End turn");
 			}
-			options.add("End turn");
 			boolean stillDoingThings = true;
 			String[] array = new String[options.size()];
 			array = options.toArray(array);
@@ -200,17 +210,28 @@ public class GameController {
 					case "End turn":
 						stillDoingThings = false;
 						break;
+					case "Roll Dice Again":
+						stillDoingThings = false;
 				}
 				options = new ArrayList<String>();
-				if(fieldController.getPropertyValueNotPawned(playerController.getCurrentPlayer()) > 0){
-					System.out.println(fieldController.getPropertyValue(playerController.getCurrentPlayer()));
-					options.add("Trade");
-					options.add("Pawn");
+				if(!playerController.getCurrentPlayer().isJailed()){
+					if(fieldController.getPropertyValueNotPawned(playerController.getCurrentPlayer()) > 0){
+						options.add("Trade");
+						options.add("Pawn");
+					}
+					if(fieldController.ownsEntireStreet(playerController.getCurrentPlayer())){
+						options.add("Build house");
+					}
+					if(cup.isSameHit()){
+						options.add("Roll Dice Again");
+					}
+					else{
+						options.add("End turn");
+					}
 				}
-				if(fieldController.ownsEntireStreet(playerController.getCurrentPlayer())){
-					options.add("Build house");
+				else{
+					options.add("End turn");
 				}
-				options.add("End turn");
 				guiController.updateAllPlayersBalance(playerController.getPlayerList());
 				array = new String[options.size()];
 				array = options.toArray(array);
@@ -248,13 +269,13 @@ public class GameController {
 		}
 	}
 	
-	public void handleRemovePlayer(int playerId){
+	public void handleRemovePlayer(Player player){
 		guiController.showMessage("You couldnt pay and are now out of the game!");
 		guiController.removePlayer(playerController.getCurrentPlayer(), fieldController.getFields());
-		if(turn > playerId){
+		if(turn > playerController.getPlayerList().indexOf(player)){
 			turn--;
 		}
-		playerController.getPlayerList().remove(playerId);
+		playerController.getPlayerList().remove(player);
 
 	}
 	
