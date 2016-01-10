@@ -57,4 +57,14 @@ public class Fleet extends Ownable {
 		}
 		return result;
 	}
+	
+	@Override
+	public int getRent(GameController gameController){
+		int rent = 0;
+		int fleets = gameController.getFieldController().getOwnerShipOfFleets(gameController.getPlayerController().getCurrentPlayer());
+		rent = this.rents[fleets-1];
+		
+		return rent;
+		
+	}
 }
