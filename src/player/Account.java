@@ -16,7 +16,7 @@ public class Account {
 	public boolean adjustBalance(int d){
 		int newBalance = balance + d;
 		if(newBalance<0){
-			//do stuff to handle not able to pay
+			balance = newBalance;
 			return false;
 		}
 		else{
