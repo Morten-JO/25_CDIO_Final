@@ -9,6 +9,7 @@ import player.Player;
 import dices.Cup;
 
 
+
 public class GameController {
 	
 	private int turn = 0;
@@ -19,6 +20,7 @@ public class GameController {
 	private Cup cup; 
 	private boolean gameOver;
 	private int countDicesTheSame = 0;
+	private String morten = "Morten er nice";
 	
 	public GameController(){
 		fieldController = new FieldController();

@@ -16,7 +16,7 @@ public class FieldController {
 	}
 	
 	private void addFields(){
-		gameFields[0] = new Start("Start", "Passer og modtag kr. 4000", "", 0);
+		gameFields[0] = new Start("Start", "Passér og modtag kr. 4000", "", 0);
 		gameFields[1] = new Street("Rødovrevej", "blue", "koster 1200", 1, 1200, 600, new int[] {50, 100, 250, 750, 2250, 4000, 6000},1000, 0);
 		gameFields[2] = new Chance("Prøv Lykken", "Træk et kort", "", 2);
 		gameFields[3] = new Street("Hvidovrevej", "blue", "koster 1200", 3, 1200, 600, new int[] {50, 100, 250, 750, 2250, 4000, 6000},1000, 0);
