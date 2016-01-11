@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import player.Player;
 import desktop_codebehind.Car;
-import desktop_fields.Tax;
 import desktop_resources.GUI;
 import field.*;
 
@@ -26,12 +25,9 @@ import field.*;
 
 public class GUIController {	
 	
-	private GameController game;
-	
 	public GUIController(GameController game){
-		this.game = game;
 		GUI.create(createList(game.getFieldController().getFields()));
-		GUI.showMessage("Welcome to matador!");
+		GUI.showMessage("Velkommen til manador to matador!");
 		ArrayList<String> addPlayers = choosePlayers();
 		String[] names = new String[addPlayers.size()];
 		names = addPlayers.toArray(names);
@@ -47,7 +43,7 @@ public class GUIController {
 		ArrayList<String> players = new ArrayList<String>();
 		boolean stillAdding = true;
 		while(stillAdding){
-			String input = GUI.getUserString("Add Player #"+(players.size()+1)+" name.");
+			String input = GUI.getUserString("Tilføj spiller #"+(players.size()+1)+"'s navn.");
 			if(!input.equals("")){
 				boolean isSame = false;
 				if(players.size() > 0){
@@ -59,19 +55,19 @@ public class GUIController {
 				}
 				System.out.println("isSame: "+isSame);
 				if(isSame){
-					GUI.showMessage("Type a unique name");
+					GUI.showMessage("Indtast et unikt navn!");
 				}
 				else{
 					players.add(input);
-					boolean carQuestion = this.askYesNoQuestion("Would you like to personalize your car?");
+					boolean carQuestion = this.askYesNoQuestion("Vil du gøre din bil personlig?");
 					if(carQuestion){
-						String[] carChoices = {"Standard", "Racecar", "Tractor", "Ufo"};
-						String[] colorChoices = {"Black", "Red", "Yellow", "Green", "Orange", "Blue"};
-						String[] patternChoices = {"Checkered", "Diagonal Dual Color", "Dotted", "Fill", "Horizontal Dual Color", "Gradient", "Line", "Zebra"};
-						String carChoice = GUI.getUserSelection("Choose car type:", carChoices);
-						String color = GUI.getUserSelection("Choose Primary car color:", colorChoices);
-						String secondaryColor = GUI.getUserSelection("Choose Secondary car color:", colorChoices);
-						String patternType = GUI.getUserSelection("Choose car pattern:", patternChoices);
+						String[] carChoices = {"Normal", "Racerbil", "Traktor", "Ufo"};
+						String[] colorChoices = {"Sort", "Rød", "Gul", "Grøm", "Orange", "Blå"};
+						String[] patternChoices = {"Ternet", "Diagonal tve farvet", "Prikket", "Fyldt", "Horizontal tve farvet", "Overgang", "Linjet", "Zebra"};
+						String carChoice = GUI.getUserSelection("Vælg bil type:", carChoices);
+						String color = GUI.getUserSelection("Vælg primær bil farve:", colorChoices);
+						String secondaryColor = GUI.getUserSelection("Vælg sekundær bil farve:", colorChoices);
+						String patternType = GUI.getUserSelection("Vælg bil mønster:", patternChoices);
 						Color[] carColor = {Color.BLACK, Color.RED, Color.YELLOW, Color.GREEN, Color.ORANGE, Color.BLUE};
 						
 						Car.Builder car = null;
@@ -139,14 +135,14 @@ public class GUIController {
 						Car buildedCar = car.build();
 
 						GUI.addPlayer(input, 30000, buildedCar);
-						GUI.showMessage(input+" added!");
+						GUI.showMessage(input+" tilføjet!");
 					}
 					else{
 						GUI.addPlayer(input, 30000);
-						GUI.showMessage(input+" added!");
+						GUI.showMessage(input+" tilføjet!");
 					}
 					if(players.size() >= 3){
-						boolean answer = this.askYesNoQuestion("Would you like to add another player?");
+						boolean answer = this.askYesNoQuestion("Vil du tilføje en spiller mere?");
 						if(!answer){
 							stillAdding = false;
 						}
@@ -154,7 +150,7 @@ public class GUIController {
 				}
 			}
 			else{
-				GUI.showMessage("You must type a valid name!");
+				GUI.showMessage("Skriv et valideret navn!");
 			}
 		}
 		return players;
@@ -220,7 +216,6 @@ public class GUIController {
 				list[i] = new desktop_fields.Brewery.Builder().setBgColor(color).build();
 			}
 			else{
-				System.out.println("A bug occured, shutting down program");
 				try {
 					throw new Exception("A Field was not identified");
 				} catch (Exception e) {
@@ -241,7 +236,7 @@ public class GUIController {
 	
 	//Asks a yes/no question
 	public Boolean askYesNoQuestion(String message){
-		return GUI.getUserLeftButtonPressed(message, "Yes", "No");
+		return GUI.getUserLeftButtonPressed(message, "Ja", "Nej");
 	}
 	
 	//updates all the players positions on the board

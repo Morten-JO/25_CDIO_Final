@@ -3,7 +3,6 @@ package controllers;
 import java.util.ArrayList;
 
 import field.Field;
-import field.Jail;
 import field.Street;
 import field.Ownable;
 import player.Player;
@@ -31,20 +30,17 @@ public class GameController {
 	
 	public void startGame(){
 		while(!gameOver){
-			//temp
 			boolean playerRemoved = false;
-			//temp
-			System.out.println("turn is: "+turn);
 			if(countDicesTheSame >= 3){
 				playerController.getCurrentPlayer().setJailed(true);
 				playerController.getCurrentPlayer().setPosition(10); // dunno where jail is TEMP
 				guiController.updatePlayerPositions(playerController.getPlayerList());
-				guiController.showMessage("You were jailed for hitting 2x same kind 3 rounds in a row");
+				guiController.showMessage("Du er blevet fængslet for at slå 3x 2 ens i træk");
 				countDicesTheSame = 0;
 			}
 			else{
 				playerController.setCurrentPlayer(turn);
-				guiController.showMessage(playerController.getCurrentPlayer().getName()+"'s turn to roll dices!");
+				guiController.showMessage(playerController.getCurrentPlayer().getName()+"'s tur til at slå!");
 				cup.rollDices();
 				guiController.updateDices(cup.getSumOfDice(0), cup.getSumOfDice(1));
 				if(playerController.getCurrentPlayer().isJailed()){
@@ -67,7 +63,7 @@ public class GameController {
 					if(playerController.getCurrentPlayer().getFirstRoundCompleted()){
 						if(startBonus){
 							playerController.getCurrentPlayer().adjustBalance(4000);
-							guiController.showMessage("You get 4000 for coming over start!");
+							guiController.showMessage("Du får 4000 for at komme over start!");
 						}
 					}
 					playerController.getCurrentPlayer().setFirstRoundCompleted(true);
@@ -100,21 +96,21 @@ public class GameController {
 				ArrayList<String> options = new ArrayList<String>();
 				if(!playerController.getCurrentPlayer().isJailed()){
 					if(cup.isSameHit()){
-						options.add("Roll Dice Again");
+						options.add("Kast terning igen");
 					}
 					else{
-						options.add("End turn");
+						options.add("Slut turen");
 					}
 					if(fieldController.getPropertyValueNotPawned(playerController.getCurrentPlayer()) > 0){
-						options.add("Trade");
-						options.add("Pawn");
+						options.add("Byt");
+						options.add("Pantsæt");
 					}
 					if(fieldController.ownsEntireStreet(playerController.getCurrentPlayer())){
-						options.add("Build house");
+						options.add("Byg hus");
 					}
 				}
 				else{
-					options.add("End turn");
+					options.add("Slut turen");
 				}
 				boolean stillDoingThings = true;
 				String[] array = new String[options.size()];
@@ -122,7 +118,7 @@ public class GameController {
 				boolean boughtHouse = false;
 				while(stillDoingThings){
 					guiController.updateAllPlayersBalance(playerController.getPlayerList());
-					String option = guiController.askDropDownQuestion("What would you like to do?", array);
+					String option = guiController.askDropDownQuestion("Hvad vil du gøre?", array);
 					switch(option){
 						case "Trade":
 							Field[] arrayOfTradeFields = fieldController.getAllOwnedProperties(playerController.getCurrentPlayer());
@@ -130,7 +126,7 @@ public class GameController {
 							for(int i = 0; i < fieldsTrade.length; i++){
 								fieldsTrade[i] = arrayOfTradeFields[i].getName();
 							}
-							String chosenInput = guiController.askDropDownQuestion("Which property would you like to trade?", fieldsTrade);
+							String chosenInput = guiController.askDropDownQuestion("Hvilken grund vil du bytte?", fieldsTrade);
 							Field chosenField = null;
 							for(int i = 0; i < fieldsTrade.length; i++){
 								if(chosenInput.equals(arrayOfTradeFields[i].getName())){
@@ -139,8 +135,8 @@ public class GameController {
 								}
 							}
 							if(chosenField != null){
-								if(guiController.askYesNoQuestion("Are you sure you want to trade "+chosenInput+"?")){
-									int amount = guiController.getUserIntegerInput("How much do you want for "+chosenInput+"?");
+								if(guiController.askYesNoQuestion("Er du sikker på at du vil bytte "+chosenInput+"?")){
+									int amount = guiController.getUserIntegerInput("Hvor meget vil du have for "+chosenInput+"?");
 									ArrayList<Player> modifiedPlayers = new ArrayList<Player>();
 									for(int i = 0; i < playerController.getPlayerList().size(); i++){
 										modifiedPlayers.add(playerController.getPlayerList().get(i));
@@ -152,11 +148,11 @@ public class GameController {
 									for(int i = 0; i < playerNames.length; i++){
 										playerNames[i] = players[i].getName();
 									}
-									String playerChoice = guiController.askDropDownQuestion("What player would you like to trade to?", playerNames);
+									String playerChoice = guiController.askDropDownQuestion("Hvad spiller vil du bytte med?", playerNames);
 									for(int i = 0; i < playerNames.length; i++){
 										if(playerChoice.equals(playerNames[i])){
 											if(players[i].getBalance() >= amount){
-												if(guiController.askYesNoQuestion("Do you, "+playerNames[i]+" want to buy "+chosenField.getName()+" for "+amount+"?")){
+												if(guiController.askYesNoQuestion("Vil du, "+playerNames[i]+" købe "+chosenField.getName()+" for "+amount+"?")){
 													if(chosenField instanceof Street){
 														if((((Street)chosenField).getamountOfHotels() + ((Street)chosenField).getamountOfHouses()) > 0){
 															((Street)chosenField).sellBuilding(this);
@@ -165,10 +161,10 @@ public class GameController {
 													playerController.getCurrentPlayer().adjustBalance(amount);
 													((Ownable)chosenField).setOwner(players[i]);
 													players[i].adjustBalance(-amount);
-													guiController.showMessage(players[i].getName()+" bought property "+chosenField.getName()+" for "+amount+".");
+													guiController.showMessage(players[i].getName()+" købte grund "+chosenField.getName()+" for "+amount+".");
 												}
 												else{
-													guiController.showMessage("Player "+playerNames[i]+" didnt want to buy that property!");
+													guiController.showMessage("Spiller "+playerNames[i]+" ville ikke købe "+chosenField.getName()+"!");
 												}
 											}
 											break;
@@ -179,14 +175,14 @@ public class GameController {
 							}
 							break;
 						case "Pawn":
-							if(guiController.askYesNoQuestion("Would you like to pawn?")){
+							if(guiController.askYesNoQuestion("Vil you gerne pantsætte?")){
 								Field[] arrayOfOwnedFields = fieldController.getAllOwnedProperties(playerController.getCurrentPlayer());
 								String[] fieldNames = new String[arrayOfOwnedFields.length];
 								for(int i = 0; i < fieldNames.length; i++){
 									fieldNames[i] = arrayOfOwnedFields[i].getName();
 								}
-								String choice = guiController.askDropDownQuestion("Which would you like to pawn?", fieldNames);
-								if(guiController.askYesNoQuestion("Are you sure you want to pawn "+choice+"?")){
+								String choice = guiController.askDropDownQuestion("Hvad grund vil du pantsætte?", fieldNames);
+								if(guiController.askYesNoQuestion("Er du sikker på at du vil pantsætte "+choice+"?")){
 									for(int i = 0; i < fieldNames.length; i++){
 										if(fieldNames[i].equals(arrayOfOwnedFields[i].getName())){
 											((Ownable)(arrayOfOwnedFields[i])).pawnProperty(playerController.getCurrentPlayer());
@@ -200,7 +196,7 @@ public class GameController {
 							break;
 						case "Build house":
 							if(boughtHouse){
-								guiController.showMessage("You have already bought a house this round.");
+								guiController.showMessage("Du har allerede købt et hus i denne runde.");
 							}
 							else{
 								Field[] fields = fieldController.getOwnedFullStreets(playerController.getCurrentPlayer(), this);
@@ -208,10 +204,10 @@ public class GameController {
 								for(int i = 0; i < fields.length; i++){
 									strings[i] = fields[i].getName();
 								}
-								String answer = guiController.askDropDownQuestion("Which would you like to buy a house on?", strings);
+								String answer = guiController.askDropDownQuestion("Hvilken grund vil du købe hus på?", strings);
 								for(int i = 0; i < strings.length; i++){
 									if(answer.equals(strings[i])){
-										if(guiController.askYesNoQuestion("Would you like to buy a house on "+fields[i].getName()+" for "+((Street)fields[i]).getPrice())){
+										if(guiController.askYesNoQuestion("Er du sikker du vil købe et hus på "+fields[i].getName()+" for "+((Street)fields[i]).getPrice())){
 											((Street)fieldController.getFields()[fields[i].getNumber()]).buyBuilding(this);
 											guiController.updateHouses(fieldController.getFields());
 											boughtHouse = true;
@@ -234,21 +230,21 @@ public class GameController {
 					options = new ArrayList<String>();
 					if(!playerController.getCurrentPlayer().isJailed()){
 						if(cup.isSameHit()){
-							options.add("Roll Dice Again");
+							options.add("Kast terninger igen");
 						}
 						else{
-							options.add("End turn");
+							options.add("Slut turen");
 						}
 						if(fieldController.getPropertyValueNotPawned(playerController.getCurrentPlayer()) > 0){
-							options.add("Trade");
-							options.add("Pawn");
+							options.add("Byt");
+							options.add("Pantsæt");
 						}
 						if(fieldController.ownsEntireStreet(playerController.getCurrentPlayer())){
-							options.add("Build house");
+							options.add("Byg hus");
 						}
 					}
 					else{
-						options.add("End turn");
+						options.add("Slut turen");
 					}
 					guiController.updateAllPlayersBalance(playerController.getPlayerList());
 					guiController.updateAllOwnerShip(fieldController.getFields());
@@ -257,7 +253,6 @@ public class GameController {
 				}
 			}
 			if(!playerRemoved){
-				System.out.println("handled turn1");
 				handleTurnChange();
 			}
 			playerRemoved = false;
@@ -280,7 +275,7 @@ public class GameController {
 	}
 
 	private void handleRemovePlayer(){
-		guiController.showMessage("You couldnt pay and are now out of the game!");
+		guiController.showMessage("Du kunne ikke betale og er nu ude af spillet!");
 		guiController.removePlayer(playerController.getCurrentPlayer(), fieldController.getFields());
 		playerController.getPlayerList().remove(playerController.getCurrentPlayer());
 		if(playerController.getPlayerList().size() > 0){
@@ -294,7 +289,7 @@ public class GameController {
 			handlePawnPlayer(-player.getBalance(), player);
 			return;
 		}
-		guiController.showMessage("You couldnt pay and are now out of the game!");
+		guiController.showMessage("Du kunne ikke betale og er nu ude af spillet!");
 		guiController.removePlayer(playerController.getCurrentPlayer(), fieldController.getFields());
 		if(turn > playerController.getPlayerList().indexOf(player)){
 			turn--;
@@ -311,10 +306,10 @@ public class GameController {
 			for(int i = 0; i < fields.length; i++){
 				fieldNames[i] = fields[i].getName();
 			}
-			String choice = guiController.askDropDownQuestion(player.getName()+", what do you want to pawn?", fieldNames);
+			String choice = guiController.askDropDownQuestion(player.getName()+", hvad vil du gerne pantsætte?", fieldNames);
 			for(int i = 0; i < fields.length; i++){
 				if(choice == fieldNames[i]){
-					if(guiController.askYesNoQuestion("Are you sure you want to pawn "+fieldNames[i]+"?")){
+					if(guiController.askYesNoQuestion("Er du sikker på at du vil pantsætte "+fieldNames[i]+"?")){
 						((Ownable)fields[i]).pawnProperty(player);
 					}
 				}
@@ -326,14 +321,10 @@ public class GameController {
 	}
 	
 	private void handleTurnChange(){
-		if(cup.isSameHit()){
-			System.out.println("was same hit!");
-		}
+		if(cup.isSameHit()){}
 		else{
-			System.out.println("wasnt same hit, switching turns");
 			turn++;
 			if(turn >= playerController.getPlayerList().size()){
-				System.out.println("setting turn to 0");
 				turn = 0;
 			}
 			countDicesTheSame = 0;
@@ -348,14 +339,14 @@ public class GameController {
 			hittedOut = true;
 		}
 		while(!hittedOut){
-			guiController.showMessage("You have "+(2)+" more tries to get out of jail!");
-			guiController.showMessage("Roll the dice");
+			guiController.showMessage("Du har "+(2)+" mere forsøg til at komme ud af fængsel!");
+			guiController.showMessage("Kast terningen");
 			cup.rollDices();
 			guiController.updateDices(cup.getSumOfDice(0), cup.getSumOfDice(1));
 			if(cup.isSameHit()){
 				playerController.getCurrentPlayer().setJailed(false);
 				hittedOut = true;
-				guiController.showMessage("You are out of jail!");
+				guiController.showMessage("Du er kommet ud af fængsel!");
 			}
 			else{
 				hits++;
@@ -366,7 +357,7 @@ public class GameController {
 		}
 		if(playerController.getCurrentPlayer().isJailed()){
 			if(playerController.getCurrentPlayer().getBalance() >= 1000){
-				boolean askQuestion = guiController.askYesNoQuestion("Would you like to pay to get out of jail for 1000?");
+				boolean askQuestion = guiController.askYesNoQuestion("Har du lyst til at betale 1000 for at komme ud af fængsel?");
 				if(askQuestion){
 					playerController.getCurrentPlayer().adjustBalance(-1000);
 					playerController.getCurrentPlayer().setJailed(false);
@@ -374,7 +365,7 @@ public class GameController {
 				}
 			}
 			else{
-				guiController.showMessage("You are out of jail!");
+				guiController.showMessage("Du er ude af fængsel!");
 			}
 		}
 	}
@@ -382,7 +373,7 @@ public class GameController {
 	private void handleWinningConditions(){
 		if(playerController.getPlayerList().size() == 1){
 			gameOver = true;
-			guiController.showMessage(playerController.getPlayerList().get(0)+" have won the game, congratulations!");
+			guiController.showMessage(playerController.getPlayerList().get(0)+" har vundet spillet, tilykke!");
 		}
 	}
 
