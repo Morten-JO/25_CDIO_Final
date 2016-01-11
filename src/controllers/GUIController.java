@@ -266,7 +266,7 @@ public class GUIController {
 			if(arrayOfFields[i] instanceof field.Ownable){
 				if(((Ownable)arrayOfFields[i]).getOwner() != null){
 					if(((Ownable)arrayOfFields[i]).getOwner().equals(player)){
-						GUI.removeOwner(i);
+						GUI.removeOwner(i+1);
 					}
 				}
 			}
@@ -278,7 +278,7 @@ public class GUIController {
 		for(int i = 0; i < arrayOfFields.length; i++){
 			if(arrayOfFields[i] instanceof field.Ownable){
 				if(((Ownable)arrayOfFields[i]).getOwner() != null){
-					GUI.setOwner(i, ((Ownable)arrayOfFields[i]).getOwner().getName());
+					GUI.setOwner(i+1, ((Ownable)arrayOfFields[i]).getOwner().getName());
 				}
 			}
 		}
@@ -294,10 +294,10 @@ public class GUIController {
 		for(int i = 0; i < arrayOfFields.length; i++){
 			if(arrayOfFields[i] instanceof field.Street){
 				if(((Street)arrayOfFields[i]).getAmountOfHouses() <= 4){
-					GUI.setHouses(i, ((Street)arrayOfFields[i]).getAmountOfHouses());
+					GUI.setHouses(i+1, ((Street)arrayOfFields[i]).getAmountOfHouses());
 				}
 				else{
-					GUI.setHotel(i, true);
+					GUI.setHotel(i+1, true);
 				}
 				
 			}
@@ -318,7 +318,7 @@ public class GUIController {
 	public void removePlayer(Player player, field.Field[] arrayOfFields){
 		GUI.setBalance(player.getName(), 0);
 		this.removeOwnerShipFromPlayer(arrayOfFields, player);
-		GUI.removeCar(player.getPosition(), player.getName());
+		GUI.removeCar(player.getPosition()+1, player.getName());
 	}
 	
 	//update player position on the board
