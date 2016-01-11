@@ -37,7 +37,7 @@ public class GameController {
 			System.out.println("turn is: "+turn);
 			if(countDicesTheSame >= 3){
 				playerController.getCurrentPlayer().setJailed(true);
-				playerController.getCurrentPlayer().setPosition(20); // dunno where jail is TEMP
+				playerController.getCurrentPlayer().setPosition(10); // dunno where jail is TEMP
 				guiController.updatePlayerPositions(playerController.getPlayerList());
 				guiController.showMessage("You were jailed for hitting 2x same kind 3 rounds in a row");
 				countDicesTheSame = 0;
@@ -99,18 +99,18 @@ public class GameController {
 			if(!playerRemoved){
 				ArrayList<String> options = new ArrayList<String>();
 				if(!playerController.getCurrentPlayer().isJailed()){
+					if(cup.isSameHit()){
+						options.add("Roll Dice Again");
+					}
+					else{
+						options.add("End turn");
+					}
 					if(fieldController.getPropertyValueNotPawned(playerController.getCurrentPlayer()) > 0){
 						options.add("Trade");
 						options.add("Pawn");
 					}
 					if(fieldController.ownsEntireStreet(playerController.getCurrentPlayer())){
 						options.add("Build house");
-					}
-					if(cup.isSameHit()){
-						options.add("Roll Dice Again");
-					}
-					else{
-						options.add("End turn");
 					}
 				}
 				else{
@@ -233,6 +233,12 @@ public class GameController {
 					}
 					options = new ArrayList<String>();
 					if(!playerController.getCurrentPlayer().isJailed()){
+						if(cup.isSameHit()){
+							options.add("Roll Dice Again");
+						}
+						else{
+							options.add("End turn");
+						}
 						if(fieldController.getPropertyValueNotPawned(playerController.getCurrentPlayer()) > 0){
 							options.add("Trade");
 							options.add("Pawn");
@@ -240,17 +246,12 @@ public class GameController {
 						if(fieldController.ownsEntireStreet(playerController.getCurrentPlayer())){
 							options.add("Build house");
 						}
-						if(cup.isSameHit()){
-							options.add("Roll Dice Again");
-						}
-						else{
-							options.add("End turn");
-						}
 					}
 					else{
 						options.add("End turn");
 					}
 					guiController.updateAllPlayersBalance(playerController.getPlayerList());
+					guiController.updateAllOwnerShip(fieldController.getFields());
 					array = new String[options.size()];
 					array = options.toArray(array);
 				}
