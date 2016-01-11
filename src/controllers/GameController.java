@@ -121,113 +121,105 @@ public class GameController {
 				while(stillDoingThings){
 					guiController.updateAllPlayersBalance(playerController.getPlayerList());
 					String option = guiController.askDropDownQuestion("Hvad vil du gøre?", array);
-					switch(option){
-						case "Trade":
-							Field[] arrayOfTradeFields = fieldController.getAllOwnedProperties(playerController.getCurrentPlayer());
-							String[] fieldsTrade = new String[arrayOfTradeFields.length];
-							for(int i = 0; i < fieldsTrade.length; i++){
-								fieldsTrade[i] = arrayOfTradeFields[i].getName();
+					if("Byt".equals(option)){
+						Field[] arrayOfTradeFields = fieldController.getAllOwnedProperties(playerController.getCurrentPlayer());
+						String[] fieldsTrade = new String[arrayOfTradeFields.length];
+						for(int i = 0; i < fieldsTrade.length; i++){
+							fieldsTrade[i] = arrayOfTradeFields[i].getName();
+						}
+						String chosenInput = guiController.askDropDownQuestion("Hvilken grund vil du bytte?", fieldsTrade);
+						Field chosenField = null;
+						for(int i = 0; i < fieldsTrade.length; i++){
+							if(chosenInput.equals(arrayOfTradeFields[i].getName())){
+								chosenField = arrayOfTradeFields[i];
+								break;
 							}
-							String chosenInput = guiController.askDropDownQuestion("Hvilken grund vil du bytte?", fieldsTrade);
-							Field chosenField = null;
-							for(int i = 0; i < fieldsTrade.length; i++){
-								if(chosenInput.equals(arrayOfTradeFields[i].getName())){
-									chosenField = arrayOfTradeFields[i];
-									break;
+						}
+						if(chosenField != null){
+							if(guiController.askYesNoQuestion("Er du sikker på at du vil bytte "+chosenInput+"?")){
+								int amount = guiController.getUserIntegerInput("Hvor meget vil du have for "+chosenInput+"?");
+								ArrayList<Player> modifiedPlayers = new ArrayList<Player>();
+								for(int i = 0; i < playerController.getPlayerList().size(); i++){
+									modifiedPlayers.add(playerController.getPlayerList().get(i));
 								}
-							}
-							if(chosenField != null){
-								if(guiController.askYesNoQuestion("Er du sikker på at du vil bytte "+chosenInput+"?")){
-									int amount = guiController.getUserIntegerInput("Hvor meget vil du have for "+chosenInput+"?");
-									ArrayList<Player> modifiedPlayers = new ArrayList<Player>();
-									for(int i = 0; i < playerController.getPlayerList().size(); i++){
-										modifiedPlayers.add(playerController.getPlayerList().get(i));
-									}
-									modifiedPlayers.remove(playerController.getCurrentPlayer());
-									Player[] players = new Player[modifiedPlayers.size()];
-									players = modifiedPlayers.toArray(players);
-									String[] playerNames = new String[players.length];
-									for(int i = 0; i < playerNames.length; i++){
-										playerNames[i] = players[i].getName();
-									}
-									String playerChoice = guiController.askDropDownQuestion("Hvad spiller vil du bytte med?", playerNames);
-									for(int i = 0; i < playerNames.length; i++){
-										if(playerChoice.equals(playerNames[i])){
-											if(players[i].getBalance() >= amount){
-												if(guiController.askYesNoQuestion("Vil du, "+playerNames[i]+" købe "+chosenField.getName()+" for "+amount+"?")){
-													if(chosenField instanceof Street){
-														if((((Street)chosenField).getamountOfHotels() + ((Street)chosenField).getamountOfHouses()) > 0){
-															((Street)chosenField).sellBuilding(this);
-														}
+								modifiedPlayers.remove(playerController.getCurrentPlayer());
+								Player[] players = new Player[modifiedPlayers.size()];
+								players = modifiedPlayers.toArray(players);
+								String[] playerNames = new String[players.length];
+								for(int i = 0; i < playerNames.length; i++){
+									playerNames[i] = players[i].getName();
+								}
+								String playerChoice = guiController.askDropDownQuestion("Hvad spiller vil du bytte med?", playerNames);
+								for(int i = 0; i < playerNames.length; i++){
+									if(playerChoice.equals(playerNames[i])){
+										if(players[i].getBalance() >= amount){
+											if(guiController.askYesNoQuestion("Vil du, "+playerNames[i]+" købe "+chosenField.getName()+" for "+amount+"?")){
+												if(chosenField instanceof Street){
+													if((((Street)chosenField).getamountOfHotels() + ((Street)chosenField).getamountOfHouses()) > 0){
+														((Street)chosenField).sellBuilding(this);
 													}
-													playerController.getCurrentPlayer().adjustBalance(amount);
-													((Ownable)chosenField).setOwner(players[i]);
-													players[i].adjustBalance(-amount);
-													guiController.showMessage(players[i].getName()+" købte grund "+chosenField.getName()+" for "+amount+".");
 												}
-												else{
-													guiController.showMessage("Spiller "+playerNames[i]+" ville ikke købe "+chosenField.getName()+"!");
-												}
+												playerController.getCurrentPlayer().adjustBalance(amount);
+												((Ownable)chosenField).setOwner(players[i]);
+												players[i].adjustBalance(-amount);
+												guiController.showMessage(players[i].getName()+" købte grund "+chosenField.getName()+" for "+amount+".");
 											}
-											break;
+											else{
+												guiController.showMessage("Spiller "+playerNames[i]+" ville ikke købe "+chosenField.getName()+"!");
+											}
 										}
-									}
-									
-								}
-							}
-							break;
-						case "Pawn":
-							if(guiController.askYesNoQuestion("Vil you gerne pantsætte?")){
-								Field[] arrayOfOwnedFields = fieldController.getAllOwnedProperties(playerController.getCurrentPlayer());
-								String[] fieldNames = new String[arrayOfOwnedFields.length];
-								for(int i = 0; i < fieldNames.length; i++){
-									fieldNames[i] = arrayOfOwnedFields[i].getName();
-								}
-								String choice = guiController.askDropDownQuestion("Hvad grund vil du pantsætte?", fieldNames);
-								if(guiController.askYesNoQuestion("Er du sikker på at du vil pantsætte "+choice+"?")){
-									for(int i = 0; i < fieldNames.length; i++){
-										if(fieldNames[i].equals(arrayOfOwnedFields[i].getName())){
-											((Ownable)(arrayOfOwnedFields[i])).pawnProperty(playerController.getCurrentPlayer());
-										}
+										break;
 									}
 								}
-							}
-							else{
 								
 							}
-							break;
-						case "Build house":
-							if(boughtHouse){
-								guiController.showMessage("Du har allerede købt et hus i denne runde.");
+						}
+					}
+					else if("Pantsæt".equals(option)){
+						if(guiController.askYesNoQuestion("Vil you gerne pantsætte?")){
+							Field[] arrayOfOwnedFields = fieldController.getAllOwnedProperties(playerController.getCurrentPlayer());
+							String[] fieldNames = new String[arrayOfOwnedFields.length];
+							for(int i = 0; i < fieldNames.length; i++){
+								fieldNames[i] = arrayOfOwnedFields[i].getName();
 							}
-							else{
-								Field[] fields = fieldController.getOwnedFullStreets(playerController.getCurrentPlayer(), this);
-								String[] strings = new String[fields.length];
-								for(int i = 0; i < fields.length; i++){
-									strings[i] = fields[i].getName();
-								}
-								String answer = guiController.askDropDownQuestion("Hvilken grund vil du købe hus på?", strings);
-								for(int i = 0; i < strings.length; i++){
-									if(answer.equals(strings[i])){
-										if(guiController.askYesNoQuestion("Er du sikker du vil købe et hus på "+fields[i].getName()+" for "+((Street)fields[i]).getPrice())){
-											((Street)fieldController.getFields()[fields[i].getNumber()]).buyBuilding(this);
-											guiController.updateHouses(fieldController.getFields());
-											boughtHouse = true;
-											break;
-										}
-										else{
-											break; 
-										}
+							String choice = guiController.askDropDownQuestion("Hvad grund vil du pantsætte?", fieldNames);
+							if(guiController.askYesNoQuestion("Er du sikker på at du vil pantsætte "+choice+"?")){
+								for(int i = 0; i < fieldNames.length; i++){
+									if(fieldNames[i].equals(arrayOfOwnedFields[i].getName())){
+										((Ownable)(arrayOfOwnedFields[i])).pawnProperty(playerController.getCurrentPlayer());
 									}
 								}
 							}
-							break;
-						case "End turn":
-							stillDoingThings = false;
-							break;
-						case "Roll Dice Again":
-							stillDoingThings = false;
-							break;
+						}
+					}
+					else if("Byg hus".equals(option)){
+						if(boughtHouse){
+							guiController.showMessage("Du har allerede købt et hus i denne runde.");
+						}
+						else{
+							Field[] fields = fieldController.getOwnedFullStreets(playerController.getCurrentPlayer(), this);
+							String[] strings = new String[fields.length];
+							for(int i = 0; i < fields.length; i++){
+								strings[i] = fields[i].getName();
+							}
+							String answer = guiController.askDropDownQuestion("Hvilken grund vil du købe hus på?", strings);
+							for(int i = 0; i < strings.length; i++){
+								if(answer.equals(strings[i])){
+									if(guiController.askYesNoQuestion("Er du sikker du vil købe et hus på "+fields[i].getName()+" for "+((Street)fields[i]).getPrice())){
+										((Street)fieldController.getFields()[fields[i].getNumber()]).buyBuilding(this);
+										guiController.updateHouses(fieldController.getFields());
+										boughtHouse = true;
+										break;
+									}
+									else{
+										break; 
+									}
+								}
+							}
+						}
+					}
+					else{
+						stillDoingThings = false;
 					}
 					options = new ArrayList<String>();
 					if(!playerController.getCurrentPlayer().isJailed()){

@@ -27,7 +27,7 @@ public class GUIController {
 	
 	public GUIController(GameController game){
 		GUI.create(createList(game.getFieldController().getFields()));
-		GUI.showMessage("Velkommen til matador!");
+		GUI.showMessage(LanguageController.GUIController_WelcomeToMatador);
 		ArrayList<String> addPlayers = choosePlayers();
 		String[] names = new String[addPlayers.size()];
 		names = addPlayers.toArray(names);
@@ -329,5 +329,17 @@ public class GUIController {
 	
 	public int getUserIntegerInput(String message){
 		return GUI.getUserInteger(message);
+	}
+	
+	public void updateSubText(int id, String message){
+		GUI.setSubText(id, message);
+	}
+	
+	public void updateDescriptionText(int id, String message){
+		GUI.setDescriptionText(id, message);
+	}
+	
+	public void updateTitle(int id, String message){
+		GUI.setTitleText(id, message);
 	}
 }
