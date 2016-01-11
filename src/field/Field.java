@@ -35,7 +35,7 @@ public abstract class Field {
 	}
 	
 	public void setSubtext(String text){
-		this.subText = text;
+		this.subText += text;
 	}
 
 
