@@ -246,5 +246,18 @@ public class FieldController {
 		fields = listOfBuildings.toArray(fields);
 		return fields;
 	}
+	
+	public void removeAllOwnershipOfPlayer(Player player){
+		for(int i = 0; i < gameFields.length; i++){
+			if(gameFields[i] instanceof Ownable){
+				if(((Ownable)gameFields[i]).getOwner() == player){
+					((Ownable)gameFields[i]).setOwner(null);
+					if(gameFields[i] instanceof Street){
+						((Street)gameFields[i]).removeAllOwnerShip();
+					}
+				}
+			}
+		}
+	}
 }
 

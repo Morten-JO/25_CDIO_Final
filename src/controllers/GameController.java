@@ -32,6 +32,7 @@ public class GameController {
 	public void startGame(){
 		while(!gameOver){
 			boolean playerRemoved = false;
+			//if 2x same dices hit 3 turns in a row, JAIL EM
 			if(countDicesTheSame >= 3){
 				playerController.getCurrentPlayer().setJailed(true);
 				playerController.getCurrentPlayer().setPosition(10); // dunno where jail is TEMP
@@ -40,6 +41,7 @@ public class GameController {
 				countDicesTheSame = 0;
 			}
 			else{
+				//change player, and make him hit the dice!
 				playerController.setCurrentPlayer(turn);
 				guiController.showMessage(playerController.getCurrentPlayer().getName()+LanguageController.GameController_TurnsToHit);
 				cup.rollDices();
@@ -48,6 +50,7 @@ public class GameController {
 					handleIfPlayerJailed();
 				}
 				else{
+					//handle change position, and handle giving player 4000 bonus for getting over start
 					boolean startBonus = false;
 					int newPosition = playerController.getCurrentPlayer().getPosition() + cup.getDiceSum();
 					if(newPosition > 39){
@@ -69,6 +72,8 @@ public class GameController {
 					}
 					playerController.getCurrentPlayer().setFirstRoundCompleted(true);
 					guiController.updateAllPlayersBalance(playerController.getPlayerList());
+					//check if player has enough money to pay rent on whats he suppoused to land on(this has to be here and not in field
+					//so its possible to pawn.
 					if(fieldController.getFields()[playerController.getCurrentPlayer().getPosition()] instanceof Ownable){
 						if(((Ownable)fieldController.getFields()[playerController.getCurrentPlayer().getPosition()]).getOwner() != null){
 							if(((Ownable)fieldController.getFields()[playerController.getCurrentPlayer().getPosition()]).getOwner() != playerController.getCurrentPlayer()){
@@ -93,6 +98,7 @@ public class GameController {
 					}
 					
 				}
+			//if player not removed, give player a list of options that can be done
 			if(!playerRemoved){
 				ArrayList<String> options = new ArrayList<String>();
 				if(!playerController.getCurrentPlayer().isJailed()){
@@ -120,6 +126,7 @@ public class GameController {
 				while(stillDoingThings){
 					guiController.updateAllPlayersBalance(playerController.getPlayerList());
 					String option = guiController.askDropDownQuestion(LanguageController.GameController_WhatDoYouWantToDo, array);
+					//if trade option is chosen, get list of your properties, and ask what to trade, and to whom, and how much
 					if(LanguageController.GameController_Trade.equals(option)){
 						Field[] arrayOfTradeFields = fieldController.getAllOwnedProperties(playerController.getCurrentPlayer());
 						String[] fieldsTrade = new String[arrayOfTradeFields.length];
@@ -174,6 +181,7 @@ public class GameController {
 							}
 						}
 					}
+					//if pawn option is chosen, give player a list of property to pawn
 					else if(LanguageController.GameController_Pawn.equals(option)){
 						if(guiController.askYesNoQuestion(LanguageController.GameController_DoYouWantToPawn)){
 							Field[] arrayOfOwnedFields = fieldController.getAllOwnedProperties(playerController.getCurrentPlayer());
@@ -191,6 +199,7 @@ public class GameController {
 							}
 						}
 					}
+					//if buildHouse option is chosen and not already bought a house this round.
 					else if(LanguageController.GameController_BuildHouse.equals(option)){
 						if(boughtHouse){
 							guiController.showMessage(LanguageController.GameController_AlreadyBoughtHouse+".");
@@ -221,6 +230,7 @@ public class GameController {
 						stillDoingThings = false;
 					}
 					options = new ArrayList<String>();
+					//if not jailed, update options
 					if(!playerController.getCurrentPlayer().isJailed()){
 						if(cup.isSameHit()){
 							options.add(LanguageController.GameController_CastDiceAgain);
@@ -239,6 +249,7 @@ public class GameController {
 					else{
 						options.add(LanguageController.GameController_EndTurn);
 					}
+					//update
 					guiController.updateAllPlayersBalance(playerController.getPlayerList());
 					guiController.updateAllOwnerShip(fieldController.getFields());
 					array = new String[options.size()];
@@ -267,6 +278,8 @@ public class GameController {
 		return fieldController;
 	}
 
+	
+	//Removes player from the game
 	private void handleRemovePlayer(){
 		guiController.showMessage(LanguageController.GameController_CouldntPayOutOfGame);
 		guiController.removePlayer(playerController.getCurrentPlayer(), fieldController.getFields());
@@ -276,7 +289,9 @@ public class GameController {
 		}
 	}
 	
-	//ONLY USED FOR CHANCE CARDS
+	
+	//Check if getTotalValue of player(with property) is over how much he is owed(this is only used by chance cards
+	//then make him pawn, and if he cant then he loses
 	public void handleRemovePlayer(Player player){
 		if(playerController.getTotalValueOfPlayer(player, fieldController) > -player.getBalance()){
 			handlePawnPlayer(-player.getBalance(), player);
@@ -291,6 +306,8 @@ public class GameController {
 
 	}
 	
+	//while he doesnt have enough topay, keep pawning
+	//select all his property
 	private void handlePawnPlayer(int toPay, Player player){
 		boolean canPay = false;
 		while(!canPay){
@@ -313,6 +330,7 @@ public class GameController {
 		}
 	}
 	
+	//if not same hit, switch turn
 	private void handleTurnChange(){
 		if(cup.isSameHit()){}
 		else{
@@ -324,6 +342,7 @@ public class GameController {
 		}
 	}
 	
+	//handle gameflow if player is jailed, will check if he hits the same, and if he doesnt, he will get chance to pay 1000 to get out.
 	private void handleIfPlayerJailed(){
 		boolean hittedOut = false;
 		int hits = 1;

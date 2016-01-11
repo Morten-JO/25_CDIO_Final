@@ -24,6 +24,7 @@ public class GUIController {
 	private ArrayList<String> choosePlayers(){
 		ArrayList<String> players = new ArrayList<String>();
 		boolean stillAdding = true;
+		//while still adding players
 		while(stillAdding){
 			String input = GUI.getUserString(LanguageController.GUIController_AddPlayer+(players.size()+1)+LanguageController.GUIController_sName);
 			if(!input.equals("")){
@@ -42,6 +43,7 @@ public class GUIController {
 					players.add(input);
 					boolean carQuestion = this.askYesNoQuestion(LanguageController.GUIController_CarPersonal);
 					if(carQuestion){
+						//get input for what options are availble
 						String[] carChoices = {LanguageController.GUIController_Normal, LanguageController.GUIController_RacerCar, LanguageController.GUIController_Tractor, LanguageController.GUIController_Ufo};
 						String[] colorChoices = {LanguageController.GUIController_Black, LanguageController.GUIController_Red, LanguageController.GUIController_Yellow, LanguageController.GUIController_Green, LanguageController.GUIController_Orange, LanguageController.GUIController_Blue};
 						String[] patternChoices = {LanguageController.GUIController_Checkered, LanguageController.GUIController_DiagonalDualColor, LanguageController.GUIController_Dotted, LanguageController.GUIController_Fill, LanguageController.GUIController_HorizontalDualColor, LanguageController.GUIController_Gradient, LanguageController.GUIController_Line, LanguageController.GUIController_Zebra};
@@ -52,6 +54,7 @@ public class GUIController {
 						Color[] carColor = {Color.BLACK, Color.RED, Color.YELLOW, Color.GREEN, Color.ORANGE, Color.BLUE};
 						
 						Car.Builder car = null;
+						//handle input for car type choice
 						for(int i = 0; i < carChoices.length; i++){
 							if(carChoices[i].equals(carChoice)){
 								switch(i){
@@ -71,18 +74,21 @@ public class GUIController {
 								break;
 							}
 						}
+						//handle input for primary color choice
 						for(int i = 0; i < colorChoices.length; i++){
 							if(colorChoices[i].equals(color)){
 								car.primaryColor(carColor[i]);
 								break;
 							}
 						}
+						//handle input for secondary color choice
 						for(int i = 0; i < colorChoices.length; i++){
 							if(colorChoices[i].equals(secondaryColor)){
 								car.secondaryColor(carColor[i]);
 								break;
 							}
 						}
+						//handle input for pattern choice
 						for(int i = 0; i < patternChoices.length; i++){
 							if(patternChoices[i].equals(patternType)){
 								switch(i){
@@ -128,6 +134,9 @@ public class GUIController {
 							stillAdding = false;
 						}
 					}
+					if(players.size() >= 6){
+						stillAdding = false;
+					}
 				}
 			}
 			else{
@@ -163,6 +172,7 @@ public class GUIController {
 				list[i] = new desktop_fields.Shipping.Builder().build();
 			}
 			else if(arrayOfFields[i].getClass().equals(Street.class)){
+				//set colours based on category of the streets
 				desktop_fields.Street.Builder builder = new desktop_fields.Street.Builder();
 				switch(((field.Street)arrayOfFields[i]).getStreetCategory()){
 					case 0:
@@ -279,7 +289,7 @@ public class GUIController {
 		GUI.setDice(diceOne, diceTwo);
 	}
 
-	
+	//update houses based on gameFields and players
 	public void updateHouses(field.Field[] arrayOfFields){
 		for(int i = 0; i < arrayOfFields.length; i++){
 			if(arrayOfFields[i] instanceof field.Street){
@@ -294,37 +304,45 @@ public class GUIController {
 		}
 	}
 	
+	//ask the player dropdownQuestion
 	public String askDropDownQuestion(String message, String... options){
 		return GUI.getUserSelection(message, options);
 	}
 	
+	//show a message to the user
 	public void showMessage(String message){
 		GUI.showMessage(message);
 	}
 	
+	//remove player from the board
 	public void removePlayer(Player player, field.Field[] arrayOfFields){
 		GUI.setBalance(player.getName(), 0);
 		this.removeOwnerShipFromPlayer(arrayOfFields, player);
 		GUI.removeCar(player.getPosition(), player.getName());
 	}
 	
+	//update player position on the board
 	public void updatePlayerPosition(Player player){
 		GUI.removeAllCars(player.getName());
 		GUI.setCar(player.getPosition()+1, player.getName());
 	}
 	
+	//get a user int
 	public int getUserIntegerInput(String message){
 		return GUI.getUserInteger(message);
 	}
 	
+	//update subtext on a field
 	public void updateSubText(int id, String message){
 		GUI.setSubText(id, message);
 	}
 	
+	//update description on a field
 	public void updateDescriptionText(int id, String message){
 		GUI.setDescriptionText(id, message);
 	}
 	
+	//update title on a field
 	public void updateTitle(int id, String message){
 		GUI.setTitleText(id, message);
 	}
