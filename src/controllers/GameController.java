@@ -214,7 +214,7 @@ public class GameController {
 							String answer = guiController.askDropDownQuestion(LanguageController.GameController_WhatGroundBuyHouse, strings);
 							for(int i = 0; i < strings.length; i++){
 								if(answer.equals(strings[i])){
-									if(guiController.askYesNoQuestion(LanguageController.GameController_ConfirmBuyHouse+" "+fields[i].getName()+" "+LanguageController.GameController_For+" "+((Street)fields[i]).getPrice())){
+									if(guiController.askYesNoQuestion(LanguageController.GameController_ConfirmBuyHouse+" "+fields[i].getName()+" "+LanguageController.GameController_For+" "+((Street)fields[i]).getBuildingPrice())){
 										if(((Street)fieldController.getFields()[fields[i].getNumber()]).buyBuilding(this)){
 											boughtHouse = true;
 											guiController.updateHouses(fieldController.getFields());
