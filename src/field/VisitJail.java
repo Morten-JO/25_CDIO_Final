@@ -1,6 +1,7 @@
 package field;
 
 import controllers.GameController;
+import controllers.Messages;
 
 public class VisitJail extends Field {
 
@@ -11,7 +12,7 @@ public class VisitJail extends Field {
 
 	@Override
 	public boolean landOn(GameController gameController) {
-		gameController.getGUIController().showMessage("Du er landet på besøg i fængsel. Du har helle her");
+		gameController.getGUIController().showMessage(Messages.getString("VisitJail.0")); //$NON-NLS-1$
        return true;
 	}
 

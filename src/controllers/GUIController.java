@@ -27,14 +27,10 @@ public class GUIController {
 	
 	public GUIController(GameController game){
 		GUI.create(createList(game.getFieldController().getFields()));
-		GUI.showMessage("Velkommen til manador to matador!");
+		GUI.showMessage("Velkommen til matador!");
 		ArrayList<String> addPlayers = choosePlayers();
 		String[] names = new String[addPlayers.size()];
 		names = addPlayers.toArray(names);
-		for(int i = 0; i < addPlayers.size(); i++){
-			System.out.println(i+" "+addPlayers.get(i));
-		}
-		System.out.println("addplayer length: "+addPlayers.size());
 		game.getPlayerController().createPlayers(names);
 	}
 	
@@ -53,7 +49,6 @@ public class GUIController {
 						}
 					}
 				}
-				System.out.println("isSame: "+isSame);
 				if(isSame){
 					GUI.showMessage("Indtast et unikt navn!");
 				}
