@@ -45,7 +45,7 @@ public class Ownable extends Field {
 		return false;
 	}
 	
-	public boolean pawnProperty(Player player){
+	public boolean pawnProperty(GameController gameController, Player player){
 		if (!this.isPawn){
 			this.isPawn = true;
 			player.adjustBalance(this.pawnPrice);

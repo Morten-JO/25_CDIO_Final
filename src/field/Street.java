@@ -135,7 +135,7 @@ public class Street extends Ownable {
 					boolean answer = gameController.getGUIController().askYesNoQuestion("Vil du tilføje en bygning til dette felt?");
 					
 					//Gets answer, pawnstatus and the average amount of houses per street in this category
-			if (answer == true && this.isPawn == false && this.getamountOfHouses() <= this.getHousesInSection(this.getStreetCategory(), gameController)/ streets) {
+			if (answer == true && this.isPawn == false && this.getAmountOfHouses() <= this.getHousesInSection(this.getStreetCategory(), gameController)/ streets) {
 				if (this.amountOfHouses < maxAmountofHouses) {
 					this.amountOfHouses += 1; // Ved ikke helt med denne, vi
 												// skal have noget der holder
@@ -174,10 +174,10 @@ public class Street extends Ownable {
 			boolean answer = gameController.getGUIController().askYesNoQuestion("Vil du frasælge en bygning?");
 			if (answer = true) {
 
-				if (this.getamountOfHouses() > 0) {
+				if (this.getAmountOfHouses() > 0) {
 					this.amountOfHouses--;
 					return currentPlayer.adjustBalance(buildingPrice);
-					} else if (this.getamountOfHotels() > 0) {
+					} else if (this.getAmountOfHotels() > 0) {
 					this.amountOfHouses += 4;
 					this.hotels--;
 					return currentPlayer.adjustBalance(buildingPrice);
@@ -194,7 +194,7 @@ public class Street extends Ownable {
 		return false;
 	}
 
-	public int getamountOfHouses() {
+	public int getAmountOfHouses() {
 		if (this.hotels > 0){
 			this.amountOfHouses += maxAmountofHouses+1;
 		}
@@ -203,7 +203,7 @@ public class Street extends Ownable {
 
 	}
 
-	public int getamountOfHotels() {
+	public int getAmountOfHotels() {
 		return this.hotels;
 	}
 
@@ -214,7 +214,7 @@ public class Street extends Ownable {
 			if (Street.class == gameController.getFieldController().getFields()[j].getClass()) {
 
 				if (((Street) gameController.getFieldController().getFields()[j]).getStreetCategory() == i) {
-					houses += ((Street) gameController.getFieldController().getFields()[j]).getamountOfHouses();
+					houses += ((Street) gameController.getFieldController().getFields()[j]).getAmountOfHouses();
 					if (this.hotels > 0){
 						houses += maxAmountofHouses+1;
 					}
@@ -264,8 +264,8 @@ public class Street extends Ownable {
 	@Override
 	public int getRent(GameController gameController){
 		int rent = 0;
-		int houses = this.getamountOfHouses();
-		int hotels = this.getamountOfHotels();
+		int houses = this.getAmountOfHouses();
+		int hotels = this.getAmountOfHotels();
 		int streetsowned = gameController.getFieldController().getOwnershipOfStreetsInCat(this.getOwner(), this.getStreetCategory());
 		if (houses > 0){
 			rent = this.rents[houses+1];
@@ -273,7 +273,7 @@ public class Street extends Ownable {
 		else if (hotels > 0){
 			rent = this.rents[maxAmountofHouses+2];
 		}
-		else if (streetsowned == this.getAmountOfStreetsInCategory(this.getStreetCategory(), gameController) && ){
+		else if (streetsowned == this.getAmountOfStreetsInCategory(this.getStreetCategory(), gameController) ){
 			rent = this.rents[1];
 		}
 		else if (streetsowned < this.getAmountOfStreetsInCategory(this.getStreetCategory(), gameController) || streetsowned > 0){
@@ -296,11 +296,30 @@ public class Street extends Ownable {
 	
 	
 	@Override
-	public boolean pawnProperty(Player player){
+	public boolean pawnProperty(GameController gameController, Player player){
 		if (!this.isPawn){
 			this.isPawn = true;
-			this.getStreetCategory()
-			player.adjustBalance(this.pawnPrice);
-			return true;
+			this.getStreetCategory();
+			player.adjustBalance(this.pawnPrice + sellAllBuildingsinCat(this.getStreetCategory(), gameController));
 		}
+		return true;
+	}
+		
+		
+	public int sellAllBuildingsinCat(int category, GameController gameController){
+		int amount = 0;
+		for (int i = 0; i <gameController.getFieldController().getFields().length; i++){
+			if (gameController.getFieldController().getFields()[i] instanceof Street){
+				if (this.getStreetCategory() == category){
+					amount += this.buildingPrice*(((Street)gameController.getFieldController().getFields()[i]).getAmountOfHouses()+(((Street)gameController.getFieldController().getFields()[i]).getAmountOfHotels()*5));
+				}
+			}
+		}
+		return amount;
+	}
+	public void setAmountofHouses(int i){
+		this.amountOfHouses = i;
+	}
 }
+
+			

@@ -161,7 +161,7 @@ public class GameController {
 										if(players[i].getBalance() >= amount){
 											if(guiController.askYesNoQuestion(LanguageController.GameController_DoYou+playerNames[i]+" "+LanguageController.GameController_Buy+" "+chosenField.getName()+" "+LanguageController.GameController_For+" "+amount+"?")){
 												if(chosenField instanceof Street){
-													if((((Street)chosenField).getamountOfHotels() + ((Street)chosenField).getamountOfHouses()) > 0){
+													if((((Street)chosenField).getAmountOfHotels() + ((Street)chosenField).getAmountOfHouses()) > 0){
 														((Street)chosenField).sellBuilding(this);
 													}
 												}
@@ -193,7 +193,7 @@ public class GameController {
 							if(guiController.askYesNoQuestion(LanguageController.GameController_ConfirmWantToPawn+" "+choice+"?")){
 								for(int i = 0; i < fieldNames.length; i++){
 									if(fieldNames[i].equals(arrayOfOwnedFields[i].getName())){
-										((Ownable)(arrayOfOwnedFields[i])).pawnProperty(playerController.getCurrentPlayer());
+										((Ownable)(arrayOfOwnedFields[i])).pawnProperty(this, playerController.getCurrentPlayer());
 									}
 								}
 							}
@@ -320,7 +320,7 @@ public class GameController {
 			for(int i = 0; i < fields.length; i++){
 				if(choice == fieldNames[i]){
 					if(guiController.askYesNoQuestion(LanguageController.GameController_ConfirmWantToPawn+" "+fieldNames[i]+"?")){
-						((Ownable)fields[i]).pawnProperty(player);
+						((Ownable)fields[i]).pawnProperty(this, player);
 					}
 				}
 			}

@@ -74,11 +74,11 @@ public class FieldController {
 				owner = ((Street)gameFields[i]).getOwner();
 				if(owner == player){
 					//check if street has a hotel (houses = 5)
-					if(((Street)gameFields[i]).getamountOfHouses()==5){
+					if(((Street)gameFields[i]).getAmountOfHouses()==5){
 						hotels++;
 						houses+= 4;
 					}else{
-						houses+= ((Street)gameFields[i]).getamountOfHouses();
+						houses+= ((Street)gameFields[i]).getAmountOfHouses();
 					}
 				
 				}
@@ -156,8 +156,8 @@ public class FieldController {
 			if(gameFields[i] instanceof Ownable){
 				if(((Ownable)gameFields[i]).getOwner() == player){
 					if(gameFields[i] instanceof Street){
-						amount += ((Street)gameFields[i]).getamountOfHouses() * ((Street)gameFields[i]).getBuildingPrice();
-						amount += ((Street)gameFields[i]).getamountOfHotels() * ((Street)gameFields[i]).getBuildingPrice();
+						amount += ((Street)gameFields[i]).getAmountOfHouses() * ((Street)gameFields[i]).getBuildingPrice();
+						amount += ((Street)gameFields[i]).getAmountOfHotels() * ((Street)gameFields[i]).getBuildingPrice();
 					}
 					amount += ((Ownable)gameFields[i]).getPrice();
 				}
@@ -173,8 +173,8 @@ public class FieldController {
 				if(((Ownable)gameFields[i]).getOwner() == player){
 					if(!((Ownable)gameFields[i]).getIsPawn()){
 						if(gameFields[i] instanceof Street){
-							amount += ((Street)gameFields[i]).getamountOfHouses() * ((Street)gameFields[i]).getBuildingPrice();
-							amount += ((Street)gameFields[i]).getamountOfHotels() * ((Street)gameFields[i]).getBuildingPrice();
+							amount += ((Street)gameFields[i]).getAmountOfHouses() * ((Street)gameFields[i]).getBuildingPrice();
+							amount += ((Street)gameFields[i]).getAmountOfHotels() * ((Street)gameFields[i]).getBuildingPrice();
 						}
 						amount += ((Ownable)gameFields[i]).getPrice();
 					}
@@ -237,7 +237,7 @@ public class FieldController {
 			}
 		}
 		for(int i = 0; i < listOfBuildings.size(); i++){
-			if(((Street)listOfBuildings.get(i)).getamountOfHouses() <= ((Street)listOfBuildings.get(i)).getHousesInSection(((Street)listOfBuildings.get(i)).getStreetCategory(), gameController)/((Street)listOfBuildings.get(i)).getAmountOfStreetsInCategory(((Street)listOfBuildings.get(i)).getStreetCategory(),  gameController)){
+			if(((Street)listOfBuildings.get(i)).getAmountOfHouses() <= ((Street)listOfBuildings.get(i)).getHousesInSection(((Street)listOfBuildings.get(i)).getStreetCategory(), gameController)/((Street)listOfBuildings.get(i)).getAmountOfStreetsInCategory(((Street)listOfBuildings.get(i)).getStreetCategory(),  gameController)){
 				listOfBuildings.remove(i);
 				i--;
 			}
