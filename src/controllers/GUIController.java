@@ -9,20 +9,6 @@ import desktop_resources.GUI;
 import field.*;
 
 
-/**
- * Date: 07/01/2016
- *
- * Project: 25_cdio-final
- *
- * File: GUIController.java
- *
- * Created by: Morten Jï¿½rvad
- *
- * Github: https://github.com/Mortenbaws
- *
- * Email: morten2094@gmail.com
- */
-
 public class GUIController {	
 	
 	public GUIController(GameController game){
@@ -39,7 +25,7 @@ public class GUIController {
 		ArrayList<String> players = new ArrayList<String>();
 		boolean stillAdding = true;
 		while(stillAdding){
-			String input = GUI.getUserString("Tilføj spiller #"+(players.size()+1)+"'s navn.");
+			String input = GUI.getUserString(LanguageController.GUIController_AddPlayer+(players.size()+1)+LanguageController.GUIController_sName);
 			if(!input.equals("")){
 				boolean isSame = false;
 				if(players.size() > 0){
@@ -50,19 +36,19 @@ public class GUIController {
 					}
 				}
 				if(isSame){
-					GUI.showMessage("Indtast et unikt navn!");
+					GUI.showMessage(LanguageController.GUIController_TypeUniqueName);
 				}
 				else{
 					players.add(input);
-					boolean carQuestion = this.askYesNoQuestion("Vil du gøre din bil personlig?");
+					boolean carQuestion = this.askYesNoQuestion(LanguageController.GUIController_CarPersonal);
 					if(carQuestion){
-						String[] carChoices = {"Normal", "Racerbil", "Traktor", "Ufo"};
-						String[] colorChoices = {"Sort", "Rød", "Gul", "Grøm", "Orange", "Blå"};
-						String[] patternChoices = {"Ternet", "Diagonal tve farvet", "Prikket", "Fyldt", "Horizontal tve farvet", "Overgang", "Linjet", "Zebra"};
-						String carChoice = GUI.getUserSelection("Vælg bil type:", carChoices);
-						String color = GUI.getUserSelection("Vælg primær bil farve:", colorChoices);
-						String secondaryColor = GUI.getUserSelection("Vælg sekundær bil farve:", colorChoices);
-						String patternType = GUI.getUserSelection("Vælg bil mønster:", patternChoices);
+						String[] carChoices = {LanguageController.GUIController_Normal, LanguageController.GUIController_RacerCar, LanguageController.GUIController_Tractor, LanguageController.GUIController_Ufo};
+						String[] colorChoices = {LanguageController.GUIController_Black, LanguageController.GUIController_Red, LanguageController.GUIController_Yellow, LanguageController.GUIController_Green, LanguageController.GUIController_Orange, LanguageController.GUIController_Blue};
+						String[] patternChoices = {LanguageController.GUIController_Checkered, LanguageController.GUIController_DiagonalDualColor, LanguageController.GUIController_Dotted, LanguageController.GUIController_Fill, LanguageController.GUIController_HorizontalDualColor, LanguageController.GUIController_Gradient, LanguageController.GUIController_Line, LanguageController.GUIController_Zebra};
+						String carChoice = GUI.getUserSelection(LanguageController.GUIController_ChooseCarType, carChoices);
+						String color = GUI.getUserSelection(LanguageController.GUIController_ChoosePrimaryColor, colorChoices);
+						String secondaryColor = GUI.getUserSelection(LanguageController.GUIController_ChooseSecondaryColor, colorChoices);
+						String patternType = GUI.getUserSelection(LanguageController.GUIController_ChooseCarPattern, patternChoices);
 						Color[] carColor = {Color.BLACK, Color.RED, Color.YELLOW, Color.GREEN, Color.ORANGE, Color.BLUE};
 						
 						Car.Builder car = null;
@@ -130,14 +116,14 @@ public class GUIController {
 						Car buildedCar = car.build();
 
 						GUI.addPlayer(input, 30000, buildedCar);
-						GUI.showMessage(input+" tilføjet!");
+						GUI.showMessage(input+" "+LanguageController.GUIController_Added);
 					}
 					else{
 						GUI.addPlayer(input, 30000);
-						GUI.showMessage(input+" tilføjet!");
+						GUI.showMessage(input+" "+LanguageController.GUIController_Added);
 					}
 					if(players.size() >= 3){
-						boolean answer = this.askYesNoQuestion("Vil du tilføje en spiller mere?");
+						boolean answer = this.askYesNoQuestion(LanguageController.GUIController_AddAnotherPlayer);
 						if(!answer){
 							stillAdding = false;
 						}
@@ -145,7 +131,7 @@ public class GUIController {
 				}
 			}
 			else{
-				GUI.showMessage("Skriv et valideret navn!");
+				GUI.showMessage(LanguageController.GUIController_ValidName);
 			}
 		}
 		return players;
@@ -212,7 +198,7 @@ public class GUIController {
 			}
 			else{
 				try {
-					throw new Exception("A Field was not identified");
+					throw new Exception(LanguageController.GUIController_AFieldWasNotIndentified);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -231,7 +217,7 @@ public class GUIController {
 	
 	//Asks a yes/no question
 	public Boolean askYesNoQuestion(String message){
-		return GUI.getUserLeftButtonPressed(message, "Ja", "Nej");
+		return GUI.getUserLeftButtonPressed(message, LanguageController.GUIController_Yes, LanguageController.GUIController_No);
 	}
 	
 	//updates all the players positions on the board

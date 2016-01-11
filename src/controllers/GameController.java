@@ -20,7 +20,6 @@ public class GameController {
 	private Cup cup; 
 	private boolean gameOver;
 	private int countDicesTheSame = 0;
-	private String morten = "Morten er nice";
 	
 	public GameController(){
 		fieldController = new FieldController();
@@ -37,12 +36,12 @@ public class GameController {
 				playerController.getCurrentPlayer().setJailed(true);
 				playerController.getCurrentPlayer().setPosition(10); // dunno where jail is TEMP
 				guiController.updatePlayerPositions(playerController.getPlayerList());
-				guiController.showMessage("Du er blevet fængslet for at slå 3x 2 ens i træk");
+				guiController.showMessage(LanguageController.GameController_Jailed3Alike);
 				countDicesTheSame = 0;
 			}
 			else{
 				playerController.setCurrentPlayer(turn);
-				guiController.showMessage(playerController.getCurrentPlayer().getName()+"'s tur til at slå!");
+				guiController.showMessage(playerController.getCurrentPlayer().getName()+LanguageController.GameController_TurnsToHit);
 				cup.rollDices();
 				guiController.updateDices(cup.getSumOfDice(0), cup.getSumOfDice(1));
 				if(playerController.getCurrentPlayer().isJailed()){
@@ -65,7 +64,7 @@ public class GameController {
 					if(playerController.getCurrentPlayer().getFirstRoundCompleted()){
 						if(startBonus){
 							playerController.getCurrentPlayer().adjustBalance(4000);
-							guiController.showMessage("Du får 4000 for at komme over start!");
+							guiController.showMessage(LanguageController.GameController_StartBonus);
 						}
 					}
 					playerController.getCurrentPlayer().setFirstRoundCompleted(true);
@@ -76,7 +75,7 @@ public class GameController {
 								if(!((Ownable)fieldController.getFields()[playerController.getCurrentPlayer().getPosition()]).getIsPawn()){
 									if(!(playerController.getCurrentPlayer().getBalance() >= ((Ownable)fieldController.getFields()[playerController.getCurrentPlayer().getPosition()]).getRent(this))){
 										if(playerController.getTotalValueOfPlayer(playerController.getCurrentPlayer(), fieldController) > ((Ownable)fieldController.getFields()[playerController.getCurrentPlayer().getPosition()]).getRent(this)){
-											guiController.showMessage("You cant pay for landing on "+fieldController.getFields()[playerController.getCurrentPlayer().getPosition()].getName()+" and will have to pawn!");
+											guiController.showMessage(LanguageController.GameController_CantPayForLanding+fieldController.getFields()[playerController.getCurrentPlayer().getPosition()].getName()+" "+LanguageController.GameController_WillHaveToPawn);
 											handlePawnPlayer(((Ownable)fieldController.getFields()[playerController.getCurrentPlayer().getPosition()]).getRent(this) - playerController.getCurrentPlayer().getBalance(), playerController.getCurrentPlayer());
 										}
 									}
@@ -98,21 +97,21 @@ public class GameController {
 				ArrayList<String> options = new ArrayList<String>();
 				if(!playerController.getCurrentPlayer().isJailed()){
 					if(cup.isSameHit()){
-						options.add("Kast terning igen");
+						options.add(LanguageController.GameController_CastDiceAgain);
 					}
 					else{
-						options.add("Slut turen");
+						options.add(LanguageController.GameController_EndTurn);
 					}
 					if(fieldController.getPropertyValueNotPawned(playerController.getCurrentPlayer()) > 0){
-						options.add("Byt");
-						options.add("Pantsæt");
+						options.add(LanguageController.GameController_Trade);
+						options.add(LanguageController.GameController_Pawn);
 					}
 					if(fieldController.ownsEntireStreet(playerController.getCurrentPlayer())){
-						options.add("Byg hus");
+						options.add(LanguageController.GameController_BuildHouse);
 					}
 				}
 				else{
-					options.add("Slut turen");
+					options.add(LanguageController.GameController_EndTurn);
 				}
 				boolean stillDoingThings = true;
 				String[] array = new String[options.size()];
@@ -120,14 +119,14 @@ public class GameController {
 				boolean boughtHouse = false;
 				while(stillDoingThings){
 					guiController.updateAllPlayersBalance(playerController.getPlayerList());
-					String option = guiController.askDropDownQuestion("Hvad vil du gøre?", array);
-					if("Byt".equals(option)){
+					String option = guiController.askDropDownQuestion(LanguageController.GameController_WhatDoYouWantToDo, array);
+					if(LanguageController.GameController_Trade.equals(option)){
 						Field[] arrayOfTradeFields = fieldController.getAllOwnedProperties(playerController.getCurrentPlayer());
 						String[] fieldsTrade = new String[arrayOfTradeFields.length];
 						for(int i = 0; i < fieldsTrade.length; i++){
 							fieldsTrade[i] = arrayOfTradeFields[i].getName();
 						}
-						String chosenInput = guiController.askDropDownQuestion("Hvilken grund vil du bytte?", fieldsTrade);
+						String chosenInput = guiController.askDropDownQuestion(LanguageController.GameController_GroundToTrade, fieldsTrade);
 						Field chosenField = null;
 						for(int i = 0; i < fieldsTrade.length; i++){
 							if(chosenInput.equals(arrayOfTradeFields[i].getName())){
@@ -136,8 +135,8 @@ public class GameController {
 							}
 						}
 						if(chosenField != null){
-							if(guiController.askYesNoQuestion("Er du sikker på at du vil bytte "+chosenInput+"?")){
-								int amount = guiController.getUserIntegerInput("Hvor meget vil du have for "+chosenInput+"?");
+							if(guiController.askYesNoQuestion(LanguageController.GameController_ConfirmWantToTrade+chosenInput+"?")){
+								int amount = guiController.getUserIntegerInput(LanguageController.GameController_AmountForTrade+chosenInput+"?");
 								ArrayList<Player> modifiedPlayers = new ArrayList<Player>();
 								for(int i = 0; i < playerController.getPlayerList().size(); i++){
 									modifiedPlayers.add(playerController.getPlayerList().get(i));
@@ -149,11 +148,11 @@ public class GameController {
 								for(int i = 0; i < playerNames.length; i++){
 									playerNames[i] = players[i].getName();
 								}
-								String playerChoice = guiController.askDropDownQuestion("Hvad spiller vil du bytte med?", playerNames);
+								String playerChoice = guiController.askDropDownQuestion(LanguageController.GameController_WhatPlayerToTrade, playerNames);
 								for(int i = 0; i < playerNames.length; i++){
 									if(playerChoice.equals(playerNames[i])){
 										if(players[i].getBalance() >= amount){
-											if(guiController.askYesNoQuestion("Vil du, "+playerNames[i]+" købe "+chosenField.getName()+" for "+amount+"?")){
+											if(guiController.askYesNoQuestion(LanguageController.GameController_DoYou+playerNames[i]+" "+LanguageController.GameController_Buy+" "+chosenField.getName()+" "+LanguageController.GameController_For+" "+amount+"?")){
 												if(chosenField instanceof Street){
 													if((((Street)chosenField).getamountOfHotels() + ((Street)chosenField).getamountOfHouses()) > 0){
 														((Street)chosenField).sellBuilding(this);
@@ -162,10 +161,10 @@ public class GameController {
 												playerController.getCurrentPlayer().adjustBalance(amount);
 												((Ownable)chosenField).setOwner(players[i]);
 												players[i].adjustBalance(-amount);
-												guiController.showMessage(players[i].getName()+" købte grund "+chosenField.getName()+" for "+amount+".");
+												guiController.showMessage(players[i].getName()+" "+LanguageController.GameController_BuyGround+" "+chosenField.getName()+" "+LanguageController.GameController_For+" "+amount+".");
 											}
 											else{
-												guiController.showMessage("Spiller "+playerNames[i]+" ville ikke købe "+chosenField.getName()+"!");
+												guiController.showMessage(LanguageController.GameController_Player+" "+playerNames[i]+" "+LanguageController.GameController_DidntWantToBuy+" "+chosenField.getName()+"!");
 											}
 										}
 										break;
@@ -175,15 +174,15 @@ public class GameController {
 							}
 						}
 					}
-					else if("Pantsæt".equals(option)){
-						if(guiController.askYesNoQuestion("Vil you gerne pantsætte?")){
+					else if(LanguageController.GameController_Pawn.equals(option)){
+						if(guiController.askYesNoQuestion(LanguageController.GameController_DoYouWantToPawn)){
 							Field[] arrayOfOwnedFields = fieldController.getAllOwnedProperties(playerController.getCurrentPlayer());
 							String[] fieldNames = new String[arrayOfOwnedFields.length];
 							for(int i = 0; i < fieldNames.length; i++){
 								fieldNames[i] = arrayOfOwnedFields[i].getName();
 							}
-							String choice = guiController.askDropDownQuestion("Hvad grund vil du pantsætte?", fieldNames);
-							if(guiController.askYesNoQuestion("Er du sikker på at du vil pantsætte "+choice+"?")){
+							String choice = guiController.askDropDownQuestion(LanguageController.GameController_WhatGroundToPawn, fieldNames);
+							if(guiController.askYesNoQuestion(LanguageController.GameController_ConfirmWantToPawn+" "+choice+"?")){
 								for(int i = 0; i < fieldNames.length; i++){
 									if(fieldNames[i].equals(arrayOfOwnedFields[i].getName())){
 										((Ownable)(arrayOfOwnedFields[i])).pawnProperty(playerController.getCurrentPlayer());
@@ -192,9 +191,9 @@ public class GameController {
 							}
 						}
 					}
-					else if("Byg hus".equals(option)){
+					else if(LanguageController.GameController_BuildHouse.equals(option)){
 						if(boughtHouse){
-							guiController.showMessage("Du har allerede købt et hus i denne runde.");
+							guiController.showMessage(LanguageController.GameController_AlreadyBoughtHouse+".");
 						}
 						else{
 							Field[] fields = fieldController.getOwnedFullStreets(playerController.getCurrentPlayer(), this);
@@ -202,10 +201,10 @@ public class GameController {
 							for(int i = 0; i < fields.length; i++){
 								strings[i] = fields[i].getName();
 							}
-							String answer = guiController.askDropDownQuestion("Hvilken grund vil du købe hus på?", strings);
+							String answer = guiController.askDropDownQuestion(LanguageController.GameController_WhatGroundBuyHouse, strings);
 							for(int i = 0; i < strings.length; i++){
 								if(answer.equals(strings[i])){
-									if(guiController.askYesNoQuestion("Er du sikker du vil købe et hus på "+fields[i].getName()+" for "+((Street)fields[i]).getPrice())){
+									if(guiController.askYesNoQuestion(LanguageController.GameController_ConfirmBuyHouse+" "+fields[i].getName()+" "+LanguageController.GameController_For+" "+((Street)fields[i]).getPrice())){
 										((Street)fieldController.getFields()[fields[i].getNumber()]).buyBuilding(this);
 										guiController.updateHouses(fieldController.getFields());
 										boughtHouse = true;
@@ -224,21 +223,21 @@ public class GameController {
 					options = new ArrayList<String>();
 					if(!playerController.getCurrentPlayer().isJailed()){
 						if(cup.isSameHit()){
-							options.add("Kast terninger igen");
+							options.add(LanguageController.GameController_CastDiceAgain);
 						}
 						else{
-							options.add("Slut turen");
+							options.add(LanguageController.GameController_EndTurn);
 						}
 						if(fieldController.getPropertyValueNotPawned(playerController.getCurrentPlayer()) > 0){
-							options.add("Byt");
-							options.add("Pantsæt");
+							options.add(LanguageController.GameController_Trade);
+							options.add(LanguageController.GameController_Pawn);
 						}
 						if(fieldController.ownsEntireStreet(playerController.getCurrentPlayer())){
-							options.add("Byg hus");
+							options.add(LanguageController.GameController_BuildHouse);
 						}
 					}
 					else{
-						options.add("Slut turen");
+						options.add(LanguageController.GameController_EndTurn);
 					}
 					guiController.updateAllPlayersBalance(playerController.getPlayerList());
 					guiController.updateAllOwnerShip(fieldController.getFields());
@@ -269,7 +268,7 @@ public class GameController {
 	}
 
 	private void handleRemovePlayer(){
-		guiController.showMessage("Du kunne ikke betale og er nu ude af spillet!");
+		guiController.showMessage(LanguageController.GameController_CouldntPayOutOfGame);
 		guiController.removePlayer(playerController.getCurrentPlayer(), fieldController.getFields());
 		playerController.getPlayerList().remove(playerController.getCurrentPlayer());
 		if(playerController.getPlayerList().size() > 0){
@@ -283,7 +282,7 @@ public class GameController {
 			handlePawnPlayer(-player.getBalance(), player);
 			return;
 		}
-		guiController.showMessage("Du kunne ikke betale og er nu ude af spillet!");
+		guiController.showMessage(LanguageController.GameController_CouldntPayOutOfGame);
 		guiController.removePlayer(playerController.getCurrentPlayer(), fieldController.getFields());
 		if(turn > playerController.getPlayerList().indexOf(player)){
 			turn--;
@@ -300,10 +299,10 @@ public class GameController {
 			for(int i = 0; i < fields.length; i++){
 				fieldNames[i] = fields[i].getName();
 			}
-			String choice = guiController.askDropDownQuestion(player.getName()+", hvad vil du gerne pantsætte?", fieldNames);
+			String choice = guiController.askDropDownQuestion(player.getName()+LanguageController.GameController_WhatDoYouWantToPawnTwo, fieldNames);
 			for(int i = 0; i < fields.length; i++){
 				if(choice == fieldNames[i]){
-					if(guiController.askYesNoQuestion("Er du sikker på at du vil pantsætte "+fieldNames[i]+"?")){
+					if(guiController.askYesNoQuestion(LanguageController.GameController_ConfirmWantToPawn+" "+fieldNames[i]+"?")){
 						((Ownable)fields[i]).pawnProperty(player);
 					}
 				}
@@ -333,14 +332,14 @@ public class GameController {
 			hittedOut = true;
 		}
 		while(!hittedOut){
-			guiController.showMessage("Du har "+(2)+" mere forsøg til at komme ud af fængsel!");
-			guiController.showMessage("Kast terningen");
+			guiController.showMessage(LanguageController.GameController_YouHave+" "+(3-hits)+" "+LanguageController.GameController_AttemptsOutOfJail);
+			guiController.showMessage(LanguageController.GameController_RollTheDice);
 			cup.rollDices();
 			guiController.updateDices(cup.getSumOfDice(0), cup.getSumOfDice(1));
 			if(cup.isSameHit()){
 				playerController.getCurrentPlayer().setJailed(false);
 				hittedOut = true;
-				guiController.showMessage("Du er kommet ud af fængsel!");
+				guiController.showMessage(LanguageController.GameController_YouAreOutOfJail);
 			}
 			else{
 				hits++;
@@ -351,7 +350,7 @@ public class GameController {
 		}
 		if(playerController.getCurrentPlayer().isJailed()){
 			if(playerController.getCurrentPlayer().getBalance() >= 1000){
-				boolean askQuestion = guiController.askYesNoQuestion("Har du lyst til at betale 1000 for at komme ud af fængsel?");
+				boolean askQuestion = guiController.askYesNoQuestion(LanguageController.GameController_PayToGetOutOfJail);
 				if(askQuestion){
 					playerController.getCurrentPlayer().adjustBalance(-1000);
 					playerController.getCurrentPlayer().setJailed(false);
@@ -359,7 +358,7 @@ public class GameController {
 				}
 			}
 			else{
-				guiController.showMessage("Du er ude af fængsel!");
+				guiController.showMessage(LanguageController.GameController_YouAreOutOfJail);
 			}
 		}
 	}
@@ -367,7 +366,7 @@ public class GameController {
 	private void handleWinningConditions(){
 		if(playerController.getPlayerList().size() == 1){
 			gameOver = true;
-			guiController.showMessage(playerController.getPlayerList().get(0)+" har vundet spillet, tilykke!");
+			guiController.showMessage(playerController.getPlayerList().get(0)+" "+LanguageController.GameController_WonGameCongratulations);
 		}
 	}
 
