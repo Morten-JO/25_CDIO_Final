@@ -248,7 +248,7 @@ public class FieldController {
 		}
 		ArrayList<Field> listOfBuildings = new ArrayList<Field>();
 		for(int i = 0; i < gameFields.length; i++){
-			if(gameFields[i] instanceof Ownable){
+			if(gameFields[i] instanceof Street){
 				if(ownedIndexes[((Street)gameFields[i]).getStreetCategory()] == streetIndexes[((Street)gameFields[i]).getStreetCategory()]){
 					listOfBuildings.add(gameFields[i]);
 				}

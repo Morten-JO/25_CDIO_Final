@@ -38,6 +38,8 @@ public class MoveToNearestFleetCC extends ChanceCard {
 			((Fleet)fieldArray[35]).landOn(gc);
 		}
 		
+		//((Fleet)fieldArray[35]).setRentMultiplier(1);WHAT DO WE DO
+		
 		//also add 4k to player acc IF we are passing start (range:35-39->0)
 		if(currentPos>=35){
 			currentPlayer.adjustBalance(4000);
