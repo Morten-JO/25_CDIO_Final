@@ -124,6 +124,7 @@ public class GameController {
 				array = options.toArray(array);
 				boolean boughtHouse = false;
 				while(stillDoingThings){
+					guiController.updateAllOwnerShip(fieldController.getFields());
 					guiController.updateAllPlayersBalance(playerController.getPlayerList());
 					String option = guiController.askDropDownQuestion(LanguageController.GameController_WhatDoYouWantToDo, array);
 					//if trade option is chosen, get list of your properties, and ask what to trade, and to whom, and how much
