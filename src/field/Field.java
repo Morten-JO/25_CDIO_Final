@@ -33,6 +33,10 @@ public abstract class Field {
 	public int getNumber(){
 		return number;
 	}
+	
+	public void setSubtext(String text){
+		this.subText = text;
+	}
 
 
 	

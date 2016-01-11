@@ -41,6 +41,7 @@ public class Street extends Ownable {
 				boolean answer = gameController.getGUIController().askYesNoQuestion("Vil du købe "+ this.getName() + " for kr." + this.price);
 				if (answer == true){ //Ja, jeg vil gerne købe
 					this.owner = currentPlayer;
+					this.setSubtext(this.owner.getName());
 					System.out.println("du har købt dette felt");
 				result =	owner.adjustBalance(-price);
 				} else if (answer == false) result = true;

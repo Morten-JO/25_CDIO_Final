@@ -34,6 +34,7 @@ public class Fleet extends Ownable {
 			if (question == true) {
 				result = currentPlayer.adjustBalance(-this.price);
 				this.owner = currentPlayer;
+				this.setSubtext(this.owner.getName());
 
 			} else {
 				result = true;

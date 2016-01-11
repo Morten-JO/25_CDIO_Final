@@ -22,6 +22,7 @@ public class Brewery extends Ownable {
 				boolean answer = gameController.getGUIController().askYesNoQuestion("Vil du købe "+this.name+" for kr." +this.price);
 				if (answer == true) {
 					owner = currentPlayer;
+					this.setSubtext(this.owner.getName());
 					result = currentPlayer.adjustBalance(-price);
 
 				} else if (answer == false) {
