@@ -273,7 +273,7 @@ public class Street extends Ownable {
 		else if (hotels > 0){
 			rent = this.rents[maxAmountofHouses+2];
 		}
-		else if (streetsowned == this.getAmountOfStreetsInCategory(this.getStreetCategory(), gameController)){
+		else if (streetsowned == this.getAmountOfStreetsInCategory(this.getStreetCategory(), gameController) && ){
 			rent = this.rents[1];
 		}
 		else if (streetsowned < this.getAmountOfStreetsInCategory(this.getStreetCategory(), gameController) || streetsowned > 0){
@@ -286,4 +286,21 @@ public class Street extends Ownable {
 		return rent;
 		
 	}
+	
+	public void removeAllOwnership(){
+		this.owner = null;
+		this.amountOfHouses = 0;
+		this.hotels = 0;
+		
+	}
+	
+	
+	@Override
+	public boolean pawnProperty(Player player){
+		if (!this.isPawn){
+			this.isPawn = true;
+			this.getStreetCategory()
+			player.adjustBalance(this.pawnPrice);
+			return true;
+		}
 }
