@@ -1,4 +1,4 @@
-package Test;
+package test;
 
 import static org.junit.Assert.*;
 
@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import player.Account;
 
-public class testAccount {
+public class TestAccount {
 	
 	private Account acc;
 	
@@ -19,7 +19,7 @@ public class testAccount {
 	
 	
 	@Test
-	// tester om vores account konstruktør opretter 30000 til balancen.
+	// tester om vores account konstruktï¿½r opretter 30000 til balancen.
 	public void test_getBalance() {
 		assertEquals(30000, acc.getBalance());
 	}
