@@ -35,7 +35,7 @@ public class GameController {
 			//if 2x same dices hit 3 turns in a row, JAIL EM
 			if(countDicesTheSame >= 3){
 				playerController.getCurrentPlayer().setJailed(true);
-				playerController.getCurrentPlayer().setPosition(10); // dunno where jail is TEMP
+				playerController.getCurrentPlayer().setPosition(10); 
 				guiController.updatePlayerPositions(playerController.getPlayerList());
 				guiController.showMessage(LanguageController.GameController_Jailed3Alike);
 				countDicesTheSame = 0;
@@ -184,7 +184,7 @@ public class GameController {
 					//if pawn option is chosen, give player a list of property to pawn
 					else if(LanguageController.GameController_Pawn.equals(option)){
 						if(guiController.askYesNoQuestion(LanguageController.GameController_DoYouWantToPawn)){
-							Field[] arrayOfOwnedFields = fieldController.getAllOwnedProperties(playerController.getCurrentPlayer());
+							Field[] arrayOfOwnedFields = fieldController.getAllOwnedPropertiesNotPawned(playerController.getCurrentPlayer());
 							String[] fieldNames = new String[arrayOfOwnedFields.length];
 							for(int i = 0; i < fieldNames.length; i++){
 								fieldNames[i] = arrayOfOwnedFields[i].getName();
@@ -348,6 +348,7 @@ public class GameController {
 		int hits = 1;
 		if(cup.isSameHit()){
 			playerController.getCurrentPlayer().setJailed(false);
+			playerController.getCurrentPlayer().setPosition(10);
 			hittedOut = true;
 		}
 		while(!hittedOut){
@@ -373,6 +374,7 @@ public class GameController {
 				if(askQuestion){
 					playerController.getCurrentPlayer().adjustBalance(-1000);
 					playerController.getCurrentPlayer().setJailed(false);
+					playerController.getCurrentPlayer().setPosition(10);
 					guiController.updateAllPlayersBalance(playerController.getPlayerList());
 				}
 			}
@@ -380,6 +382,7 @@ public class GameController {
 				guiController.showMessage(LanguageController.GameController_YouAreOutOfJail);
 			}
 		}
+		guiController.updatePlayerPosition(playerController.getCurrentPlayer());
 	}
 
 	private void handleWinningConditions(){

@@ -105,6 +105,24 @@ public class FieldController {
 		return array;
 	}
 	
+	public Field[] getAllOwnedPropertiesNotPawned(Player player){
+		ArrayList<Field> listOfProperties = new ArrayList<Field>();
+		for(int i = 0; i < gameFields.length; i++){
+			if(gameFields[i] instanceof Ownable){
+				if(((Ownable)gameFields[i]).getOwner() != null){
+					if(((Ownable)gameFields[i]).getOwner().equals(player)){
+						if(!((Ownable)gameFields[i]).getIsPawn()){
+							listOfProperties.add(gameFields[i]);
+						}
+					}
+				}
+			}
+		}
+		Field[] array = new Field[listOfProperties.size()];
+		array = listOfProperties.toArray(array);
+		return array;
+	}
+	
 	
 	public int getOwnerShipOfFleets(Player p) {
 		int count = 0;
