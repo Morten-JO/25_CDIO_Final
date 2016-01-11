@@ -39,7 +39,7 @@ public class LanguageController {
 	
 	
 	
-	
+	//
 	//GameController
 	public static final String GameController_Jailed3Alike = "Du er blevet fængslet for at slå 3x 2 ens i træk";
 	public static final String GameController_TurnsToHit = "'s tur til at slå!";
