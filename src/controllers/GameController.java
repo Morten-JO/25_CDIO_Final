@@ -79,7 +79,7 @@ public class GameController {
 							if(((Ownable)fieldController.getFields()[playerController.getCurrentPlayer().getPosition()]).getOwner() != playerController.getCurrentPlayer()){
 								if(!((Ownable)fieldController.getFields()[playerController.getCurrentPlayer().getPosition()]).getIsPawn()){
 									if(!(playerController.getCurrentPlayer().getBalance() >= ((Ownable)fieldController.getFields()[playerController.getCurrentPlayer().getPosition()]).getRent(this))){
-										if(playerController.getTotalValueOfPlayer(playerController.getCurrentPlayer(), fieldController) > ((Ownable)fieldController.getFields()[playerController.getCurrentPlayer().getPosition()]).getRent(this)){
+										if(playerController.getTotalPawnValueOfPlayer(playerController.getCurrentPlayer(), fieldController) > ((Ownable)fieldController.getFields()[playerController.getCurrentPlayer().getPosition()]).getRent(this)){
 											guiController.showMessage(LanguageController.GameController_CantPayForLanding+fieldController.getFields()[playerController.getCurrentPlayer().getPosition()].getName()+" "+LanguageController.GameController_WillHaveToPawn);
 											handlePawnPlayer(((Ownable)fieldController.getFields()[playerController.getCurrentPlayer().getPosition()]).getRent(this) - playerController.getCurrentPlayer().getBalance(), playerController.getCurrentPlayer());
 										}
@@ -294,10 +294,10 @@ public class GameController {
 	}
 	
 	
-	//Check if getTotalValue of player(with property) is over how much he is owed(this is only used by chance cards
+	//Check if getTotalValue of player(with property) is over how much he is owed(this is only used by chance cards)
 	//then make him pawn, and if he cant then he loses
 	public void handleRemovePlayer(Player player){
-		if(playerController.getTotalValueOfPlayer(player, fieldController) > -player.getBalance()){
+		if(playerController.getTotalPawnValueOfPlayer(player, fieldController) > -player.getBalance()){
 			handlePawnPlayer(-player.getBalance(), player);
 			return;
 		}

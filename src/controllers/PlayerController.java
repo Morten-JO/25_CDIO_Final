@@ -57,4 +57,9 @@ public class PlayerController {
 		return value;
 	}
 	
+	public int getTotalPawnValueOfPlayer(Player player, FieldController controller){
+		int value = player.getBalance() + (int)(controller.getPropertyValue(player)*0.5);
+		return value;
+	}
+	
 }
