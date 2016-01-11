@@ -285,6 +285,8 @@ public class GameController {
 	private void handleRemovePlayer(){
 		guiController.showMessage(LanguageController.GameController_CouldntPayOutOfGame);
 		guiController.removePlayer(playerController.getCurrentPlayer(), fieldController.getFields());
+		guiController.removeOwnerShipFromPlayer(fieldController.getFields(), playerController.getCurrentPlayer());
+		fieldController.removeAllOwnershipOfPlayer(playerController.getCurrentPlayer());
 		playerController.getPlayerList().remove(playerController.getCurrentPlayer());
 		if(playerController.getPlayerList().size() > 0){
 			turn--;
@@ -301,6 +303,8 @@ public class GameController {
 		}
 		guiController.showMessage(LanguageController.GameController_CouldntPayOutOfGame);
 		guiController.removePlayer(playerController.getCurrentPlayer(), fieldController.getFields());
+		guiController.removeOwnerShipFromPlayer(fieldController.getFields(), player);
+		fieldController.removeAllOwnershipOfPlayer(player);
 		if(turn > playerController.getPlayerList().indexOf(player)){
 			turn--;
 		}
