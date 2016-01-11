@@ -2,9 +2,7 @@ package field;
 
 import controllers.GameController;
 
-/* 
- * Mangler taxprocent, den skal laves 
- */
+
 public class Tax extends Field {
 	
 	protected int tax ;
@@ -25,6 +23,7 @@ public class Tax extends Field {
 
 	@Override
 	public boolean landOn(GameController gameController) {
+		gameController.getGUIController().showMessage("Du er landet på en skattefelt og skal betale til banken kr. " +this.tax);
 		if (gameController.getPlayerController().getCurrentPlayer().getBalance()>tax){
 		return gameController.getPlayerController().getCurrentPlayer().adjustBalance(tax);
 		}

@@ -12,6 +12,7 @@ public class Chance extends Field {
 	@Override
 	public boolean landOn(GameController gameController) {
 		
+		gameController.getGUIController().showMessage("Du er landet på Prøv Lykken. Træk et kort");
 		return gameController.getChanceCardController().drawCard(gameController);
 		
 	}

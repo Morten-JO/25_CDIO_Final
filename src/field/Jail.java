@@ -13,6 +13,7 @@ public class Jail extends Field {
 
 	@Override
 	public boolean landOn(GameController gameController) {
+		gameController.getGUIController().showMessage("Du ryger i fængsel");
 		gameController.getPlayerController().getCurrentPlayer().setJailed(true);
 		return true;
 		

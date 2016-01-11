@@ -19,7 +19,7 @@ public class Brewery extends Ownable {
 		Player currentPlayer = gameController.getPlayerController().getCurrentPlayer();
 		if (this.owner == null) {
 			if (gameController.getPlayerController().getCurrentPlayer().getAccount().getBalance() >= price) {
-				boolean answer = gameController.getGUIController().askYesNoQuestion("Do you want to buy this Brewery?");
+				boolean answer = gameController.getGUIController().askYesNoQuestion("Vil du købe "+this.name+" for kr." +this.price);
 				if (answer == true) {
 					owner = currentPlayer;
 					result = currentPlayer.adjustBalance(-price);

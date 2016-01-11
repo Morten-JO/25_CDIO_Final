@@ -6,13 +6,13 @@ public class VisitJail extends Field {
 
 	public VisitJail(String Titel, String Sub, String Desc, int fieldNo) {
 		super(Titel, Sub, Desc, fieldNo);
-		
+
 	}
 
 	@Override
-	public boolean landOn(GameController GameController) {
-		// TODO Auto-generated method stub
-		return true;
+	public boolean landOn(GameController gameController) {
+		gameController.getGUIController().showMessage("Du er landet på besøg i fængsel. Du har helle her");
+       return true;
 	}
 
 }

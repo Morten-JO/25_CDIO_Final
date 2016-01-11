@@ -38,8 +38,7 @@ public class Street extends Ownable {
 		if ( this.owner == null){
 			//If no, would you buy it
 			if(currentPlayer.getBalance()> price ){
-				String NameOfStreet = gameController.getFieldController().getFields()[currentPlayer.getPosition()].getName();
-				boolean answer = gameController.getGUIController().askYesNoQuestion("Do you want to buy "+ NameOfStreet);
+				boolean answer = gameController.getGUIController().askYesNoQuestion("Vil du købe "+ this.getName() + " for kr." + this.price);
 				if (answer == true){ //Ja, jeg vil gerne købe
 					this.owner = currentPlayer;
 					System.out.println("du har købt dette felt");
@@ -53,7 +52,7 @@ public class Street extends Ownable {
 			if (this.owner.isJailed()== false){
 				//Hvor mange felter i denne kategori er ejet af ham, der ejer dette felt?
 				int streets = gameController.getFieldController().getOwnershipOfStreetsInCat(this.owner, this.getStreetCategory());
-				GUI.showMessage(this.owner.getName() +" ejer dette felt og så mange streets "+streets);
+				gameController.getGUIController().showMessage(this.owner.getName() +" ejer dette felt og " +streets + " andre gader i denne kategori");
 			switch (streets){
 			//Kun et felt
 			case 1 :
@@ -132,7 +131,7 @@ public class Street extends Ownable {
 		//How many streets in this category?
 				int streets = this.getAmountOfStreetsInCategory(this.getStreetCategory(), gameController);
 		if (currentPlayer.getBalance() >= buildingPrice) {
-					boolean answer = gameController.getGUIController().askYesNoQuestion("Do you want to buy a building");
+					boolean answer = gameController.getGUIController().askYesNoQuestion("Vil du tilføje en bygning til dette felt?");
 					
 					//Gets answer, pawnstatus and the average amount of houses per street in this category
 			if (answer == true && this.isPawn == false && this.getamountOfHouses() <= this.getHousesInSection(this.getStreetCategory(), gameController)/ streets) {

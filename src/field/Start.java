@@ -11,7 +11,7 @@ public class Start extends Field {
 
 	@Override
 	public boolean landOn(GameController gameController) {
-		gameController.getGUIController().showMessage("You landed on Start and nothing happened");
+		gameController.getGUIController().showMessage("Du lander på Start, og intet sker");
 		return true;
 	}
 
