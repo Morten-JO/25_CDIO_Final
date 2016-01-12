@@ -45,11 +45,12 @@ public class Ownable extends Field {
 		return false;
 	}
 	
-	public boolean pawnProperty(GameController gameController, Player player){
+	public boolean pawnProperty(GameController gameController, Player player){//HVAD BRUGER DU GC OG PLAYER TIL?????? SLET???
 		if (!this.isPawn){
 			this.isPawn = true;
 			player.adjustBalance(this.pawnPrice);
 			System.out.println("Pantsætningsværdien er: " +this.getPawnPrice());
+			//NEED TO HANDLE FIELD ISPAWN. RENT IS STILL GETTING PAYED....
 			return true;
 		}
 		

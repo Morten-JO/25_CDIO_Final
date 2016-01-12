@@ -28,35 +28,55 @@ public class Street extends Ownable {
 	public boolean landOn(GameController gameController) {
 		boolean result = true;
 		Player currentPlayer = gameController.getPlayerController().getCurrentPlayer();
+		
 		// is this street owned ??
-		if (this.owner == null && currentPlayer.getBalance() >= this.price || this.isPawn == true) {
+		//if (currentPlayer.getBalance() >= this.price && (this.owner == null || this.isPawn == true)) {
 			// If no, would you buy it
-			if (currentPlayer.getBalance() > price) {
-				boolean answer = gameController.getGUIController()
-						.askYesNoQuestion("Vil du købe " + this.getName() + " for kr." + this.price);
+			
+			if(currentPlayer == this.owner && isPawn){
+				int priceToPay = this.price/2;
+				
+				if (currentPlayer.getBalance() >= priceToPay) {
+					boolean answer = gameController.getGUIController().askYesNoQuestion("Du har pantsat " + this.getName() + ". Vil du købe denne tilbage for " + priceToPay + " kr.");
+					if (answer == true) { // Ja, jeg vil gerne købe
+						isPawn = false;
+						this.owner = currentPlayer;
+						this.setSubtext(this.owner.getName());
+						result = owner.adjustBalance(-priceToPay);
+					}else if (answer == false)
+						result = true;
+				}
+				
+			}else{ 
+				if (currentPlayer.getBalance() >= price) {
+				boolean answer = gameController.getGUIController().askYesNoQuestion("Vil du købe " + this.getName() + " for kr." + this.price);
 				if (answer == true) { // Ja, jeg vil gerne købe
+					isPawn = false;
 					this.owner = currentPlayer;
 					this.setSubtext(this.owner.getName());
 					result = owner.adjustBalance(-price);
-				} else if (answer == false)
+				}else if (answer == false)
 					result = true;
 			}
-		}
-
+		//}
+		
+		//Er feltet ejet af en anden spiller? Beregn leje og juster spilleres konti
 		if (this.owner != null && this.owner != currentPlayer && this.isPawn == false) {
 			// Er feltets ejer i fængsel?
 			if (this.owner.isJailed() == false) {
-				// Hvor mange felter i denne kategori er ejet af ham, der ejer
-				// dette felt?
+				//Amount of fields in same category that owner own
 				int streets = gameController.getFieldController().getOwnershipOfStreetsInCat(this.owner,
 						this.getStreetCategory());
 				gameController.getGUIController()
 						.showMessage(currentPlayer.getName() + " er landet på " + this.getName() + ". " + this.owner.getName()
 								+ " ejer dette felt og De skal betale " + getRent(gameController) + "kr. i leje");
+				
+				int balance = currentPlayer.getBalance();
+				
 				switch (streets) {
-				// Kun et felt
+				
+				//owner owns 1 field in cat
 				case 1:
-					int balance = currentPlayer.getBalance();
 					result = currentPlayer.adjustBalance(-this.rents[0]);
 
 					if (balance < this.rents[0]) {
@@ -65,75 +85,51 @@ public class Street extends Ownable {
 						this.owner.adjustBalance(this.rents[0]);
 					}
 					break;
-				// To felter, og vi undersøger først, om det kategorien svarer
-				// til de to, hvori der kun er 2 felter at eje.
+					
+				//2 fields. Important checking if the category is one of the 2 cats that only has 2 fields
 				case 2:
 					if (this.getStreetCategory() == 0 || this.getStreetCategory() == 7) {
-						
-						
-						/*
-						if (this.amountOfHouses == 0) {
-							if (currentPlayer.getBalance() > this.rents[1]) {
-								currentPlayer.adjustBalance(-this.rents[1]);
-								result = this.owner.adjustBalance(this.rents[1]);
-							} else {
-								int lastBalance = currentPlayer.getBalance();
-								this.owner.adjustBalance(lastBalance);
-								return false;
+							if(this.getAmountOfHotels() > 0){
+								if(balance > this.rents[6]) {
+									this.owner.adjustBalance(this.rents[6]);
+								}else{
+									this.owner.adjustBalance(balance);
+								}
+								
+								result = currentPlayer.adjustBalance(-this.rents[6]);
+							}else{
+								if(balance > this.rents[this.amountOfHouses+1]) {
+									this.owner.adjustBalance(this.rents[this.amountOfHouses+1]);
+								}else{
+									this.owner.adjustBalance(balance);
+								}
+								result = currentPlayer.adjustBalance(-this.rents[this.amountOfHouses+1]);
 							}
-						}
-						// you need to add 1, because in our array it is [1 *
-						// rent, 2*rent, 1 house,2 house,ect.....]
-						else if (this.amountOfHouses >= 1) {
-						*/
-							if (currentPlayer.getBalance() > this.rents[1 + this.amountOfHouses]) {
-								currentPlayer.adjustBalance(-this.rents[1 + this.amountOfHouses]);
-								result = this.owner.adjustBalance(this.rents[1 + this.amountOfHouses]);
-							} else {
-								int lastBalance = currentPlayer.getBalance();
-								this.owner.adjustBalance(lastBalance);
-								return false;
-							}
-						
-					}
-					
-					else {
-						if (currentPlayer.getBalance() > this.rents[0]) {
-							currentPlayer.adjustBalance(-this.rents[0]);
+					}else{//2 field owned in a 3-field category. Only option will be paying normal rent [0]
+						if (balance > this.rents[0]) {
 							this.owner.adjustBalance(this.rents[0]);
-							return true;
-						}else {
-							int lastBalance = currentPlayer.getBalance();
-							this.owner.adjustBalance(lastBalance);
-							return false;
+						}else{
+							this.owner.adjustBalance(balance);
 						}
+						result = currentPlayer.adjustBalance(-this.rents[0]);
 					}	
 					break;
 				case 3:
-					// tre felter = alle felter i kategorien og dobbelt leje
-					int payToOwner = this.getHousesInSection(this.getStreetCategory(), gameController);
-					if (payToOwner == 0) {
-						if (currentPlayer.getBalance() > this.rents[1]) {
-							currentPlayer.adjustBalance(-this.rents[1]);
-							result = this.owner.adjustBalance(this.rents[1]);
-						} else {
-							int lastBalance = currentPlayer.getBalance();
-							this.owner.adjustBalance(lastBalance);
-							return false;
+					//3 fields owned in a 3-field category. Paying rent: rents[this.amountOfHouses+1]
+					if(this.getAmountOfHotels() > 0){
+						if(balance > this.rents[6]) {
+							this.owner.adjustBalance(this.rents[6]);
+						}else{
+							this.owner.adjustBalance(balance);
 						}
-
-					}
-					// you need to add , because in our array it is [1 * rent,
-					// 2*rent, 1 house,2 house,ect.....]
-					else if (payToOwner >= 1) {
-						if (currentPlayer.getBalance() > rents[1 + payToOwner]) {
-							currentPlayer.adjustBalance(-rents[1 + payToOwner]);
-							result = this.owner.adjustBalance(rents[1 + payToOwner]);
-						} else {
-							int lastBalance = currentPlayer.getBalance();
-							this.owner.adjustBalance(lastBalance);
-							return false;
+						result = currentPlayer.adjustBalance(-this.rents[6]);
+					}else{
+						if(balance > this.rents[this.amountOfHouses+1]) {
+							this.owner.adjustBalance(this.rents[this.amountOfHouses+1]);
+						}else{
+							this.owner.adjustBalance(balance);
 						}
+						result = currentPlayer.adjustBalance(-this.rents[this.amountOfHouses+1]);
 					}
 					break;
 				}
@@ -143,7 +139,11 @@ public class Street extends Ownable {
 		return result;
 	}
 
-	// Buy property
+	/**
+	 * buy building (MORE DESCRIPTION!MAGNUS)
+	 * @param gameController
+	 * @return boolean - 
+	 */
 	public boolean buyBuilding(GameController gameController) {
 		Player currentPlayer = gameController.getPlayerController().getCurrentPlayer();
 
@@ -157,15 +157,13 @@ public class Street extends Ownable {
 			// street in this category
 			if (answer == true && this.isPawn == false && this.getAmountOfHouses() <= this.getHousesInSection(this.getStreetCategory(), gameController) / streets && this.hotels < 1) {
 				if (this.amountOfHouses < maxAmountofHouses) {
-					this.amountOfHouses += 1; // Ved ikke helt med denne, vi
-												// skal have noget der holder
-												// styr på dette.
+					this.amountOfHouses++;
 					this.owner.adjustBalance(-this.buildingPrice);
 					return true;
 				}
 
 				else if (this.amountOfHouses == maxAmountofHouses) {
-					this.amountOfHouses = this.amountOfHouses - maxAmountofHouses;
+					this.amountOfHouses = 0;
 					this.hotels++;
 				}
 
@@ -318,10 +316,10 @@ public class Street extends Ownable {
 
 	public int sellAllBuildingsinCat(int category, GameController gameController) {
 		int amount = 0;
-		for (int i = 0; i < gameController.getFieldController().getFields().length; i++) {
-			if (gameController.getFieldController().getFields()[i] instanceof Street) {
-				if (this.getStreetCategory() == category) {
-					
+		Field[] fields = gameController.getFieldController().getFields();
+		for (int i = 0; i < fields.length; i++) {
+			if (fields[i] instanceof Street) {
+				if (((Street)fields[i]).getStreetCategory() == category) {
 					amount += this.buildingPrice * (((Street) gameController.getFieldController().getFields()[i]).getAmountOfHouses() + (((Street) gameController.getFieldController().getFields()[i]).getAmountOfHotels() * 5));
 					((Street) gameController.getFieldController().getFields()[i]).setAmountOfHouses(0);
 					((Street) gameController.getFieldController().getFields()[i]).setAmountOfHotels(0);
