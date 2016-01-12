@@ -207,9 +207,11 @@ public class Street extends Ownable {
 
 	public int getAmountOfHouses() {
 		if (this.hotels > 0) {
-			this.amountOfHouses += maxAmountofHouses + 1;
+		return 0;//this.amountOfHouses += maxAmountofHouses + 1;
+		}else{
+			return this.amountOfHouses;
 		}
-		return this.amountOfHouses;
+	
 
 	}
 
