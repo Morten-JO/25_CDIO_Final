@@ -68,7 +68,7 @@ public class Language {
 		public static final String GameController_WhatGroundToPawn = "Hvilken grund vil du pantsætte?";
 		public static final String GameController_ConfirmWantToPawn = "Er du sikker på at du ville pantsætte";
 		public static final String GameController_AlreadyBoughtHouse = "Du har allerede købt et hus i denne runde";
-		public static final String GameController_WhatGroundBuyHouse = "Hvilken ground vil du købe hus på?";
+		public static final String GameController_WhatGroundBuyHouse = "Hvilken grund vil du købe hus på?";
 		public static final String GameController_ConfirmBuyHouse = "Er du sikker på at du vil købe et hus på";
 		public static final String GameController_CouldntPayOutOfGame = "Du kunne ikke betale og er nu ude af spillet!";
 		public static final String GameController_WhatDoYouWantToPawnTwo = ", hvad vil du gerne pantsætte?";
