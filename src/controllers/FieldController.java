@@ -254,12 +254,13 @@ public class FieldController {
 				}
 			}
 		}
+		/*
 		for(int i = 0; i < listOfBuildings.size(); i++){
 			if(((Street)listOfBuildings.get(i)).getAmountOfHouses() <= ((Street)listOfBuildings.get(i)).getHousesInSection(((Street)listOfBuildings.get(i)).getStreetCategory(), gameController)/((Street)listOfBuildings.get(i)).getAmountOfStreetsInCategory(((Street)listOfBuildings.get(i)).getStreetCategory(),  gameController)){
 				listOfBuildings.remove(i);
 				i--;
 			}
-		}
+		}*/
 		Field[] fields = new Field[listOfBuildings.size()];
 		fields = listOfBuildings.toArray(fields);
 		return fields;
