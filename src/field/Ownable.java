@@ -60,6 +60,8 @@ public class Ownable extends Field {
 		return isPawn;
 	}
 	
+	
+	//Unpantsæt igen
 	public boolean unPawnProperty(GameController gameController, Player player){
 		for (int i = 0; i<gameController.getFieldController().getFields().length; i++){
 			if (gameController.getFieldController().getFields()[i] instanceof Ownable){
