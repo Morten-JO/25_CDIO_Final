@@ -47,7 +47,7 @@ public class Language {
 		public static final String GameController_TurnsToHit = "'s tur til at slå!";
 		public static final String GameController_StartBonus = "Du får 4000 for at komme over start!";
 		public static final String GameController_CantPayForLanding = "Du kan ikke betale for at lande på ";
-		public static final String GameController_WillHaveToPawn = "og bliver nåd til at pantsætte!";
+		public static final String GameController_WillHaveToPawn = "og bliver nødt til at pantsætte!";
 		public static final String GameController_CastDiceAgain = "Kast terning igen";
 		public static final String GameController_EndTurn = "Slut turen";
 		public static final String GameController_Trade = "Sælg";
