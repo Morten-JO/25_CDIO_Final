@@ -293,5 +293,19 @@ public class FieldController {
 		}
 		return fleetsPawned;
 	}
-		
+	
+	public int getAmountofPawnedBreweries(GameController gameController, Player player){
+		int fleetsPawned = 0;
+		for (int i = 0; i < gameFields.length; i++){
+			if(gameFields[i] instanceof Brewery){
+				if (((Ownable)gameFields[i]).getOwner() != null){
+				
+					if (((Ownable)gameFields[i]).getOwner().equals(player) && ((Ownable)gameFields[i]).getIsPawn() == true){
+					fleetsPawned++;
+					}
+				}
+			}
+		}
+		return fleetsPawned;
+	}
 }

@@ -31,8 +31,8 @@ public class Brewery extends Ownable {
 			}
 		}
 
-		if (this.owner != null && this.owner != currentPlayer && this.owner.isJailed() == false) {
-			int i = gameController.getFieldController().getOwnerShipOfBreweries(currentPlayer);
+		if (this.owner != null && this.owner != currentPlayer && this.owner.isJailed() == false && this.isPawn == false) {
+			int i = gameController.getFieldController().getOwnerShipOfBreweries(currentPlayer)-(gameController.getFieldController().getAmountofPawnedFleets(gameController, this.owner));
 			int pay = rents[i] * gameController.getCup().getDiceSum();
 			gameController.getGUIController().showMessage(currentPlayer.getName() + " er landet på " + this.getName() + ". " + this.owner.getName()
 			+ " ejer dette felt og De skal betale " + pay + "kr. i leje");
@@ -64,7 +64,7 @@ public class Brewery extends Ownable {
 	@Override
 	public int getRent(GameController gameController){
 		int rent = 0;
-		int breweries = gameController.getFieldController().getOwnerShipOfBreweries(this.owner);
+		int breweries = gameController.getFieldController().getOwnerShipOfBreweries(this.owner)-(gameController.getFieldController().getAmountofPawnedFleets(gameController, this.owner));
 		rent = this.rents[breweries-1];
 		
 		return rent;

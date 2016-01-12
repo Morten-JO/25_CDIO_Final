@@ -43,7 +43,7 @@ public class Street extends Ownable {
 			}
 		}
 
-		if (this.owner != null && this.owner != currentPlayer) {
+		if (this.owner != null && this.owner != currentPlayer && this.isPawn == false) {
 			// Er feltets ejer i fængsel?
 			if (this.owner.isJailed() == false) {
 				// Hvor mange felter i denne kategori er ejet af ham, der ejer

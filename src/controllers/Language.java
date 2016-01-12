@@ -119,7 +119,7 @@ public class Language {
 		public static final String FieldController_GedserRostock= "Gedser-Rostock";
 		public static final String FieldController_MolsLinien= "Mols-Linien";
 		public static final String FieldController_Brewery= "Bryggeri";
-		public static final String FieldController_FieldPrice= "Koster";
+		public static final String FieldController_FieldPrice= "Pris";
 		public static final String FieldController_StartField= "Start";
 		public static final String FieldController_Taxfield= "Statsskat";
 		public static final String FieldController_Carlsberg= "Carlsberg";
