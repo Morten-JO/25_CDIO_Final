@@ -52,11 +52,11 @@ public class GameController {
 				else{
 					//handle change position, and handle giving player 4000 bonus for getting over start
 					boolean startBonus = false;
-					int newPosition = playerController.getCurrentPlayer().getPosition() + cup.getDiceSum();
-					if(newPosition > 39){
-						newPosition -= 40;
-						if(newPosition >= 1){
-							startBonus = true;
+						int newPosition = playerController.getCurrentPlayer().getPosition() + cup.getDiceSum();
+							if(newPosition > 39){
+								newPosition -= 40;
+								if(newPosition >= 1){
+									startBonus = true;
 						}
 					}
 					else if(playerController.getCurrentPlayer().getPosition() == 0){
@@ -64,10 +64,10 @@ public class GameController {
 					}
 					playerController.getCurrentPlayer().setPosition(newPosition);
 					guiController.updatePlayerPositions(playerController.getPlayerList());
-					if(playerController.getCurrentPlayer().getFirstRoundCompleted()){
-						if(startBonus){
-							playerController.getCurrentPlayer().adjustBalance(4000);
-							guiController.showMessage(Language.GameController_StartBonus);
+						if(playerController.getCurrentPlayer().getFirstRoundCompleted()){
+							if(startBonus){
+								playerController.getCurrentPlayer().adjustBalance(4000);
+								guiController.showMessage(Language.GameController_StartBonus);
 						}
 					}
 					playerController.getCurrentPlayer().setFirstRoundCompleted(true);
