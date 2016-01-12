@@ -17,6 +17,7 @@ import chancecards.PayMoneyCC;
 import chancecards.PayOilRaiseCC;
 import chancecards.PayTaxRaiseCC;
 import chancecards.ScholarshipCC;
+import controllers.ChanceCardController;
 import controllers.FieldController;
 import controllers.GUIController;
 import field.Street;
@@ -249,6 +250,23 @@ public class ChanceCardsTest {
 		assertEquals(54999, pc.getCurrentPlayer().getBalance());
 		
 		
+	}
+	
+	@Test
+	public void testPileFunctionality(){
+		ChanceCardController controllerCC = new ChanceCardController();
+		
+		for(int j = 0;j<1;j++){
+		for(int i = 0;i<controllerCC.getChanceCards().length;i++){
+			controllerCC.drawCard(gc);
+			//controllerCC.shuffleCards();pile will shuffle automatically after length run through
+		}
+		}
+		int bal = gc.getPlayerController().getPlayer(0).getBalance();
+		
+		
+		System.out.println(bal);
+		System.out.println(controllerCC.toString());
 	}
 	
 	
