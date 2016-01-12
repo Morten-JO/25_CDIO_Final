@@ -247,7 +247,7 @@ public class GameController {
 	}
 	
 	//if not same hit, switch turn
-	private void handleTurnChange(){
+	public void handleTurnChange(){
 		if(cup.isSameHit()){}
 		else{
 			turn++;
@@ -303,6 +303,10 @@ public class GameController {
 		guiController.updatePlayerPosition(playerController.getCurrentPlayer());
 	}
 
+	public boolean checkIfGameIsWon(){
+		return gameOver;
+	}
+	
 	private void handleWinningConditions(){
 		if(playerController.getPlayerList().size() == 1){
 			gameOver = true;
