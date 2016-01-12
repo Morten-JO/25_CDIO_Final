@@ -1,2 +1,9 @@
 /Test/
 /controllers/
+/chancecards/
+/dices/
+/field/
+/player/
+/test/
+/main/
+*.class
