@@ -13,7 +13,7 @@ public class GUIController {
 	
 	public GUIController(GameController game){
 		GUI.create(createList(game.getFieldController().getFields()));
-		GUI.showMessage(LanguageController.GUIController_WelcomeToMatador);
+		GUI.showMessage(Language.GUIController_WelcomeToMatador);
 		ArrayList<String> addPlayers = choosePlayers();
 		String[] names = new String[addPlayers.size()];
 		names = addPlayers.toArray(names);
@@ -26,7 +26,7 @@ public class GUIController {
 		boolean stillAdding = true;
 		//while still adding players
 		while(stillAdding){
-			String input = GUI.getUserString(LanguageController.GUIController_AddPlayer+(players.size()+1)+LanguageController.GUIController_sName);
+			String input = GUI.getUserString(Language.GUIController_AddPlayer+(players.size()+1)+Language.GUIController_sName);
 			if(!input.equals("")){
 				boolean isSame = false;
 				if(players.size() > 0){
@@ -37,20 +37,20 @@ public class GUIController {
 					}
 				}
 				if(isSame){
-					GUI.showMessage(LanguageController.GUIController_TypeUniqueName);
+					GUI.showMessage(Language.GUIController_TypeUniqueName);
 				}
 				else{
 					players.add(input);
-					boolean carQuestion = this.askYesNoQuestion(LanguageController.GUIController_CarPersonal);
+					boolean carQuestion = this.askYesNoQuestion(Language.GUIController_CarPersonal);
 					if(carQuestion){
 						//get input for what options are availble
-						String[] carChoices = {LanguageController.GUIController_Normal, LanguageController.GUIController_RacerCar, LanguageController.GUIController_Tractor, LanguageController.GUIController_Ufo};
-						String[] colorChoices = {LanguageController.GUIController_Black, LanguageController.GUIController_Red, LanguageController.GUIController_Yellow, LanguageController.GUIController_Green, LanguageController.GUIController_Orange, LanguageController.GUIController_Blue};
-						String[] patternChoices = {LanguageController.GUIController_Checkered, LanguageController.GUIController_DiagonalDualColor, LanguageController.GUIController_Dotted, LanguageController.GUIController_Fill, LanguageController.GUIController_HorizontalDualColor, LanguageController.GUIController_Gradient, LanguageController.GUIController_Line, LanguageController.GUIController_Zebra};
-						String carChoice = GUI.getUserSelection(LanguageController.GUIController_ChooseCarType, carChoices);
-						String color = GUI.getUserSelection(LanguageController.GUIController_ChoosePrimaryColor, colorChoices);
-						String secondaryColor = GUI.getUserSelection(LanguageController.GUIController_ChooseSecondaryColor, colorChoices);
-						String patternType = GUI.getUserSelection(LanguageController.GUIController_ChooseCarPattern, patternChoices);
+						String[] carChoices = {Language.GUIController_Normal, Language.GUIController_RacerCar, Language.GUIController_Tractor, Language.GUIController_Ufo};
+						String[] colorChoices = {Language.GUIController_Black, Language.GUIController_Red, Language.GUIController_Yellow, Language.GUIController_Green, Language.GUIController_Orange, Language.GUIController_Blue};
+						String[] patternChoices = {Language.GUIController_Checkered, Language.GUIController_DiagonalDualColor, Language.GUIController_Dotted, Language.GUIController_Fill, Language.GUIController_HorizontalDualColor, Language.GUIController_Gradient, Language.GUIController_Line, Language.GUIController_Zebra};
+						String carChoice = GUI.getUserSelection(Language.GUIController_ChooseCarType, carChoices);
+						String color = GUI.getUserSelection(Language.GUIController_ChoosePrimaryColor, colorChoices);
+						String secondaryColor = GUI.getUserSelection(Language.GUIController_ChooseSecondaryColor, colorChoices);
+						String patternType = GUI.getUserSelection(Language.GUIController_ChooseCarPattern, patternChoices);
 						Color[] carColor = {Color.BLACK, Color.RED, Color.YELLOW, Color.GREEN, Color.ORANGE, Color.BLUE};
 						
 						Car.Builder car = null;
@@ -122,14 +122,14 @@ public class GUIController {
 						Car buildedCar = car.build();
 
 						GUI.addPlayer(input, 30000, buildedCar);
-						GUI.showMessage(input+" "+LanguageController.GUIController_Added);
+						GUI.showMessage(input+" "+Language.GUIController_Added);
 					}
 					else{
 						GUI.addPlayer(input, 30000);
-						GUI.showMessage(input+" "+LanguageController.GUIController_Added);
+						GUI.showMessage(input+" "+Language.GUIController_Added);
 					}
 					if(players.size() >= 3){
-						boolean answer = this.askYesNoQuestion(LanguageController.GUIController_AddAnotherPlayer);
+						boolean answer = this.askYesNoQuestion(Language.GUIController_AddAnotherPlayer);
 						if(!answer){
 							stillAdding = false;
 						}
@@ -140,7 +140,7 @@ public class GUIController {
 				}
 			}
 			else{
-				GUI.showMessage(LanguageController.GUIController_ValidName);
+				GUI.showMessage(Language.GUIController_ValidName);
 			}
 		}
 		return players;
@@ -208,7 +208,7 @@ public class GUIController {
 			}
 			else{
 				try {
-					throw new Exception(LanguageController.GUIController_AFieldWasNotIndentified);
+					throw new Exception(Language.GUIController_AFieldWasNotIndentified);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -227,7 +227,7 @@ public class GUIController {
 	
 	//Asks a yes/no question
 	public Boolean askYesNoQuestion(String message){
-		return GUI.getUserLeftButtonPressed(message, LanguageController.GUIController_Yes, LanguageController.GUIController_No);
+		return GUI.getUserLeftButtonPressed(message, Language.GUIController_Yes, Language.GUIController_No);
 	}
 	
 	//updates all the players positions on the board
