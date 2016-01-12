@@ -364,6 +364,7 @@ public class GameController {
 			guiController.updateDices(cup.getSumOfDice(0), cup.getSumOfDice(1));
 			if(cup.isSameHit()){
 				playerController.getCurrentPlayer().setJailed(false);
+				playerController.getCurrentPlayer().setPosition(10);
 				hittedOut = true;
 				guiController.showMessage(Language.GameController_YouAreOutOfJail);
 			}
@@ -388,6 +389,7 @@ public class GameController {
 				guiController.showMessage(Language.GameController_YouAreOutOfJail);
 			}
 		}
+			
 		guiController.updatePlayerPosition(playerController.getCurrentPlayer());
 	}
 
