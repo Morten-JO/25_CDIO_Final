@@ -251,7 +251,7 @@ public class GameController {
 							for(int i = 0; i < strings.length; i++){
 								if(answer.equals(strings[i])){
 									if(guiController.askYesNoQuestion(Language.GameController_ConfirmUnpawn+" "+fields[i].getName()+" "+Language.GameController_For+" "+((Ownable)fields[i]).getPawnPrice())){
-										//UNPAWN BUILDING HERE
+										((Ownable)fields[i]).unPawnProperty(this, playerController.getCurrentPlayer());
 									}
 								}
 							}
