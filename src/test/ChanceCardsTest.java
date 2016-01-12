@@ -14,8 +14,12 @@ import chancecards.MoveTo;
 import chancecards.MoveToNearestFleetCC;
 import chancecards.MoveX;
 import chancecards.PayMoneyCC;
+import chancecards.PayOilRaiseCC;
+import chancecards.PayTaxRaiseCC;
 import chancecards.ScholarshipCC;
 import controllers.FieldController;
+import controllers.GUIController;
+import field.Street;
 import controllers.GameController;
 import controllers.Language;
 import controllers.PlayerController;
@@ -33,7 +37,7 @@ public class ChanceCardsTest {
 		fc = gc.getFieldController();
 		
 		//set guictrl in debug mode
-		gc.getGUIController().isInDebugMode=true;
+		GUIController.isInDebugMode=true;
 		
 		//players are initialized (30k balance)
 		pc.createPlayers(new String[]{"Arne", "Børge", "Cornelius"});
@@ -164,14 +168,64 @@ public class ChanceCardsTest {
 	
 	@Test
 	public void testPayOilRaise(){
-		//can we set houses just like that?
-	
+		//set owner ship of fields
+		((Street)fc.getFields()[1]).setOwner(pc.getCurrentPlayer());
+		((Street)fc.getFields()[3]).setOwner(pc.getCurrentPlayer());
+		((Street)fc.getFields()[6]).setOwner(pc.getCurrentPlayer());
+		((Street)fc.getFields()[8]).setOwner(pc.getCurrentPlayer());
+		
+		//set houses and hotels on fields. Do not exceed realistic limits
+		((Street)fc.getFields()[1]).setAmountOfHouses(0);
+		((Street)fc.getFields()[1]).setAmountOfHotels(1);
+		
+		((Street)fc.getFields()[3]).setAmountOfHouses(4);
+		((Street)fc.getFields()[3]).setAmountOfHotels(0);
+		
+		((Street)fc.getFields()[6]).setAmountOfHouses(3);
+		((Street)fc.getFields()[6]).setAmountOfHotels(0);
+		
+		((Street)fc.getFields()[8]).setAmountOfHouses(0);
+		((Street)fc.getFields()[8]).setAmountOfHotels(1);
+		
+		//total houses:7 hotels:2  (house:500,- hotels:2000,-);
+		int amountToPay = 7*500 + 2*2000;
+		
+		PayOilRaiseCC payOilRaiseCC = new PayOilRaiseCC(Language.ChanceCardController_oilPricesUpTxt);
+		payOilRaiseCC.drawCardAction(gc);
+		
+		assertEquals(30000-amountToPay, pc.getCurrentPlayer().getBalance());
+		
 		
 	}
 	
 	@Test
 	public void testPayTaxRaise(){
-		//can we set houses just like that?
+		//set owner ship of fields; ONLY using fields of Type Street
+				((Street)fc.getFields()[1]).setOwner(pc.getCurrentPlayer());
+				((Street)fc.getFields()[3]).setOwner(pc.getCurrentPlayer());
+				((Street)fc.getFields()[6]).setOwner(pc.getCurrentPlayer());
+				((Street)fc.getFields()[8]).setOwner(pc.getCurrentPlayer());
+				
+				//set houses and hotels on fields. Do not exceed realistic limits
+				((Street)fc.getFields()[1]).setAmountOfHouses(4);
+				((Street)fc.getFields()[1]).setAmountOfHotels(0);
+				
+				((Street)fc.getFields()[3]).setAmountOfHouses(4);
+				((Street)fc.getFields()[3]).setAmountOfHotels(0);
+				
+				((Street)fc.getFields()[6]).setAmountOfHouses(0);
+				((Street)fc.getFields()[6]).setAmountOfHotels(1);
+				
+				((Street)fc.getFields()[8]).setAmountOfHouses(4);
+				((Street)fc.getFields()[8]).setAmountOfHotels(0);
+				
+				//total houses:12 hotels:1  (house:800,- hotels:2300,-);
+				int amountToPay = 12*800 + 1*2300;
+				
+				PayTaxRaiseCC payOilRaiseCC = new PayTaxRaiseCC(Language.ChanceCardController_taxRaiseTxt);
+				payOilRaiseCC.drawCardAction(gc);
+				
+				assertEquals(30000-amountToPay, pc.getCurrentPlayer().getBalance());
 	}
 	
 	@Test

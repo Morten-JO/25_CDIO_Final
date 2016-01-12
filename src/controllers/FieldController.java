@@ -73,10 +73,9 @@ public class FieldController {
 			if(gameFields[i] instanceof Street){
 				owner = ((Street)gameFields[i]).getOwner();
 				if(owner == player){
-					//check if street has a hotel (houses = 5)
-					if(((Street)gameFields[i]).getAmountOfHouses()==5){
+					//check if street has a hotel *****(houses = 5)<-THIS IS DEPRECATED:HAVING HOTEL MEANS ZERO HOUSES*****
+					if(((Street)gameFields[i]).getAmountOfHotels()>0){
 						hotels++;
-						houses+= 4;
 					}else{
 						houses+= ((Street)gameFields[i]).getAmountOfHouses();
 					}
