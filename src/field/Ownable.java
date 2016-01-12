@@ -68,7 +68,7 @@ public class Ownable extends Field {
 				if (((Ownable)gameController.getFieldController().getFields()[i]).getOwner() != null){
 					if (((Ownable)gameController.getFieldController().getFields()[i]).getOwner().equals(player) && player.getAccount().getBalance() >= this.pawnPrice && this.isPawn == true){
 					this.isPawn = false;
-					player.adjustBalance(this.pawnPrice);
+					player.adjustBalance(-this.pawnPrice);
 					return true;
 				}
 				
