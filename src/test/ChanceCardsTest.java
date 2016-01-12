@@ -32,6 +32,9 @@ public class ChanceCardsTest {
 		pc = gc.getPlayerController();
 		fc = gc.getFieldController();
 		
+		//set guictrl in debug mode
+		gc.getGUIController().isInDebugMode=true;
+		
 		//players are initialized (30k balance)
 		pc.createPlayers(new String[]{"Arne", "Børge", "Cornelius"});
 		
@@ -129,7 +132,9 @@ public class ChanceCardsTest {
 		MoveX moveXplus3 = new MoveX(Language.ChanceCardController_moveBack3,3);
 		MoveX moveXminus3 = new MoveX(Language.ChanceCardController_moveBack3,-3);
 		
-		//focus on testing boundary 0/39 (fieldarray size is currently 39)
+		//focus on testing boundary 0/39 (fieldarray size is currently 39)*
+		//we deliberately avoid landing on IDs of chance fields, it might cause our test to fail, and it irrelevant for the test itself
+		//player balances and landOn methods will be check in Field Test
 		
 		//set pos to 1
 		pc.getCurrentPlayer().setPosition(1);
@@ -141,13 +146,13 @@ public class ChanceCardsTest {
 		assertEquals(35, pc.getCurrentPlayer().getPosition());
 		
 		//set pos to 39
-		pc.getCurrentPlayer().setPosition(39);
+		pc.getCurrentPlayer().setPosition(38);
 		
 		//do +3 two times
 		moveXplus3.drawCardAction(gc);
-		assertEquals(2, pc.getCurrentPlayer().getPosition());
+		assertEquals(1, pc.getCurrentPlayer().getPosition());
 		moveXplus3.drawCardAction(gc);
-		assertEquals(5, pc.getCurrentPlayer().getPosition());
+		assertEquals(4, pc.getCurrentPlayer().getPosition());
 				
 		
 	}
