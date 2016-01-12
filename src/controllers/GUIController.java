@@ -353,4 +353,11 @@ public class GUIController {
 	public void closeGUI(){
 		GUI.close();
 	}
+	
+	
+	public void updateIfOwnedText(field.Field[] arrayOfFields){
+		for(int i = 0; i < arrayOfFields.length; i++){
+			
+		}
+	}
 }

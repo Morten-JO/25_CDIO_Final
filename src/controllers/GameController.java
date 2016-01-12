@@ -193,7 +193,7 @@ public class GameController {
 							String choice = guiController.askDropDownQuestion(Language.GameController_WhatGroundToPawn, fieldNames);
 							if(guiController.askYesNoQuestion(Language.GameController_ConfirmWantToPawn+" "+choice+"?")){
 								for(int i = 0; i < fieldNames.length; i++){
-									if(fieldNames[i].equals(arrayOfOwnedFields[i].getName())){
+									if(choice == fieldNames[i]){
 										((Ownable)(arrayOfOwnedFields[i])).pawnProperty(this, playerController.getCurrentPlayer());
 									}
 								}
