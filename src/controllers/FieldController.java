@@ -28,7 +28,7 @@ public class FieldController {
 		gameFields[9] = new Street(Language.FieldController_Allegade, Language.FieldController_Owner, Language.FieldController_FieldPrice, 9, 2400, 1200, new int [] {150, 300, 800,2000,6000,9000,12000}, 1000, 1);
 		gameFields[10] = new VisitJail(Language.FieldController_JailVisit, Language.FieldController_Sanctuary, "", 10);
 		gameFields[11] = new Street(Language.FieldController_FrederiksbergAlle, Language.FieldController_Owner, Language.FieldController_FieldPrice, 11, 2800, 1400, new int [] {200, 400, 1000,3000,9000,12500,15000}, 2000, 2);
-		gameFields[12] = new Brewery(Language.FieldController_Tuborg,Language.FieldController_HaveADrink , "", 12, 3000, 1500,  new int[] {100,200});
+		gameFields[12] = new Brewery(Language.FieldController_Tuborg,Language.FieldController_HaveADrink , Language.FieldController_FieldPrice, 12, 3000, 1500,  new int[] {100,200});
 		gameFields[13] = new Street(Language.FieldController_Bylowsvej, Language.FieldController_Owner, Language.FieldController_FieldPrice, 13, 2800, 1400, new int [] {200, 400, 1000,3000,9000,12500,15000}, 2000, 2);
 		gameFields[14] = new Street(Language.FieldController_GlKongevej, Language.FieldController_Owner, Language.FieldController_FieldPrice, 14, 3200, 1600, new int [] {250, 500, 1250, 3750, 10000, 14000, 18000}, 2000, 2);
 		gameFields[15] = new Fleet(Language.FieldController_MolsLinien, Language.FieldController_Fleet, Language.FieldController_FieldPrice, 15, 4000, 2000, new int[]{500,1000,2000,4000});
@@ -44,7 +44,7 @@ public class FieldController {
 		gameFields[25] = new Fleet(Language.FieldController_GedserRostock, Language.FieldController_Fleet, Language.FieldController_FieldPrice, 25, 4000, 2000, new int[]{500,1000,2000,4000});
 		gameFields[26] = new Street(Language.FieldController_Bredgade, Language.FieldController_Owner, Language.FieldController_FieldPrice, 26, 5200, 2600, new int [] {450, 900, 2200, 6600, 16000, 19500, 23000}, 3000, 5);
 		gameFields[27] = new Street(Language.FieldController_KgsNytorv, Language.FieldController_Owner, Language.FieldController_FieldPrice, 27, 5200, 2600, new int [] {450, 900, 2200, 6600, 16000, 19500, 23000}, 3000, 5);
-		gameFields[28] = new Brewery(Language.FieldController_Carlsberg, Language.FieldController_HaveADrink, "", 28, 3000, 1500,  new int[] {100,200});
+		gameFields[28] = new Brewery(Language.FieldController_Carlsberg, Language.FieldController_HaveADrink, Language.FieldController_FieldPrice, 28, 3000, 1500,  new int[] {100,200});
 		gameFields[29] = new Street(Language.FieldController_Oestergade, Language.FieldController_Owner, Language.FieldController_FieldPrice, 29, 5600, 2800, new int [] {500, 1000, 2400, 7200, 17000, 20500, 24000}, 3000, 5);
 		gameFields[30] = new Jail(Language.FieldController_JailField, Language.FieldController_GoToJail, "", 30);
 		gameFields[31] = new Street(Language.FieldController_Amagertorv, Language.FieldController_Owner, Language.FieldController_FieldPrice, 31, 6000, 3000, new int [] {550, 1100, 2600, 7800, 18000, 22000, 25000},4000, 6);
