@@ -25,7 +25,7 @@ public class GameController {
 		fieldController = new FieldController();
 		chanceCardController = new ChanceCardController();
 		playerController = new PlayerController();
-		guiController = new GUIController(this);
+		guiController = new GUIController();
 		cup = new Cup(2, 6);
 	}
 	
@@ -129,6 +129,7 @@ public class GameController {
 				while(stillDoingThings){
 					guiController.updateAllOwnerShip(fieldController.getFields());
 					guiController.updateAllPlayersBalance(playerController.getPlayerList());
+					guiController.updateHouses(fieldController.getFields());
 					String option = guiController.askDropDownQuestion(Language.GameController_WhatDoYouWantToDo, array);
 					//if trade option is chosen, get list of your properties, and ask what to trade, and to whom, and how much
 					if(Language.GameController_Trade.equals(option)){

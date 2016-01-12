@@ -11,7 +11,16 @@ import field.*;
 
 public class GUIController {	
 	
-	public GUIController(GameController game){
+	public static boolean isInDebugMode = false;
+	public static boolean debugModeReturnTypeBoolean = false;
+	public static String debugModeReturnTypeString = "";
+	public static int debugModeReturnTypeInt = 0;
+	
+	public GUIController(){
+		
+	}
+	
+	public void startGUI(GameController game){
 		GUI.create(createList(game.getFieldController().getFields()));
 		GUI.showMessage(Language.GUIController_WelcomeToMatador);
 		ArrayList<String> addPlayers = choosePlayers();
@@ -223,16 +232,25 @@ public class GUIController {
 	
 	//Ask questions from a list of questions
 	public String askQuestion(String question, String... answers){
+		if(isInDebugMode){
+			return debugModeReturnTypeString;
+		}
 		return GUI.getUserButtonPressed(question, answers);
 	}
 	
 	//Asks a yes/no question
 	public Boolean askYesNoQuestion(String message){
+		if(isInDebugMode){
+			return debugModeReturnTypeBoolean;
+		}
 		return GUI.getUserLeftButtonPressed(message, Language.GUIController_Yes, Language.GUIController_No);
 	}
 	
 	//updates all the players positions on the board
 	public void updatePlayerPositions(ArrayList<Player> players){
+		if(isInDebugMode){
+			return;
+		}
 		for(int i = 0; i < players.size(); i++){
 			GUI.removeAllCars(players.get(i).getName());
 			GUI.setCar(players.get(i).getPosition()+1, players.get(i).getName());
@@ -241,11 +259,17 @@ public class GUIController {
 
 	//Update a specific players balance
 	public void updatePlayerBalance(Player player){
+		if(isInDebugMode){
+			return;
+		}
 		GUI.setBalance(player.getName(), player.getAccount().getBalance());
 	}
 	
 	//Updates all players balance
 	public void updateAllPlayersBalance(ArrayList<Player> player){
+		if(isInDebugMode){
+			return;
+		}
 		for(int i = 0; i < player.size(); i++){
 			GUI.setBalance(player.get(i).getName(), player.get(i).getAccount().getBalance());
 		}
@@ -253,16 +277,25 @@ public class GUIController {
 
 	//Set owner of the field where player is standing
 	public void setOwnerWithPlayerPosition(Player player){
+		if(isInDebugMode){
+			return;
+		}
 		GUI.setOwner(player.getPosition(), player.getName());
 	}
 	
 	//Remove ownership of a specific field
 	public void removeOwnerShipField(int position){
+		if(isInDebugMode){
+			return;
+		}
 		GUI.removeOwner(position);
 	}
 	
 	//Remove all ownership from a specific player
 	public void removeOwnerShipFromPlayer(field.Field[] arrayOfFields, Player player){
+		if(isInDebugMode){
+			return;
+		}
 		for(int i = 0; i < arrayOfFields.length; i++){
 			if(arrayOfFields[i] instanceof field.Ownable){
 				if(((Ownable)arrayOfFields[i]).getOwner() != null){
@@ -276,6 +309,9 @@ public class GUIController {
 	
 	//Updates all ownership of all GUIs ownables based on arrayOfFields
 	public void updateAllOwnerShip(field.Field[] arrayOfFields){
+		if(isInDebugMode){
+			return;
+		}
 		for(int i = 0; i < arrayOfFields.length; i++){
 			if(arrayOfFields[i] instanceof field.Ownable){
 				if(((Ownable)arrayOfFields[i]).getOwner() != null){
@@ -287,11 +323,17 @@ public class GUIController {
 	
 	//Updates dices based on diceOne and diceTwo
 	public void updateDices(int diceOne, int diceTwo){
+		if(isInDebugMode){
+			return;
+		}
 		GUI.setDice(diceOne, diceTwo);
 	}
 
 	//update houses based on gameFields and players
 	public void updateHouses(field.Field[] arrayOfFields){
+		if(isInDebugMode){
+			return;
+		}
 		for(int i = 0; i < arrayOfFields.length; i++){
 			if(arrayOfFields[i] instanceof field.Street){
 				if(((Street)arrayOfFields[i]).getAmountOfHotels() >= 1){
@@ -307,16 +349,25 @@ public class GUIController {
 	
 	//ask the player dropdownQuestion
 	public String askDropDownQuestion(String message, String... options){
+		if(isInDebugMode){
+			return debugModeReturnTypeString;
+		}
 		return GUI.getUserSelection(message, options);
 	}
 	
 	//show a message to the user
 	public void showMessage(String message){
+		if(isInDebugMode){
+			return;
+		}
 		GUI.showMessage(message);
 	}
 	
 	//remove player from the board
 	public void removePlayer(Player player, field.Field[] arrayOfFields){
+		if(isInDebugMode){
+			return;
+		}
 		GUI.setBalance(player.getName(), 0);
 		this.removeOwnerShipFromPlayer(arrayOfFields, player);
 		GUI.removeCar(player.getPosition()+1, player.getName());
@@ -324,38 +375,59 @@ public class GUIController {
 	
 	//update player position on the board
 	public void updatePlayerPosition(Player player){
+		if(isInDebugMode){
+			return;
+		}
 		GUI.removeAllCars(player.getName());
 		GUI.setCar(player.getPosition()+1, player.getName());
 	}
 	
 	//get a user int
 	public int getUserIntegerInput(String message){
+		if(isInDebugMode){
+			return debugModeReturnTypeInt;
+		}
 		return GUI.getUserInteger(message);
 	}
 	
 	//update subtext on a field
 	public void updateSubText(int id, String message){
+		if(isInDebugMode){
+			return;
+		}
 		GUI.setSubText(id, message);
 	}
 	
 	//update description on a field
 	public void updateDescriptionText(int id, String message){
+		if(isInDebugMode){
+			return;
+		}
 		GUI.setDescriptionText(id, message);
 	}
 	
 	//update title on a field
 	public void updateTitle(int id, String message){
+		if(isInDebugMode){
+			return;
+		}
 		GUI.setTitleText(id, message);
 	}
 	
 	
 	//close the gui
 	public void closeGUI(){
+		if(isInDebugMode){
+			return;
+		}
 		GUI.close();
 	}
 	
 	
 	public void updateIfOwnedText(field.Field[] arrayOfFields){
+		if(isInDebugMode){
+			return;
+		}
 		for(int i = 0; i < arrayOfFields.length; i++){
 			
 		}
