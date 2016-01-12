@@ -309,6 +309,7 @@ public class Street extends Ownable {
 			this.getStreetCategory();
 			System.out.println(this.pawnPrice + this.amountOfHouses);
 			player.adjustBalance(this.pawnPrice + sellAllBuildingsinCat(this.getStreetCategory(), gameController));
+			
 		}
 		return true;
 	}
@@ -318,16 +319,22 @@ public class Street extends Ownable {
 		for (int i = 0; i < gameController.getFieldController().getFields().length; i++) {
 			if (gameController.getFieldController().getFields()[i] instanceof Street) {
 				if (this.getStreetCategory() == category) {
-					amount += this.buildingPrice * (((Street) gameController.getFieldController().getFields()[i])
-							.getAmountOfHouses()
-							+ (((Street) gameController.getFieldController().getFields()[i]).getAmountOfHotels() * 5));
+					
+					amount += this.buildingPrice * (((Street) gameController.getFieldController().getFields()[i]).getAmountOfHouses() + (((Street) gameController.getFieldController().getFields()[i]).getAmountOfHotels() * 5));
+					((Street) gameController.getFieldController().getFields()[i]).setAmountOfHouses(0);
+					((Street) gameController.getFieldController().getFields()[i]).setAmountOfHotels(0);
 				}
 			}
 		}
+		
 		return amount;
 	}
 
-	public void setAmountofHouses(int i) {
+	public void setAmountOfHouses(int i) {
 		this.amountOfHouses = i;
+	}
+	
+	public void setAmountOfHotels(int i) {
+		this.hotels = i;
 	}
 }
