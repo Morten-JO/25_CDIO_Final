@@ -53,7 +53,7 @@ public class Street extends Ownable {
 			if (this.owner.isJailed()== false){
 				//Hvor mange felter i denne kategori er ejet af ham, der ejer dette felt?
 				int streets = gameController.getFieldController().getOwnershipOfStreetsInCat(this.owner, this.getStreetCategory());
-				gameController.getGUIController().showMessage(this.owner.getName() +" ejer dette felt og " +streets + " andre gader i denne kategori");
+				gameController.getGUIController().showMessage(currentPlayer+" er landet på "+this.getName()+". "+this.owner.getName()+" ejer dette felt og De skal betale "+getRent(gameController)+"kr. i leje");
 			switch (streets){
 			//Kun et felt
 			case 1 :
