@@ -63,7 +63,8 @@ public class Ownable extends Field {
 	public boolean unPawnProperty(GameController gameController, Player player){
 		for (int i = 0; i<gameController.getFieldController().getFields().length; i++){
 			if (gameController.getFieldController().getFields()[i] instanceof Ownable){
-				if (((Ownable)gameController.getFieldController().getFields()[i]).getOwner().equals(player) && player.getAccount().getBalance() >= this.pawnPrice && this.isPawn == true){
+				if (((Ownable)gameController.getFieldController().getFields()[i]).getOwner() != null){
+					if (((Ownable)gameController.getFieldController().getFields()[i]).getOwner().equals(player) && player.getAccount().getBalance() >= this.pawnPrice && this.isPawn == true){
 					this.isPawn = false;
 					player.adjustBalance(this.pawnPrice);
 					return true;
@@ -71,6 +72,7 @@ public class Ownable extends Field {
 				
 			}
 			
+		}
 		}
 		return false;
 	}
