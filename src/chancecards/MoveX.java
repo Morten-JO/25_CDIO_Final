@@ -1,6 +1,5 @@
 package chancecards;
 
-import java.util.ArrayList;
 import controllers.GameController;
 import player.Player;
 
