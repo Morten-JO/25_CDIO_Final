@@ -29,7 +29,7 @@ public class Street extends Ownable {
 		boolean result = true;
 		Player currentPlayer = gameController.getPlayerController().getCurrentPlayer();
 		// is this street owned ??
-		if (this.owner == null) {
+		if (this.owner == null && currentPlayer.getBalance() >= this.price || this.isPawn == true) {
 			// If no, would you buy it
 			if (currentPlayer.getBalance() > price) {
 				boolean answer = gameController.getGUIController()

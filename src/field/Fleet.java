@@ -29,7 +29,7 @@ public class Fleet extends Ownable {
 		Player currentPlayer = gameController.getPlayerController().getCurrentPlayer();
 		// check if player has enough balance to buy field, and that field has
 		// no owner
-		if (this.owner == null && currentPlayer.getBalance() >= this.price) {
+		if (this.owner == null && currentPlayer.getBalance() >= this.price || this.isPawn == true) {
 
 			boolean question = gameController.getGUIController()
 					.askYesNoQuestion("Vil du købe " + this.getName() + " for kr. " + this.getPrice());
