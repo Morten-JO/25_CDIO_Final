@@ -1,5 +1,6 @@
 package field;
 
+import controllers.FieldController;
 import controllers.GameController;
 import desktop_resources.GUI;
 import player.Player;
@@ -47,12 +48,15 @@ public class Fleet extends Ownable {
 
 		// check owner not NULL, currentPlayer not owner, owner not jailed. PAY
 		// ACCORDINGLY
-		if (this.owner != null && this.owner != currentPlayer && this.owner.isJailed() == false) {
+		if (this.owner != null && this.owner != currentPlayer && this.owner.isJailed() == false && this.isPawn == false) {
+			Player fleetowner;
 			int fleets = gameController.getFieldController().getOwnerShipOfFleets(this.owner);
 
 			gameController.getGUIController().showMessage(currentPlayer.getName() + " er landet på " + this.getName() + ". " + this.owner.getName()
 							+ " ejer dette felt og De skal betale " + getRent(gameController) + "kr. i leje");
-			int toPay = this.rents[fleets - 1];
+			
+			//Are there any pawned fields among the one owned by the owner of this one? if so, adjust rent
+			int toPay = this.rents[fleets - 1-(gameController.getFieldController().getAmountofPawnedFleets(gameController, this.owner))];
 
 			// check if user has enough balance to pay
 			if (currentPlayer.getBalance() > toPay) {
@@ -71,7 +75,7 @@ public class Fleet extends Ownable {
 	@Override
 	public int getRent(GameController gameController) {
 		int rent = 0;
-		int fleets = gameController.getFieldController().getOwnerShipOfFleets(this.owner);
+		int fleets = gameController.getFieldController().getOwnerShipOfFleets(this.owner)-gameController.getFieldController().getAmountofPawnedFleets(gameController, this.owner);
 		rent = this.rents[fleets - 1];
 
 		return rent;

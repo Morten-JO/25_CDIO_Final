@@ -32,14 +32,6 @@ public class Cup {
 		return sum;
 	}
 	
-	public int getLastDiceSum(){
-		int lastSum = 0;
-		for(int i = 0; i < diceArray.size(); i++){
-			lastSum += diceArray.get(i).getLastSum();
-		}
-		return lastSum;
-	}
-	
 	public int getSumOfDice(int index){
 		if(index < diceArray.size()){
 			return diceArray.get(index).getSum();
@@ -48,6 +40,15 @@ public class Cup {
 			return 0;
 		}
 	}
+	
+	public int getLastDiceSum(){
+		int lastSum = 0;
+			for(int i = 0; i < diceArray.size(); i++){
+				lastSum += diceArray.get(i).getLastSum();
+			}
+			return lastSum;
+	}
+	
 	
 	public int getLastSumOfDice(int index){
 		if(index < diceArray.size()){
