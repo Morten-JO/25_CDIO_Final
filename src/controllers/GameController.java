@@ -115,6 +115,9 @@ public class GameController {
 					if(fieldController.ownsEntireStreet(playerController.getCurrentPlayer())){
 						options.add(Language.GameController_BuildHouse);
 					}
+					if(fieldController.ownsAnyPawnedProperties(playerController.getCurrentPlayer())){
+						options.add(Language.GameController_UnPawn);
+					}
 				}
 				else{
 					options.add(Language.GameController_EndTurn);
@@ -129,75 +132,79 @@ public class GameController {
 					String option = guiController.askDropDownQuestion(Language.GameController_WhatDoYouWantToDo, array);
 					//if trade option is chosen, get list of your properties, and ask what to trade, and to whom, and how much
 					if(Language.GameController_Trade.equals(option)){
-						Field[] arrayOfTradeFields = fieldController.getAllOwnedProperties(playerController.getCurrentPlayer());
-						String[] fieldsTrade = new String[arrayOfTradeFields.length];
-						for(int i = 0; i < fieldsTrade.length; i++){
+						Field[] arrayOfTradeFields = fieldController.getAllOwnedPropertiesNotPawned(playerController.getCurrentPlayer());
+						String[] fieldsTrade = new String[arrayOfTradeFields.length+1];
+						for(int i = 0; i < fieldsTrade.length-1; i++){
 							fieldsTrade[i] = arrayOfTradeFields[i].getName();
 						}
+						fieldsTrade[arrayOfTradeFields.length] = Language.GameController_Cancel;
 						String chosenInput = guiController.askDropDownQuestion(Language.GameController_GroundToTrade, fieldsTrade);
-						Field chosenField = null;
-						for(int i = 0; i < fieldsTrade.length; i++){
-							if(chosenInput.equals(arrayOfTradeFields[i].getName())){
-								chosenField = arrayOfTradeFields[i];
-								break;
+						if(chosenInput != Language.GameController_Cancel){
+							Field chosenField = null;
+							for(int i = 0; i < fieldsTrade.length; i++){
+								if(chosenInput.equals(arrayOfTradeFields[i].getName())){
+									chosenField = arrayOfTradeFields[i];
+									break;
+								}
 							}
-						}
-						if(chosenField != null){
-							if(guiController.askYesNoQuestion(Language.GameController_ConfirmWantToTrade+chosenInput+"?")){
-								int amount = guiController.getUserIntegerInput(Language.GameController_AmountForTrade+chosenInput+"?");
-								ArrayList<Player> modifiedPlayers = new ArrayList<Player>();
-								for(int i = 0; i < playerController.getPlayerList().size(); i++){
-									modifiedPlayers.add(playerController.getPlayerList().get(i));
-								}
-								modifiedPlayers.remove(playerController.getCurrentPlayer());
-								Player[] players = new Player[modifiedPlayers.size()];
-								players = modifiedPlayers.toArray(players);
-								String[] playerNames = new String[players.length];
-								for(int i = 0; i < playerNames.length; i++){
-									playerNames[i] = players[i].getName();
-								}
-								String playerChoice = guiController.askDropDownQuestion(Language.GameController_WhatPlayerToTrade, playerNames);
-								for(int i = 0; i < playerNames.length; i++){
-									if(playerChoice.equals(playerNames[i])){
-										if(players[i].getBalance() >= amount){
-											if(guiController.askYesNoQuestion(Language.GameController_DoYou+playerNames[i]+" "+Language.GameController_Buy+" "+chosenField.getName()+" "+Language.GameController_For+" "+amount+"?")){
-												if(chosenField instanceof Street){
-													if((((Street)chosenField).getAmountOfHotels() + ((Street)chosenField).getAmountOfHouses()) > 0){
-														((Street)chosenField).sellBuilding(this);
-													}
-												}
-												playerController.getCurrentPlayer().adjustBalance(amount);
-												((Ownable)chosenField).setOwner(players[i]);
-												players[i].adjustBalance(-amount);
-												guiController.showMessage(players[i].getName()+" "+Language.GameController_BuyGround+" "+chosenField.getName()+" "+Language.GameController_For+" "+amount+".");
-											}
-											else{
-												guiController.showMessage(Language.GameController_Player+" "+playerNames[i]+" "+Language.GameController_DidntWantToBuy+" "+chosenField.getName()+"!");
-											}
-										}
-										break;
+							if(chosenField != null){
+								if(guiController.askYesNoQuestion(Language.GameController_ConfirmWantToTrade+chosenInput+"?")){
+									int amount = guiController.getUserIntegerInput(Language.GameController_AmountForTrade+chosenInput+"?");
+									ArrayList<Player> modifiedPlayers = new ArrayList<Player>();
+									for(int i = 0; i < playerController.getPlayerList().size(); i++){
+										modifiedPlayers.add(playerController.getPlayerList().get(i));
 									}
+									modifiedPlayers.remove(playerController.getCurrentPlayer());
+									Player[] players = new Player[modifiedPlayers.size()];
+									players = modifiedPlayers.toArray(players);
+									String[] playerNames = new String[players.length];
+									for(int i = 0; i < playerNames.length; i++){
+										playerNames[i] = players[i].getName();
+									}
+									String playerChoice = guiController.askDropDownQuestion(Language.GameController_WhatPlayerToTrade, playerNames);
+									for(int i = 0; i < playerNames.length; i++){
+										if(playerChoice.equals(playerNames[i])){
+											if(players[i].getBalance() >= amount){
+												if(guiController.askYesNoQuestion(Language.GameController_DoYou+playerNames[i]+" "+Language.GameController_Buy+" "+chosenField.getName()+" "+Language.GameController_For+" "+amount+"?")){
+													if(chosenField instanceof Street){
+														if((((Street)chosenField).getAmountOfHotels() + ((Street)chosenField).getAmountOfHouses()) > 0){
+															((Street)chosenField).sellBuilding(this);
+														}
+													}
+													playerController.getCurrentPlayer().adjustBalance(amount);
+													((Ownable)chosenField).setOwner(players[i]);
+													players[i].adjustBalance(-amount);
+													guiController.showMessage(players[i].getName()+" "+Language.GameController_BuyGround+" "+chosenField.getName()+" "+Language.GameController_For+" "+amount+".");
+												}
+												else{
+													guiController.showMessage(Language.GameController_Player+" "+playerNames[i]+" "+Language.GameController_DidntWantToBuy+" "+chosenField.getName()+"!");
+												}
+											}
+											break;
+										}
+									}
+									
 								}
-								
 							}
 						}
 					}
 					//if pawn option is chosen, give player a list of property to pawn
 					else if(Language.GameController_Pawn.equals(option)){
-						if(guiController.askYesNoQuestion(Language.GameController_DoYouWantToPawn)){
-							Field[] arrayOfOwnedFields = fieldController.getAllOwnedPropertiesNotPawned(playerController.getCurrentPlayer());
-							String[] fieldNames = new String[arrayOfOwnedFields.length];
-							for(int i = 0; i < fieldNames.length; i++){
-								fieldNames[i] = arrayOfOwnedFields[i].getName();
-							}
-							String choice = guiController.askDropDownQuestion(Language.GameController_WhatGroundToPawn, fieldNames);
+						Field[] arrayOfOwnedFields = fieldController.getAllOwnedPropertiesNotPawned(playerController.getCurrentPlayer());
+						String[] fieldNames = new String[arrayOfOwnedFields.length+1];
+						for(int i = 0; i < fieldNames.length-1; i++){
+							fieldNames[i] = arrayOfOwnedFields[i].getName();
+						}
+						fieldNames[arrayOfOwnedFields.length] = Language.GameController_Cancel;
+						String choice = guiController.askDropDownQuestion(Language.GameController_WhatGroundToPawn, fieldNames);
+						if(choice != Language.GameController_Cancel){
 							if(guiController.askYesNoQuestion(Language.GameController_ConfirmWantToPawn+" "+choice+"?")){
 								for(int i = 0; i < fieldNames.length; i++){
 									if(choice == fieldNames[i]){
 										((Ownable)(arrayOfOwnedFields[i])).pawnProperty(this, playerController.getCurrentPlayer());
 									}
 								}
-							}
+							}	
 						}
 					}
 					//if buildHouse option is chosen and not already bought a house this round.
@@ -207,22 +214,43 @@ public class GameController {
 						}
 						else{
 							Field[] fields = fieldController.getOwnedFullStreets(playerController.getCurrentPlayer(), this);
-							String[] strings = new String[fields.length];
-							for(int i = 0; i < fields.length; i++){
+							String[] strings = new String[fields.length+1];
+							for(int i = 0; i < strings.length-1; i++){
 								strings[i] = fields[i].getName();
 							}
+							strings[fields.length] = Language.GameController_Cancel;
 							String answer = guiController.askDropDownQuestion(Language.GameController_WhatGroundBuyHouse, strings);
+							if(answer != Language.GameController_Cancel){
+								for(int i = 0; i < strings.length; i++){
+									if(answer.equals(strings[i])){
+										if(guiController.askYesNoQuestion(Language.GameController_ConfirmBuyHouse+" "+fields[i].getName()+" "+Language.GameController_For+" "+((Street)fields[i]).getBuildingPrice())){
+											if(((Street)fieldController.getFields()[fields[i].getNumber()]).buyBuilding(this)){
+												boughtHouse = true;
+												guiController.updateHouses(fieldController.getFields());
+											}
+											break;
+										}
+										else{
+											break; 
+										}
+									}
+								}
+							}
+						}
+					}
+					else if(Language.GameController_UnPawn.equals(option)){
+						Field[] fields = fieldController.getListOfUnPawnableProperties(playerController.getCurrentPlayer());
+						String[] strings = new String[fields.length+1];
+						for(int i = 0; i < strings.length-1; i++){
+							strings[i] = fields[i].getName();
+						}
+						strings[fields.length] = Language.GameController_Cancel;
+						String answer = guiController.askDropDownQuestion(Language.GameController_WantToUnpawn, strings);
+						if(answer != Language.GameController_Cancel){
 							for(int i = 0; i < strings.length; i++){
 								if(answer.equals(strings[i])){
-									if(guiController.askYesNoQuestion(Language.GameController_ConfirmBuyHouse+" "+fields[i].getName()+" "+Language.GameController_For+" "+((Street)fields[i]).getBuildingPrice())){
-										if(((Street)fieldController.getFields()[fields[i].getNumber()]).buyBuilding(this)){
-											boughtHouse = true;
-											guiController.updateHouses(fieldController.getFields());
-										}
-										break;
-									}
-									else{
-										break; 
+									if(guiController.askYesNoQuestion(Language.GameController_ConfirmUnpawn+" "+fields[i].getName()+" "+Language.GameController_For+" "+((Ownable)fields[i]).getPawnPrice())){
+										//UNPAWN BUILDING HERE
 									}
 								}
 							}
@@ -246,6 +274,9 @@ public class GameController {
 						}
 						if(fieldController.ownsEntireStreet(playerController.getCurrentPlayer())){
 							options.add(Language.GameController_BuildHouse);
+						}
+						if(fieldController.ownsAnyPawnedProperties(playerController.getCurrentPlayer())){
+							options.add(Language.GameController_UnPawn);
 						}
 					}
 					else{

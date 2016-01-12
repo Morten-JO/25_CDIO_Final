@@ -279,6 +279,36 @@ public class FieldController {
 		}
 	}
 	
+	
+	public boolean ownsAnyPawnedProperties(Player player){
+		for(int i = 0; i < gameFields.length; i++){
+			if(gameFields[i] instanceof Ownable){
+				if(((Ownable)gameFields[i]).getIsPawn()){
+					if(((Ownable)gameFields[i]).getOwner() == player){
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
+	public Field[] getListOfUnPawnableProperties(Player player){
+		ArrayList<Field> pawnedProperties = new ArrayList<Field>();
+		for(int i = 0; i < gameFields.length; i++){
+			if(gameFields[i] instanceof Ownable){
+				if(((Ownable)gameFields[i]).getIsPawn()){
+					if(((Ownable)gameFields[i]).getOwner() == player){
+						pawnedProperties.add(gameFields[i]);
+					}
+				}
+			}	
+		}
+		Field[] fields = new Field[pawnedProperties.size()];
+		fields = pawnedProperties.toArray(fields);
+		return fields;
+	}
+	
 		
 }
 

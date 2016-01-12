@@ -78,6 +78,10 @@ public class Language {
 		public static final String GameController_YouAreOutOfJail = "Du er kommet ud af fængsel";
 		public static final String GameController_PayToGetOutOfJail = "Har du lyst til at betale 1000 for at komme ud af fængsel?";
 		public static final String GameController_WonGameCongratulations = "har vundet spillet, tilykke!";
+		public static final String GameController_Cancel = "Annuller";
+		public static final String GameController_UnPawn = "Upantsæt";
+		public static final String GameController_WantToUnpawn = "Hvad har du lyst til at upantsætte?";
+		public static final String GameController_ConfirmUnpawn = "Er du sikker på at du vil upantsætte?";
 
 		
 		//FieldController
