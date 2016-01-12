@@ -279,6 +279,19 @@ public class FieldController {
 		}
 	}
 	
+	public int getAmountofPawnedFleets(GameController gameController, Player player){
+		int fleetsPawned = 0;
+		for (int i = 0; i < gameFields.length; i++){
+			if(gameFields[i] instanceof Fleet){
+				if (((Ownable)gameFields[i]).getOwner() != null){
+				
+					if (((Ownable)gameFields[i]).getOwner().equals(player) && ((Ownable)gameFields[i]).getIsPawn() == true){
+					fleetsPawned++;
+					}
+				}
+			}
+		}
+		return fleetsPawned;
+	}
 		
 }
-
