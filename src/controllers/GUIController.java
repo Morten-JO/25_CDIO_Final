@@ -346,4 +346,10 @@ public class GUIController {
 	public void updateTitle(int id, String message){
 		GUI.setTitleText(id, message);
 	}
+	
+	
+	//close the gui
+	public void closeGUI(){
+		GUI.close();
+	}
 }
