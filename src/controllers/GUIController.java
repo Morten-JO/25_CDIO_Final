@@ -432,4 +432,9 @@ public class GUIController {
 			
 		}
 	}
+	
+	
+	public void showChanceCard(String message){
+		GUI.displayChanceCard(message);
+	}
 }

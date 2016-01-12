@@ -82,6 +82,13 @@ public class Language {
 		public static final String GameController_UnPawn = "Upantsæt";
 		public static final String GameController_WantToUnpawn = "Hvad har du lyst til at upantsætte?";
 		public static final String GameController_ConfirmUnpawn = "Er du sikker på at du vil upantsætte?";
+		public static final String GameController_CouldBuyHouse = "Du har købt et hus på ";
+		public static final String GameController_CouldNotBuyHouse = "Du kunne ikke købe et hus på ";
+		public static final String GameController_HitWhoStarts = "Slå om hvem der starter, højest starter!";
+		public static final String GameController_TurnToStartRoll = "'s tur til at slå!";
+		public static final String GameController_Hit = "slog";
+		public static final String GameController_HitTheHighest = "slog højest og starter!";
+		public static final String GameController_HitTheSameAndRoll = "Flere slog det samme, og skal slå igen!";
 
 		
 		//FieldController
