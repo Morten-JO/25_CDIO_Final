@@ -128,15 +128,16 @@ public class GUIController {
 						GUI.addPlayer(input, 30000);
 						GUI.showMessage(input+" "+Language.GUIController_Added);
 					}
-					if(players.size() >= 3){
+					if(players.size() >= 6){
+						stillAdding = false;
+					}
+					else if(players.size() >= 3){
 						boolean answer = this.askYesNoQuestion(Language.GUIController_AddAnotherPlayer);
 						if(!answer){
 							stillAdding = false;
 						}
 					}
-					if(players.size() >= 6){
-						stillAdding = false;
-					}
+					
 				}
 			}
 			else{
