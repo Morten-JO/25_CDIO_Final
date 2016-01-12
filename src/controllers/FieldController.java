@@ -141,9 +141,9 @@ public class FieldController {
 		int count = 0;
 		for(int i = 0 ; i < gameFields.length; i++){
 			if ( gameFields[i] instanceof Street){
-			if (((Street)gameFields[i]).getStreetCategory() == cat ){
-				if(((Ownable)gameFields[i]).getOwner() == p){
-					count++;
+				if (((Street)gameFields[i]).getStreetCategory() == cat ){
+					if(((Ownable)gameFields[i]).getOwner() == p){
+						count++;
 				}
 			}
 		}
