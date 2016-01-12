@@ -33,7 +33,11 @@ public class Brewery extends Ownable {
 
 		if (this.owner != null && this.owner != currentPlayer && this.owner.isJailed() == false) {
 			int i = gameController.getFieldController().getOwnerShipOfBreweries(currentPlayer);
-			int pay = rents[i] * gameController.getCup().getDiceSum();// REMOVED
+			int pay = rents[i] * gameController.getCup().getDiceSum();
+			gameController.getGUIController().showMessage(currentPlayer.getName() + " er landet på " + this.getName() + ". " + this.owner.getName()
+			+ " ejer dette felt og De skal betale " + pay + "kr. i leje");
+			
+			// REMOVED
 																		// -1
 																		// CAUSING
 																		// ARRAY_OOB.
@@ -41,8 +45,9 @@ public class Brewery extends Ownable {
 																		// starts
 																		// at 0
 			if (currentPlayer.getAccount().getBalance() > pay) {
-				currentPlayer.adjustBalance(-pay);
-				result = this.owner.adjustBalance(pay);
+				result = currentPlayer.adjustBalance(-pay);
+				this.owner.adjustBalance(pay);
+				
 
 			} else{
 				int lastBalance = currentPlayer.getBalance();

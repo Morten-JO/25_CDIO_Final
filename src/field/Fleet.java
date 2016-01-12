@@ -26,10 +26,12 @@ public class Fleet extends Ownable {
 	public boolean landOn(GameController gameController) {
 		boolean result = true;
 		Player currentPlayer = gameController.getPlayerController().getCurrentPlayer();
-		// check if player has enough balance to buy field, and that field has no owner
+		// check if player has enough balance to buy field, and that field has
+		// no owner
 		if (this.owner == null && currentPlayer.getBalance() >= this.price) {
 
-			boolean question = gameController.getGUIController().askYesNoQuestion("Vil du købe " + this.getName() + " for kr. " + this.getPrice());
+			boolean question = gameController.getGUIController()
+					.askYesNoQuestion("Vil du købe " + this.getName() + " for kr. " + this.getPrice());
 			// if want to buy field = true
 			if (question == true) {
 				result = currentPlayer.adjustBalance(-this.price);
@@ -43,15 +45,20 @@ public class Fleet extends Ownable {
 			return result;
 		}
 
-		// check owner not NULL, currentPlayer not owner, owner not jailed. PAY ACCORDINGLY
+		// check owner not NULL, currentPlayer not owner, owner not jailed. PAY
+		// ACCORDINGLY
 		if (this.owner != null && this.owner != currentPlayer && this.owner.isJailed() == false) {
-			int fleetsOwned = gameController.getFieldController().getOwnerShipOfFleets(this.owner);
-			int toPay = rents[fleetsOwned - 1];
+			int fleets = gameController.getFieldController().getOwnerShipOfFleets(this.owner);
+
+			gameController.getGUIController().showMessage(currentPlayer.getName() + " er landet på " + this.getName() + ". " + this.owner.getName()
+							+ " ejer dette felt og De skal betale " + getRent(gameController) + "kr. i leje");
+			int toPay = this.rents[fleets - 1];
 
 			// check if user has enough balance to pay
 			if (currentPlayer.getBalance() > toPay) {
-				currentPlayer.adjustBalance(-toPay);
-				result = this.owner.getAccount().adjustBalance(toPay);
+				result = currentPlayer.adjustBalance(-toPay);
+				this.owner.getAccount().adjustBalance(toPay);
+				
 			} else {
 				int lastBalance = currentPlayer.getBalance();
 				this.owner.adjustBalance(lastBalance);
@@ -60,14 +67,14 @@ public class Fleet extends Ownable {
 		}
 		return result;
 	}
-	
+
 	@Override
-	public int getRent(GameController gameController){
+	public int getRent(GameController gameController) {
 		int rent = 0;
 		int fleets = gameController.getFieldController().getOwnerShipOfFleets(this.owner);
-		rent = this.rents[fleets-1];
-		
+		rent = this.rents[fleets - 1];
+
 		return rent;
-		
+
 	}
 }

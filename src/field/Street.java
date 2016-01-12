@@ -37,7 +37,6 @@ public class Street extends Ownable {
 				if (answer == true) { // Ja, jeg vil gerne købe
 					this.owner = currentPlayer;
 					this.setSubtext(this.owner.getName());
-					System.out.println("du har købt dette felt");
 					result = owner.adjustBalance(-price);
 				} else if (answer == false)
 					result = true;
@@ -70,7 +69,9 @@ public class Street extends Ownable {
 				// til de to, hvori der kun er 2 felter at eje.
 				case 2:
 					if (this.getStreetCategory() == 0 || this.getStreetCategory() == 7) {
-
+						
+						
+						/*
 						if (this.amountOfHouses == 0) {
 							if (currentPlayer.getBalance() > this.rents[1]) {
 								currentPlayer.adjustBalance(-this.rents[1]);
@@ -84,6 +85,7 @@ public class Street extends Ownable {
 						// you need to add 1, because in our array it is [1 *
 						// rent, 2*rent, 1 house,2 house,ect.....]
 						else if (this.amountOfHouses >= 1) {
+						*/
 							if (currentPlayer.getBalance() > this.rents[1 + this.amountOfHouses]) {
 								currentPlayer.adjustBalance(-this.rents[1 + this.amountOfHouses]);
 								result = this.owner.adjustBalance(this.rents[1 + this.amountOfHouses]);
@@ -92,8 +94,20 @@ public class Street extends Ownable {
 								this.owner.adjustBalance(lastBalance);
 								return false;
 							}
-						}
+						
 					}
+					
+					else {
+						if (currentPlayer.getBalance() > this.rents[0]) {
+							currentPlayer.adjustBalance(-this.rents[0]);
+							this.owner.adjustBalance(this.rents[0]);
+							return true;
+						}else {
+							int lastBalance = currentPlayer.getBalance();
+							this.owner.adjustBalance(lastBalance);
+							return false;
+						}
+					}	
 					break;
 				case 3:
 					// tre felter = alle felter i kategorien og dobbelt leje
@@ -293,6 +307,7 @@ public class Street extends Ownable {
 		if (!this.isPawn) {
 			this.isPawn = true;
 			this.getStreetCategory();
+			System.out.println(this.pawnPrice + this.amountOfHouses);
 			player.adjustBalance(this.pawnPrice + sellAllBuildingsinCat(this.getStreetCategory(), gameController));
 		}
 		return true;
