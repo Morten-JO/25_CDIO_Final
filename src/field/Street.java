@@ -52,7 +52,7 @@ public class Street extends Ownable {
 				int streets = gameController.getFieldController().getOwnershipOfStreetsInCat(this.owner,
 						this.getStreetCategory());
 				gameController.getGUIController()
-						.showMessage(currentPlayer + " er landet på " + this.getName() + ". " + this.owner.getName()
+						.showMessage(currentPlayer.getName() + " er landet på " + this.getName() + ". " + this.owner.getName()
 								+ " ejer dette felt og De skal betale " + getRent(gameController) + "kr. i leje");
 				switch (streets) {
 				// Kun et felt
