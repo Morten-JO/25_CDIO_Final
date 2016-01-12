@@ -1,6 +1,6 @@
 package controllers;
 
-public class LanguageController {
+public class Language {
 
 
 
@@ -50,7 +50,7 @@ public class LanguageController {
 		public static final String GameController_WillHaveToPawn = "og bliver nåd til at pantsætte!";
 		public static final String GameController_CastDiceAgain = "Kast terning igen";
 		public static final String GameController_EndTurn = "Slut turen";
-		public static final String GameController_Trade = "Byt";
+		public static final String GameController_Trade = "Sælg";
 		public static final String GameController_Pawn = "Pantsæt";
 		public static final String GameController_BuildHouse = "Byg hus";
 		public static final String GameController_WhatDoYouWantToDo = "Hvad vil du gøre?";
