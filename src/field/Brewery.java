@@ -17,7 +17,7 @@ public class Brewery extends Ownable {
 	public boolean landOn(GameController gameController) {
 		boolean result = true;
 		Player currentPlayer = gameController.getPlayerController().getCurrentPlayer();
-		if (this.owner == null) {
+		if (this.owner == null && currentPlayer.getBalance() >= this.price || this.isPawn == true) {
 			if (gameController.getPlayerController().getCurrentPlayer().getAccount().getBalance() >= price) {
 				boolean answer = gameController.getGUIController().askYesNoQuestion("Vil du købe "+this.name+" for kr." +this.price);
 				if (answer == true) {
