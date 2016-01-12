@@ -57,8 +57,8 @@ public class Street extends Ownable {
 					result = owner.adjustBalance(-price);
 				}else if (answer == false)
 					result = true;
+				}
 			}
-		//}
 		
 		//Er feltet ejet af en anden spiller? Beregn leje og juster spilleres konti
 		if (this.owner != null && this.owner != currentPlayer && this.isPawn == false) {
