@@ -49,7 +49,7 @@ public class Fleet extends Ownable {
 
 		// check owner not NULL, currentPlayer not owner, owner not jailed. PAY
 		// ACCORDINGLY
-		if (this.owner != null && this.owner != currentPlayer && this.owner.isJailed() == false && this.isPawn == false) {
+		if (this.owner != null && this.owner != currentPlayer && this.owner.isJailed() == false && this.isPawn == false && this.owner != currentPlayer) {
 			Player fleetowner;
 			int fleets = gameController.getFieldController().getOwnerShipOfFleets(this.owner);
 

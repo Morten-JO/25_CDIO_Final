@@ -15,7 +15,7 @@ public class TaxPercent extends Tax {
 	@Override
 	public boolean landOn(GameController gameController){
 		
-		String answer  = gameController.getGUIController().askQuestion(Language.Field_PayTax4000Or10percent);
+		String answer  = gameController.getGUIController().askQuestion(Language.Field_PayTax4000Or10percent, "4000", "10%");
 		if (answer == "4000"){
 			return gameController.getPlayerController().getCurrentPlayer().adjustBalance(- tax);
 		}

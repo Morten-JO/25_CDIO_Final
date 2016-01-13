@@ -24,9 +24,9 @@ public class Tax extends Field {
 
 	@Override
 	public boolean landOn(GameController gameController) {
-		gameController.getGUIController().showMessage(Language.Field_TaxField +this.tax);
+		gameController.getGUIController().showMessage(Language.Field_TaxField +(this.tax*-1));
 		if (gameController.getPlayerController().getCurrentPlayer().getBalance()>tax){
-		return gameController.getPlayerController().getCurrentPlayer().adjustBalance(-tax);
+		return gameController.getPlayerController().getCurrentPlayer().adjustBalance(tax);
 		}
 		else return false;
 	}

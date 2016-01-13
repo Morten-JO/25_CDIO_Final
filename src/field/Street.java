@@ -38,9 +38,10 @@ public class Street extends Ownable {
 			if(currentPlayer == this.owner && isPawn){
 				int priceToPay = this.price/2;
 				
+				//Unpawning the street
 				if (currentPlayer.getBalance() >= priceToPay) {
 					boolean answer = gameController.getGUIController().askYesNoQuestion(Language.Field_HasPawned+ this.getName() + Language.Field_BuyBack+ priceToPay + Language.Field_Currency);
-					if (answer == true) { // Ja, jeg vil gerne købe
+					if (answer == true) { // Ja, jeg vil gerne upantsætte
 						isPawn = false;
 						this.owner = currentPlayer;
 						this.setSubtext(this.owner.getName());
@@ -50,7 +51,7 @@ public class Street extends Ownable {
 				}
 				
 			}else{ 
-				if (currentPlayer.getBalance() >= price) {
+				if (currentPlayer.getBalance() >= price && (this.owner==null || this.isPawn == true && this.owner != currentPlayer) ) {
 				boolean answer = gameController.getGUIController().askYesNoQuestion(Language.Field_DoYouWantToBuy + this.getName() + Language.Field_For + this.price+ "?");
 				if (answer == true) { // Ja, jeg vil gerne købe
 					isPawn = false;
