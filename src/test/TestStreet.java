@@ -255,9 +255,18 @@ public class TestStreet {
 		((Street)gc.getFieldController().getFields()[1]).buyBuilding(gc);
 		((Street)gc.getFieldController().getFields()[3]).buyBuilding(gc);
 		((Street)gc.getFieldController().getFields()[1]).buyBuilding(gc);
-		((Street)gc.getFieldController().getFields()[1]).sellAllBuildingsinCat(((Street)gc.getFieldController().getFields()[1]), gameController)
-		assertEquals(3,((Street)gc.getFieldController().getFields()[1]).getAmountOfHotels());
+		((Street)gc.getFieldController().getFields()[1]).sellAllBuildingsinCat(((Street)gc.getFieldController().getFields()[1]).getStreetCategory(),gc);
+		assertEquals(0,((Street)gc.getFieldController().getFields()[1]).getAmountOfHouses());
 		
 		
+	}
+	@Test
+	public void test_BuyHouseIfOneStreetIsPawn(){
+		gc.getGUIController().debugModeReturnTypeBoolean = true;
+		((Street)gc.getFieldController().getFields()[1]).setOwner(gc.getPlayerController().getPlayer(0));
+		((Street)gc.getFieldController().getFields()[3]).setOwner(gc.getPlayerController().getPlayer(0));
+		((Street)gc.getFieldController().getFields()[3]).pawnProperty(gc, gc.getPlayerController().getPlayer(0));
+		((Street)gc.getFieldController().getFields()[1]).buyBuilding(gc);
+		assertEquals(0,((Street)gc.getFieldController().getFields()[1]).getAmountOfHouses());
 	}
 }
