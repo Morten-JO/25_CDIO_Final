@@ -84,4 +84,8 @@ public class Ownable extends Field {
 		}
 		return false;
 	}
+	
+	public void setIsPawn(boolean isPawn){
+		this.isPawn = isPawn;
+	}
 }

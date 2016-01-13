@@ -288,6 +288,7 @@ public class FieldController {
 			if(gameFields[i] instanceof Ownable){
 				if(((Ownable)gameFields[i]).getOwner() == player){
 					((Ownable)gameFields[i]).setOwner(null);
+					((Ownable)gameFields[i]).setIsPawn(false);
 					if(gameFields[i] instanceof Street){
 						((Street)gameFields[i]).removeAllOwnership();
 					}

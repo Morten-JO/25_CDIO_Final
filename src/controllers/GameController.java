@@ -204,6 +204,8 @@ public class GameController {
 		if(turn == playerController.getPlayerList().size()){
 			turn = 0;
 		}
+		guiController.updateAllOwnerShip(fieldController.getFields());
+		guiController.updateHouses(fieldController.getFields());
 	}
 	
 	
@@ -223,6 +225,8 @@ public class GameController {
 			playerController.setCurrentPlayer(turn);
 		}
 		playerController.getPlayerList().remove(player);
+		guiController.updateAllOwnerShip(fieldController.getFields());
+		guiController.updateHouses(fieldController.getFields());
 
 	}
 	
