@@ -240,7 +240,7 @@ public class GameController {
 			for(int i = 0; i < fields.length; i++){
 				fieldNames[i] = fields[i].getName();
 			}
-			String choice = guiController.askDropDownQuestion(player.getName()+Language.GameController_WhatDoYouWantToPawnTwo, fieldNames);
+			String choice = guiController.askDropDownQuestion(player.getName()+Language.GameController_WhatDoYouWantToPawnTwo+", "+Language.GameController_Missing+" "+(toPay-player.getBalance()), fieldNames);
 			for(int i = 0; i < fields.length; i++){
 				if(choice == fieldNames[i]){
 					if(guiController.askYesNoQuestion(Language.GameController_ConfirmWantToPawn+" "+fieldNames[i]+"?")){
@@ -248,6 +248,7 @@ public class GameController {
 					}
 				}
 			}
+			guiController.updatePlayerBalance(player);
 			if(player.getBalance() >= toPay){
 				canPay = true;
 			}

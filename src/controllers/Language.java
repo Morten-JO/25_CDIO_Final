@@ -96,6 +96,7 @@ public class Language {
 		public static final String GameController_Hit = "slog";
 		public static final String GameController_HitTheHighest = "slog højest og starter!";
 		public static final String GameController_HitTheSameAndRoll = "Flere slog det samme, og skal slå igen!";
+		public static final String GameController_Missing = "Du mangler";
 
 		
 		//FieldController
