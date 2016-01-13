@@ -2,7 +2,6 @@ package test;
 
 import static org.junit.Assert.*;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,7 +16,7 @@ public class TestStreet {
 	private GameController gc;
 	
 		
-	
+	// opretter en setUp som køre før hver test.
 	@Before 
 	public void setUp ()throws Exception 
 	{
@@ -28,11 +27,8 @@ public class TestStreet {
 	gc.getPlayerController().createPlayers(name);	
 	}
 	
-	@After 
-	public void close () {
-		
-	}
 	
+	// tester alle vores get metoder, på det objekt der er oprettet det hedder vej.
 	@Test
 	public void test_getMethods() {
 		int [] testArray = new int[]{50,100,250,750,2250,4000,6000};
@@ -47,7 +43,7 @@ public class TestStreet {
 		assertEquals(0,vej.getStreetCategory());
 		
 	}
-	
+	// tester om en spiller bliver sat til owner, hvis han vælger at købe feltet han lander på
 	@Test
 	public void test_SayYesToBuyStreet(){
 		gc.getGUIController().debugModeReturnTypeBoolean=true;
@@ -56,6 +52,7 @@ public class TestStreet {
 		assertEquals(gc.getPlayerController().getCurrentPlayer(),vej.getOwner());
 				
 	}
+	// tester om owner er null efter man har sagt nej til at købe feltet
 	@Test
 	public void test_SayNoToBuyStreet(){
 		gc.getGUIController().debugModeReturnTypeBoolean=false;
@@ -65,6 +62,7 @@ public class TestStreet {
 	}
 		
 	@Test
+	// Tester om den tager den rigigte rente, hvis man kun ejer et felt i en bestemt kategori
 	public void test_LandOnPayRentWithOneStreet(){
 			
 	((Street) gc.getFieldController().getFields()[1]).setOwner(gc.getPlayerController().getPlayer(0));
@@ -76,6 +74,7 @@ public class TestStreet {
 	}
 	
 	@Test
+	// tester om den tager den rigtige leje hvis man ejer alle felterne i en bestem kategori
 	public void test_LandOnPayRentWithAllStreets(){
 		((Street) gc.getFieldController().getFields()[1]).setOwner(gc.getPlayerController().getPlayer(0));
 		((Street) gc.getFieldController().getFields()[3]).setOwner(gc.getPlayerController().getPlayer(0));
@@ -88,6 +87,7 @@ public class TestStreet {
 	}
 	
 	@Test
+	// tester om den tager den rigtige leje hvis man ejer 1 hus på et felt
 	public void test_LandOnPayRentWithOneHouse(){
 		
 		((Street) gc.getFieldController().getFields()[1]).setOwner(gc.getPlayerController().getPlayer(0));
@@ -102,6 +102,7 @@ public class TestStreet {
 	}
 	
 	@Test
+	// tester om den tager den rigtige leje hvis man ejer 2 hus på et felt
 	public void test_LandOnPayRentWithTwoHouse(){
 		
 		((Street) gc.getFieldController().getFields()[1]).setOwner(gc.getPlayerController().getPlayer(0));
@@ -116,6 +117,7 @@ public class TestStreet {
 			}
 	
 	@Test
+	// tester om den tager den rigtige leje hvis man ejer 3 hus på et felt
 	public void test_LandOnPayRentWithThreeHouse(){
 		((Street) gc.getFieldController().getFields()[1]).setOwner(gc.getPlayerController().getPlayer(0));
 		((Street) gc.getFieldController().getFields()[3]).setOwner(gc.getPlayerController().getPlayer(0));
@@ -129,6 +131,7 @@ public class TestStreet {
 	}
 		
 	@Test
+	// tester om den tager den rigtige leje hvis man ejer 4 hus på et felt
 	public void test_LandOnPayRentWithFourHouse(){
 		
 		((Street) gc.getFieldController().getFields()[1]).setOwner(gc.getPlayerController().getPlayer(0));
@@ -143,6 +146,7 @@ public class TestStreet {
 		
 	}
 	@Test
+	// tester om den tager den rigtige leje hvis man ejer 1 hotel på et felt
 	public void test_LandOnPayRentWithOneHotel(){
 		((Street) gc.getFieldController().getFields()[1]).setOwner(gc.getPlayerController().getPlayer(0));
 		((Street) gc.getFieldController().getFields()[3]).setOwner(gc.getPlayerController().getPlayer(0));
@@ -158,6 +162,7 @@ public class TestStreet {
 	}
 	
 	@Test 
+	// ser om Landon sender en false tilbage, hvis spilleren ikke kan betale, så er spilleren nemlig gået bankerot
 	public void test_CantPay(){
 		((Street) gc.getFieldController().getFields()[1]).setOwner(gc.getPlayerController().getPlayer(0));
 		gc.getPlayerController().getPlayer(1).adjustBalance(-29999);
@@ -166,6 +171,7 @@ public class TestStreet {
 	}
 	
 	@Test
+	// tester om man kan købe 2 huse på samme street, hvis man ikke har nogle andre huse på samme kategori
 	public void test_Buy2HouseOnSameStreet() {
 		gc.getGUIController().debugModeReturnTypeBoolean = true;
 		((Street)gc.getFieldController().getFields()[1]).setOwner(gc.getPlayerController().getPlayer(0));
@@ -177,6 +183,7 @@ public class TestStreet {
 	}
 	
 	@Test 
+	// tester metoden buyHouse, som tester om man købe et hus, hvis man ejer alle streets i en kategori
 	public void test_BuyHouse () {
 		gc.getGUIController().debugModeReturnTypeBoolean = true;
 		((Street)gc.getFieldController().getFields()[1]).setOwner(gc.getPlayerController().getPlayer(0));
@@ -186,6 +193,7 @@ public class TestStreet {
 	}
 	
 	@Test 
+	// tester om man kan købe 2 huse på en street.
 	public void test_Buy2House () {
 		gc.getGUIController().debugModeReturnTypeBoolean = true;
 		((Street)gc.getFieldController().getFields()[1]).setOwner(gc.getPlayerController().getPlayer(0));
@@ -197,6 +205,7 @@ public class TestStreet {
 		
 	}
 	@Test
+	// tester om man kan købe 3 huse på en street.
 	public void test_Buy3House () {
 		gc.getGUIController().debugModeReturnTypeBoolean = true;
 		((Street)gc.getFieldController().getFields()[1]).setOwner(gc.getPlayerController().getPlayer(0));
@@ -210,6 +219,7 @@ public class TestStreet {
 	}
 	
 	@Test
+	// tester om man kan købe 4 huse på en street.
 	public void test_Buy4House () {
 		gc.getGUIController().debugModeReturnTypeBoolean = true;
 		((Street)gc.getFieldController().getFields()[1]).setOwner(gc.getPlayerController().getPlayer(0));
@@ -224,6 +234,7 @@ public class TestStreet {
 		assertEquals(4,((Street)gc.getFieldController().getFields()[1]).getAmountOfHouses());
 	}
 	@Test
+	// tester om når man køber det 5 hus, om så man får automatisk et hotel 
 	public void test_Buy5HouseGet1Hotel () {
 		gc.getGUIController().debugModeReturnTypeBoolean = true;
 		((Street)gc.getFieldController().getFields()[1]).setOwner(gc.getPlayerController().getPlayer(0));
@@ -242,6 +253,7 @@ public class TestStreet {
 	
 	
 	@Test
+	// tester metoden sellAllBuildingsinCat, som skal slette alle huse på ens streets i sin kategori
 	public void test_sellAllBuildingsinCat () {
 		gc.getGUIController().debugModeReturnTypeBoolean = true;
 		((Street)gc.getFieldController().getFields()[1]).setOwner(gc.getPlayerController().getPlayer(0));
@@ -261,6 +273,7 @@ public class TestStreet {
 		
 	}
 	@Test
+	// ser om man kan købe et hus, selvom en af streets er pantsatte
 	public void test_BuyHouseIfOneStreetIsPawn(){
 		gc.getGUIController().debugModeReturnTypeBoolean = true;
 		((Street)gc.getFieldController().getFields()[1]).setOwner(gc.getPlayerController().getPlayer(0));
@@ -271,6 +284,7 @@ public class TestStreet {
 	}
 	
 	@Test
+	// tester om den sætter en spiller owner til null efter metoden RemoveAllOwnership er kaldt.
 	public void test_RemoveAllOwnership(){
 		((Street)gc.getFieldController().getFields()[1]).setOwner(gc.getPlayerController().getPlayer(0));
 		((Street)gc.getFieldController().getFields()[1]).removeAllOwnership();
