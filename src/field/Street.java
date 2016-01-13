@@ -30,6 +30,9 @@ public class Street extends Ownable {
 	
 	
 	
+	/* (non-Javadoc)
+	 * @see field.Ownable#landOn(controllers.GameController)
+	 */
 	@Override
 	public boolean landOn(GameController gameController) {
 		boolean result = true;
@@ -147,7 +150,12 @@ public class Street extends Ownable {
 	}
 
 	/**
-	 * buy building (MORE DESCRIPTION!MAGNUS)
+	 * buyBuilding method
+	 * It adds a building to a street of the players choice. It calculates the amount of houses
+	 * on the other streets in the category and insures, that no street can contain more than one
+	 * house compared to the other streets in the category.
+	 * If there are already 4 houses it removes the houses and adds a hotel.
+	 * Also, if the street is pawned, or any other street in the section is pawned, building will not happen.
 	 * @param gameController
 	 * @return boolean - 
 	 */
@@ -155,8 +163,9 @@ public class Street extends Ownable {
 		Player currentPlayer = gameController.getPlayerController().getCurrentPlayer();
 
 		// How many streets in this category?
+		int pawned = gameController.getFieldController().getAmountofPawnedStreetsInCategory(gameController, this.streetCategory);
 		int streets = this.getAmountOfStreetsInCategory(this.getStreetCategory(), gameController);
-		if (currentPlayer.getBalance() >= buildingPrice) {
+		if (currentPlayer.getBalance() >= buildingPrice && pawned == 0) {
 			boolean answer = gameController.getGUIController()
 					.askYesNoQuestion(Language.Field_BuyBuilding);
 
@@ -190,14 +199,14 @@ public class Street extends Ownable {
 	 * sellBuilding. Method used by an owner of a Field to remove one building from this Field.
 	 * Method investigates amount of houses and hotels, and adjusts the amount accordingly.
 	 * It calculates whether or not the amount of houses on the other streets in the category
-	 * will exceed the amount on this street, should a building be sold. If so it returns false.
+	 * will exceed the amount on this street, should a building be sold. If so it returns false... not sure if needed
 	 * @param gameController
 	 * @return
 	 */
 	public boolean sellBuilding(GameController gameController) {
 		Player currentPlayer = gameController.getPlayerController().getCurrentPlayer();
 		int streets = this.getAmountOfStreetsInCategory(this.getStreetCategory(), gameController);
-		if (this.owner.equals(currentPlayer) && (double)this.getAmountOfHouses() >= (double)this.getHousesInSection(this.getStreetCategory(), gameController) / streets) {
+		if (this.owner.equals(currentPlayer) && (double)this.getAmountOfHouses() >= ((double)this.getHousesInSection(this.getStreetCategory(), gameController) / streets)) {
 			boolean answer = gameController.getGUIController().askYesNoQuestion(Language.Field_SellBuilding);
 			if (answer = true) {
 

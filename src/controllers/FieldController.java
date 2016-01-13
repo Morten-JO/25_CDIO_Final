@@ -309,7 +309,7 @@ public class FieldController {
 	}
 	
 		
-	public int getAmountofPawnedFleets(GameController gameController, Player player){
+		public int getAmountofPawnedFleets(GameController gameController, Player player){
 		int fleetsPawned = 0;
 		for (int i = 0; i < gameFields.length; i++){
 			if(gameFields[i] instanceof Fleet){
@@ -324,7 +324,7 @@ public class FieldController {
 		return fleetsPawned;
 	}
 	
-	public int getAmountofPawnedBreweries(GameController gameController, Player player){
+		public int getAmountofPawnedBreweries(GameController gameController, Player player){
 		int fleetsPawned = 0;
 		for (int i = 0; i < gameFields.length; i++){
 			if(gameFields[i] instanceof Brewery){
@@ -338,4 +338,19 @@ public class FieldController {
 		}
 		return fleetsPawned;
 	}
+	
+		public int getAmountofPawnedStreetsInCategory(GameController gameController, int category){
+			int streetsPawned = 0;
+			for (int i = 0; i < gameFields.length; i++){
+				if(gameFields[i] instanceof Street){
+					if (((Ownable)gameFields[i]).getOwner() != null){
+					
+						if (((Ownable)gameFields[i]).getOwner().equals(gameController.getPlayerController().getCurrentPlayer()) && ((Ownable)gameFields[i]).getIsPawn() == true && ((Street)gameFields[i]).getStreetCategory() == category){
+						streetsPawned++;
+						}
+					}
+				}
+			}
+			return streetsPawned;
+		}
 }
