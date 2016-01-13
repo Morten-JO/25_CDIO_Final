@@ -16,6 +16,11 @@ public abstract class Field {
 		
 	}
 
+	/**
+	 * Generel landOn metode
+	 * @param gameController
+	 * @return
+	 */
 	public abstract boolean landOn(GameController gameController);
 
 	public String getName() {

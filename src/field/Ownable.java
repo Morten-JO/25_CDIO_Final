@@ -39,6 +39,11 @@ public class Ownable extends Field {
 	public int getRent(GameController gameController){
 		return 0;
 	}
+	
+	/* (non-Javadoc)
+	 * det virker da
+	 * @see field.Field#landOn(controllers.GameController)
+	 */
 	@Override
 	public boolean landOn(GameController gameController) {
 		// TODO Auto-generated method stub

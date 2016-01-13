@@ -368,7 +368,7 @@ public class GameController {
 								returnType = true;
 								guiController.updateHouses(fieldController.getFields());
 								guiController.updatePlayerBalance(playerController.getCurrentPlayer());
-								guiController.showMessage(Language.GameController_CouldNotBuyHouse+fields[i].getName());
+								guiController.showMessage(Language.GameController_CouldBuyHouse+fields[i].getName());
 							}
 							break;
 						}

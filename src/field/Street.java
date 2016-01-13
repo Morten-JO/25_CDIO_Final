@@ -25,7 +25,11 @@ public class Street extends Ownable {
 		// category refering to the color of the street
 	}
 
-	// landOn method for Streets,
+	
+	
+	
+	
+	
 	@Override
 	public boolean landOn(GameController gameController) {
 		boolean result = true;
@@ -184,13 +188,16 @@ public class Street extends Ownable {
 
 	/**
 	 * sellBuilding. Method used by an owner of a Field to remove one building from this Field.
-	 * Method investigates amount of houses and hotels, and adjusts the amount accordingly
+	 * Method investigates amount of houses and hotels, and adjusts the amount accordingly.
+	 * It calculates whether or not the amount of houses on the other streets in the category
+	 * will exceed the amount on this street, should a building be sold. If so it returns false.
 	 * @param gameController
 	 * @return
 	 */
 	public boolean sellBuilding(GameController gameController) {
 		Player currentPlayer = gameController.getPlayerController().getCurrentPlayer();
-		if (this.owner.equals(currentPlayer)) {
+		int streets = this.getAmountOfStreetsInCategory(this.getStreetCategory(), gameController);
+		if (this.owner.equals(currentPlayer) && this.getAmountOfHouses() >= this.getHousesInSection(this.getStreetCategory(), gameController) / streets) {
 			boolean answer = gameController.getGUIController().askYesNoQuestion(Language.Field_SellBuilding);
 			if (answer = true) {
 
@@ -244,6 +251,7 @@ public class Street extends Ownable {
 		}
 		return houses;
 	}
+	
 
 	public int[] getRents() {
 		return rents;
