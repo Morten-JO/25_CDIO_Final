@@ -66,7 +66,7 @@ public class Brewery extends Ownable {
 	public int getRent(GameController gameController){
 		int rent = 0;
 		int breweries = gameController.getFieldController().getOwnerShipOfBreweries(this.owner)-(gameController.getFieldController().getAmountofPawnedFleets(gameController, this.owner));
-		rent = this.rents[breweries-1];
+		rent = this.rents[breweries-1]*gameController.getCup().getDiceSum();
 		
 		return rent;
 		

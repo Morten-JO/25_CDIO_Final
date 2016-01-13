@@ -30,8 +30,6 @@ public class TestStreet {
 	
 	@After 
 	public void close () {
-		((Street) gc.getFieldController().getFields()[1]).setAmountOfHouses(0);
-		((Street) gc.getFieldController().getFields()[1]).setAmountOfHotels(0);
 		
 	}
 	
@@ -148,20 +146,118 @@ public class TestStreet {
 	public void test_LandOnPayRentWithOneHotel(){
 		((Street) gc.getFieldController().getFields()[1]).setOwner(gc.getPlayerController().getPlayer(0));
 		((Street) gc.getFieldController().getFields()[3]).setOwner(gc.getPlayerController().getPlayer(0));
-		
 		((Street) gc.getFieldController().getFields()[1]).setAmountOfHotels(1);
-		
 		gc.getPlayerController().getPlayer(1).setPosition(1);
 		gc.getPlayerController().setCurrentPlayer(1);
 		((Street)gc.getFieldController().getFields()[1]).landOn(gc);
-		
-		System.out.println(((Street) gc.getFieldController().getFields()[1]).getAmountOfHouses());
-		System.out.println(((Street) gc.getFieldController().getFields()[1]).getAmountOfHotels());
 		int rent = ((Street) gc.getFieldController().getFields()[1]).getRent(gc);
 		
 		assertEquals(30000-rent,gc.getPlayerController().getPlayer(1).getBalance());
 		
 		
 	}
-
+	
+	@Test 
+	public void test_CantPay(){
+		((Street) gc.getFieldController().getFields()[1]).setOwner(gc.getPlayerController().getPlayer(0));
+		gc.getPlayerController().getPlayer(1).adjustBalance(-29999);
+		gc.getPlayerController().setCurrentPlayer(1);
+		assertEquals(false,((Street)gc.getFieldController().getFields()[1]).landOn(gc));
+	}
+	
+	@Test
+	public void test_Buy2HouseOnSameStreet() {
+		gc.getGUIController().debugModeReturnTypeBoolean = true;
+		((Street)gc.getFieldController().getFields()[1]).setOwner(gc.getPlayerController().getPlayer(0));
+		((Street)gc.getFieldController().getFields()[3]).setOwner(gc.getPlayerController().getPlayer(0));
+		((Street)gc.getFieldController().getFields()[1]).buyBuilding(gc);
+		((Street)gc.getFieldController().getFields()[1]).buyBuilding(gc);
+		assertEquals(1,((Street)gc.getFieldController().getFields()[1]).getAmountOfHouses());
+		
+	}
+	
+	@Test 
+	public void test_BuyHouse () {
+		gc.getGUIController().debugModeReturnTypeBoolean = true;
+		((Street)gc.getFieldController().getFields()[1]).setOwner(gc.getPlayerController().getPlayer(0));
+		((Street)gc.getFieldController().getFields()[3]).setOwner(gc.getPlayerController().getPlayer(0));
+		((Street)gc.getFieldController().getFields()[1]).buyBuilding(gc);
+		assertEquals(1,((Street)gc.getFieldController().getFields()[1]).getAmountOfHouses());
+	}
+	
+	@Test 
+	public void test_Buy2House () {
+		gc.getGUIController().debugModeReturnTypeBoolean = true;
+		((Street)gc.getFieldController().getFields()[1]).setOwner(gc.getPlayerController().getPlayer(0));
+		((Street)gc.getFieldController().getFields()[3]).setOwner(gc.getPlayerController().getPlayer(0));
+		((Street)gc.getFieldController().getFields()[1]).buyBuilding(gc);
+		((Street)gc.getFieldController().getFields()[3]).buyBuilding(gc);
+		((Street)gc.getFieldController().getFields()[1]).buyBuilding(gc);
+		assertEquals(2,((Street)gc.getFieldController().getFields()[1]).getAmountOfHouses());
+		
+	}
+	@Test
+	public void test_Buy3House () {
+		gc.getGUIController().debugModeReturnTypeBoolean = true;
+		((Street)gc.getFieldController().getFields()[1]).setOwner(gc.getPlayerController().getPlayer(0));
+		((Street)gc.getFieldController().getFields()[3]).setOwner(gc.getPlayerController().getPlayer(0));
+		((Street)gc.getFieldController().getFields()[1]).buyBuilding(gc);
+		((Street)gc.getFieldController().getFields()[3]).buyBuilding(gc);
+		((Street)gc.getFieldController().getFields()[1]).buyBuilding(gc);
+		((Street)gc.getFieldController().getFields()[3]).buyBuilding(gc);
+		((Street)gc.getFieldController().getFields()[1]).buyBuilding(gc);
+		assertEquals(3,((Street)gc.getFieldController().getFields()[1]).getAmountOfHouses());
+	}
+	
+	@Test
+	public void test_Buy4House () {
+		gc.getGUIController().debugModeReturnTypeBoolean = true;
+		((Street)gc.getFieldController().getFields()[1]).setOwner(gc.getPlayerController().getPlayer(0));
+		((Street)gc.getFieldController().getFields()[3]).setOwner(gc.getPlayerController().getPlayer(0));
+		((Street)gc.getFieldController().getFields()[1]).buyBuilding(gc);
+		((Street)gc.getFieldController().getFields()[3]).buyBuilding(gc);
+		((Street)gc.getFieldController().getFields()[1]).buyBuilding(gc);
+		((Street)gc.getFieldController().getFields()[3]).buyBuilding(gc);
+		((Street)gc.getFieldController().getFields()[1]).buyBuilding(gc);
+		((Street)gc.getFieldController().getFields()[3]).buyBuilding(gc);
+		((Street)gc.getFieldController().getFields()[1]).buyBuilding(gc);
+		assertEquals(4,((Street)gc.getFieldController().getFields()[1]).getAmountOfHouses());
+	}
+	@Test
+	public void test_Buy5HouseGet1Hotel () {
+		gc.getGUIController().debugModeReturnTypeBoolean = true;
+		((Street)gc.getFieldController().getFields()[1]).setOwner(gc.getPlayerController().getPlayer(0));
+		((Street)gc.getFieldController().getFields()[3]).setOwner(gc.getPlayerController().getPlayer(0));
+		((Street)gc.getFieldController().getFields()[1]).buyBuilding(gc);
+		((Street)gc.getFieldController().getFields()[3]).buyBuilding(gc);
+		((Street)gc.getFieldController().getFields()[1]).buyBuilding(gc);
+		((Street)gc.getFieldController().getFields()[3]).buyBuilding(gc);
+		((Street)gc.getFieldController().getFields()[1]).buyBuilding(gc);
+		((Street)gc.getFieldController().getFields()[3]).buyBuilding(gc);
+		((Street)gc.getFieldController().getFields()[1]).buyBuilding(gc);
+		((Street)gc.getFieldController().getFields()[3]).buyBuilding(gc);
+		((Street)gc.getFieldController().getFields()[1]).buyBuilding(gc);
+		assertEquals(1,((Street)gc.getFieldController().getFields()[1]).getAmountOfHotels());
+	}
+	
+	
+	@Test
+	public void test_sellAllBuildingsinCat () {
+		gc.getGUIController().debugModeReturnTypeBoolean = true;
+		((Street)gc.getFieldController().getFields()[1]).setOwner(gc.getPlayerController().getPlayer(0));
+		((Street)gc.getFieldController().getFields()[3]).setOwner(gc.getPlayerController().getPlayer(0));
+		((Street)gc.getFieldController().getFields()[1]).buyBuilding(gc);
+		((Street)gc.getFieldController().getFields()[3]).buyBuilding(gc);
+		((Street)gc.getFieldController().getFields()[1]).buyBuilding(gc);
+		((Street)gc.getFieldController().getFields()[3]).buyBuilding(gc);
+		((Street)gc.getFieldController().getFields()[1]).buyBuilding(gc);
+		((Street)gc.getFieldController().getFields()[3]).buyBuilding(gc);
+		((Street)gc.getFieldController().getFields()[1]).buyBuilding(gc);
+		((Street)gc.getFieldController().getFields()[3]).buyBuilding(gc);
+		((Street)gc.getFieldController().getFields()[1]).buyBuilding(gc);
+		((Street)gc.getFieldController().getFields()[1]).sellAllBuildingsinCat(((Street)gc.getFieldController().getFields()[1]), gameController)
+		assertEquals(3,((Street)gc.getFieldController().getFields()[1]).getAmountOfHotels());
+		
+		
+	}
 }

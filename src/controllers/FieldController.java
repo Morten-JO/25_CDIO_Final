@@ -201,7 +201,13 @@ public class FieldController {
 		return amount;
 	}
 	
+	/**
+	 * returns if player owns all streets in a category
+	 * @param player
+	 * @return
+	 */
 	public boolean ownsEntireStreet(Player player){
+		//gets how many streets in each category
 		boolean ownsEntireStreet = false;
 		int[] streetIndexes = new int[8];
 		for(int i = 0; i < gameFields.length; i++){
@@ -209,6 +215,8 @@ public class FieldController {
 				streetIndexes[((Street)gameFields[i]).getStreetCategory()]++;
 			}
 		}
+		
+		//gets how many streets in each category player owns
 		int[] ownedIndexes = new int[8];
 		for(int i = 0; i < gameFields.length; i++){
 			if(gameFields[i] instanceof Street){
@@ -219,6 +227,8 @@ public class FieldController {
 				}
 			}
 		}
+		
+		//test if players owns any full category
 		for(int i = 0; i < ownedIndexes.length; i++){
 			if(streetIndexes[i] == ownedIndexes[i]){
 				ownsEntireStreet = true;
@@ -228,13 +238,21 @@ public class FieldController {
 		return ownsEntireStreet;
 	}
 	
+	/**
+	 * returns a field array of all the categories
+	 * @param player
+	 * @param gameController
+	 * @return
+	 */
 	public Field[] getOwnedFullStreets(Player player, GameController gameController){
+		//gets how many streets in each category
 		int[] streetIndexes = new int[8];
 		for(int i = 0; i < gameFields.length; i++){
 			if(gameFields[i] instanceof Street){
 				streetIndexes[((Street)gameFields[i]).getStreetCategory()]++;
 			}
 		}
+		//gets how many streets in each category player owns
 		int[] ownedIndexes = new int[8];
 		for(int i = 0; i < gameFields.length; i++){
 			if(gameFields[i] instanceof Street){
@@ -245,6 +263,7 @@ public class FieldController {
 				}
 			}
 		}
+		//create list of streets fully owned by player
 		ArrayList<Field> listOfBuildings = new ArrayList<Field>();
 		for(int i = 0; i < gameFields.length; i++){
 			if(gameFields[i] instanceof Street){
@@ -253,18 +272,17 @@ public class FieldController {
 				}
 			}
 		}
-		/*
-		for(int i = 0; i < listOfBuildings.size(); i++){
-			if(((Street)listOfBuildings.get(i)).getAmountOfHouses() <= ((Street)listOfBuildings.get(i)).getHousesInSection(((Street)listOfBuildings.get(i)).getStreetCategory(), gameController)/((Street)listOfBuildings.get(i)).getAmountOfStreetsInCategory(((Street)listOfBuildings.get(i)).getStreetCategory(),  gameController)){
-				listOfBuildings.remove(i);
-				i--;
-			}
-		}*/
+		
+		//create dynamic list into array
 		Field[] fields = new Field[listOfBuildings.size()];
 		fields = listOfBuildings.toArray(fields);
 		return fields;
 	}
 	
+	/**
+	 * remove all properties from a specific player
+	 * @param player
+	 */
 	public void removeAllOwnershipOfPlayer(Player player){
 		for(int i = 0; i < gameFields.length; i++){
 			if(gameFields[i] instanceof Ownable){
