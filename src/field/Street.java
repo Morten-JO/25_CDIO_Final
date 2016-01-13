@@ -172,18 +172,17 @@ public class Street extends Ownable {
 			// Gets answer, pawnstatus and the average amount of houses per
 			// street in this category
 			if (answer == true && this.isPawn == false && this.getAmountOfHouses() <= this.getHousesInSection(this.getStreetCategory(), gameController) / streets && this.hotels < 1) {
-				if (this.amountOfHouses < maxAmountofHouses) {
+				if(hotels < 1 && this.amountOfHouses == maxAmountofHouses){
+					this.amountOfHouses = 0;
+					this.hotels++;
+					this.owner.adjustBalance(-this.buildingPrice);
+					return true;
+				}
+				else if(this.amountOfHouses < maxAmountofHouses && hotels == 0) {
 					this.amountOfHouses++;
 					this.owner.adjustBalance(-this.buildingPrice);
 					return true;
 				}
-
-				else if (this.amountOfHouses == maxAmountofHouses) {
-					this.amountOfHouses = 0;
-					this.hotels++;
-				}
-
-			
 			}
 			else {
 				return false;
