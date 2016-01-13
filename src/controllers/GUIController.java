@@ -2,6 +2,7 @@ package controllers;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Random;
 
 import player.Player;
 import desktop_codebehind.Car;
@@ -34,6 +35,7 @@ public class GUIController {
 		ArrayList<String> players = new ArrayList<String>();
 		boolean stillAdding = true;
 		//while still adding players
+		Color[] carColor = {Color.BLACK, Color.RED, Color.YELLOW, Color.GREEN, Color.ORANGE, Color.BLUE, Color.CYAN, Color.DARK_GRAY, Color.GRAY, Color.MAGENTA, Color.LIGHT_GRAY, Color.PINK, Color.WHITE};
 		while(stillAdding){
 			String input = GUI.getUserString(Language.GUIController_AddPlayer+(players.size()+1)+Language.GUIController_sName);
 			if(!input.equals("")){
@@ -54,13 +56,13 @@ public class GUIController {
 					if(carQuestion){
 						//get input for what options are availble
 						String[] carChoices = {Language.GUIController_Normal, Language.GUIController_RacerCar, Language.GUIController_Tractor, Language.GUIController_Ufo};
-						String[] colorChoices = {Language.GUIController_Black, Language.GUIController_Red, Language.GUIController_Yellow, Language.GUIController_Green, Language.GUIController_Orange, Language.GUIController_Blue};
+						String[] colorChoices = {Language.GUIController_Black, Language.GUIController_Red, Language.GUIController_Yellow, Language.GUIController_Green, Language.GUIController_Orange, Language.GUIController_Blue, Language.GUIController_CYAN, Language.GUIController_DARK_GRAY, Language.GUIController_GRAY, Language.GUIController_MAGENTA, Language.GUIController_LIGHT_GRAY, Language.GUIController_PINK, Language.GUIController_WHITE};
 						String[] patternChoices = {Language.GUIController_Checkered, Language.GUIController_DiagonalDualColor, Language.GUIController_Dotted, Language.GUIController_Fill, Language.GUIController_HorizontalDualColor, Language.GUIController_Gradient, Language.GUIController_Line, Language.GUIController_Zebra};
 						String carChoice = GUI.getUserSelection(Language.GUIController_ChooseCarType, carChoices);
 						String color = GUI.getUserSelection(Language.GUIController_ChoosePrimaryColor, colorChoices);
 						String secondaryColor = GUI.getUserSelection(Language.GUIController_ChooseSecondaryColor, colorChoices);
 						String patternType = GUI.getUserSelection(Language.GUIController_ChooseCarPattern, patternChoices);
-						Color[] carColor = {Color.BLACK, Color.RED, Color.YELLOW, Color.GREEN, Color.ORANGE, Color.BLUE};
+						//Color[] carColor = {Color.BLACK, Color.RED, Color.YELLOW, Color.GREEN, Color.ORANGE, Color.BLUE};
 						
 						Car.Builder car = null;
 						//handle input for car type choice
@@ -134,7 +136,8 @@ public class GUIController {
 						GUI.showMessage(input+" "+Language.GUIController_Added);
 					}
 					else{
-						GUI.addPlayer(input, 30000);
+						 Car.Builder car = new Car.Builder().primaryColor(carColor[players.size()-1]);
+						GUI.addPlayer(input, 3000, car.build());
 						GUI.showMessage(input+" "+Language.GUIController_Added);
 					}
 					if(players.size() >= 6){

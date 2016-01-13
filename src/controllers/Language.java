@@ -38,6 +38,13 @@ public class Language {
 		public static final String GUIController_Yes = "Ja";
 		public static final String GUIController_No = "Nej";
 		public static final String GUIController_Added = "tilføjet!";
+		public static final String GUIController_CYAN = "Lyseblå";
+		public static final String GUIController_DARK_GRAY = "Mørke grå";
+		public static final String GUIController_GRAY = "Grå";
+		public static final String GUIController_MAGENTA = "Magenta";
+		public static final String GUIController_LIGHT_GRAY = "Lyse grå";
+		public static final String GUIController_PINK = "Pink";
+		public static final String GUIController_WHITE = "Hvid";
 		
 		
 		
