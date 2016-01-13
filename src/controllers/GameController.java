@@ -27,6 +27,9 @@ public class GameController {
 		cup = new Cup(2, 6);
 	}
 	
+	/**
+	 * startGame handles main gameflow, and controls all the parts, and calls the approiate methods so they work properly together
+	 */
 	public void startGame(){
 	
 		rollDiceToWhoStarts();
@@ -222,8 +225,11 @@ public class GameController {
 
 	}
 	
-	//while he doesnt have enough topay, keep pawning
-	//select all his property
+	/**
+	 * this method is used for handling when the player cant pay, and must pawn until he has enough
+	 * @param toPay
+	 * @param player
+	 */
 	private void handlePawnPlayer(int toPay, Player player){
 		boolean canPay = false;
 		while(!canPay){
@@ -258,7 +264,9 @@ public class GameController {
 		}
 	}
 	
-	//handle gameflow if player is jailed, will check if he hits the same, and if he doesnt, he will get chance to pay 1000 to get out.
+	/**
+	 * handle jailed gameflow, if player hits 2 of the same in 3 tries, he gets out, if not then he have option to buy out for 1000
+	 */
 	private void handleIfPlayerJailed(){
 		boolean hittedOut = false;
 		int hits = 1;
@@ -327,6 +335,10 @@ public class GameController {
 		return guiController;
 	}
 	
+	/**
+	 * handles players gameflow for unpawning a property
+	 * gets input from player, and list over what he can unpawn
+	 */
 	private void handlePlayerGameFlowUnPawnProperty(){
 		Field[] fields = fieldController.getListOfUnPawnableProperties(playerController.getCurrentPlayer());
 		String[] strings = new String[fields.length+1];
@@ -346,7 +358,12 @@ public class GameController {
 		}
 	}
 	
-	
+	/**
+	 * handles players gameflow for building a house on his property
+	 * gets input from player, and option over where he build house, then confirms
+	 * @param boughtHouse
+	 * @return
+	 */
 	private boolean handlePlayerGameFlowBuildHouse(boolean boughtHouse){
 		boolean returnType = boughtHouse;
 		if(boughtHouse){
@@ -383,6 +400,10 @@ public class GameController {
 		return returnType;
 	}
 	
+	/**
+	 * handles the players gameflow for property, 
+	 * gives player list over what he can pawn and takes input
+	 */
 	private void handlePlayerGameFlowPawnProperty(){
 		Field[] arrayOfOwnedFields = fieldController.getAllOwnedPropertiesNotPawned(playerController.getCurrentPlayer());
 		String[] fieldNames = new String[arrayOfOwnedFields.length+1];
@@ -403,7 +424,12 @@ public class GameController {
 	}
 	
 	
-	
+	/**
+	 * handles gameflow for a player who is selling a property
+	 * shows list over what he can sell, and for how much, and then a
+	 * list of the players he can sell to, and that player gets a confirm message
+	 * if he wants to accept that offer
+	 */
 	private void handlePlayerGameFlowSellProperty(){
 		Field[] arrayOfTradeFields = fieldController.getAllOwnedPropertiesNotPawned(playerController.getCurrentPlayer());
 		String[] fieldsTrade = new String[arrayOfTradeFields.length+1];
@@ -462,7 +488,12 @@ public class GameController {
 		}
 	}
 	
-	
+	/**
+	 * Check if a player can afford to pay money if he lands on a field he has to pay rent for, if not then 
+	 * have him pawn what he owns.
+	 * This is used so landOn functionally in fields works, and so that it doesnt take his money
+	 * and then make him pawn, and make him pay the full amount again
+	 */
 	private void checkIfPlayerCanAffordToLandOnRented(){
 		//check if player has enough money to pay rent on whats he suppoused to land on(this has to be here and not in field
 		//so its possible to pawn.
@@ -482,7 +513,9 @@ public class GameController {
 		}
 	}
 	
-	
+	/**
+	 * handles gameflow for deciding who starts the game
+	 */
 	private void rollDiceToWhoStarts(){
 		guiController.showMessage(Language.GameController_HitWhoStarts);
 		boolean foundStarter = false;
