@@ -50,12 +50,25 @@ public class TestGameController {
 		controller.getPlayerController().createPlayers(new String[]{"Test","Test2"});
 		GUIController.isInDebugMode = true;
 		GUIController.debugModeReturnTypeString = Language.GameController_EndTurn;
-		GUIController.debugModeReturnTypeBoolean = true;
+		GUIController.debugModeReturnTypeBoolean = false;
 		assertTrue(controller.getTurn() == 0);
 		while(controller.getCup().getSumOfDice(0) == controller.getCup().getSumOfDice(1)){
 			controller.getCup().rollDices();
 		}
 		controller.handleTurnChange();
 		assertTrue(controller.getTurn() == 1);
+	}
+	
+	@Test
+	public void testSuccesfulGame(){
+			controller = new GameController();
+			controller.getPlayerController().createPlayers(new String[]{"Test","Test2", "Test3"});
+			controller.getPlayerController().getPlayer(0).adjustBalance(-29999);
+			controller.getPlayerController().getPlayer(1).adjustBalance(-29999);
+			controller.getPlayerController().getPlayer(2).adjustBalance(-29999);
+			GUIController.isInDebugMode = true;
+			GUIController.debugModeReturnTypeString = Language.GameController_EndTurn;
+			GUIController.debugModeReturnTypeBoolean = false;
+			controller.startGame();
 	}
 }

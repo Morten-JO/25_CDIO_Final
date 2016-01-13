@@ -182,7 +182,7 @@ public class GUIController {
 				list[i] = new desktop_fields.Jail.Builder().build();
 			}
 			else if(arrayOfFields[i].getClass().equals(Fleet.class)){
-				list[i] = new desktop_fields.Shipping.Builder().build();
+				list[i] = new desktop_fields.Shipping.Builder().setRent("").build();
 			}
 			else if(arrayOfFields[i].getClass().equals(Street.class)){
 				//set colours based on category of the streets
@@ -218,7 +218,7 @@ public class GUIController {
 			}
 			else if(arrayOfFields[i].getClass().equals(Brewery.class)){
 				Color color = new Color(0.5f,0.1f,0.2f,1.0f);
-				list[i] = new desktop_fields.Brewery.Builder().setBgColor(color).build();
+				list[i] = new desktop_fields.Brewery.Builder().setRent("").setBgColor(color).build();
 			}
 			else{
 				try {

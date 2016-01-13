@@ -37,6 +37,7 @@ public class GameController {
 		while(!gameOver){
 			boolean playerRemoved = false;
 			//if 2x same dices hit 3 turns in a row, JAIL EM
+			System.out.println("players left: "+playerController.getPlayerList().size());
 			if(countDicesTheSame >= 3){
 				playerController.getCurrentPlayer().setJailed(true);
 				playerController.getCurrentPlayer().setPosition(10); 
@@ -201,9 +202,12 @@ public class GameController {
 		guiController.removeOwnerShipFromPlayer(fieldController.getFields(), playerController.getCurrentPlayer());
 		fieldController.removeAllOwnershipOfPlayer(playerController.getCurrentPlayer());
 		playerController.getPlayerList().remove(playerController.getCurrentPlayer());
-		if(playerController.getPlayerList().size() > 0){
-			turn--;
+		System.out.println("player: "+playerController.getCurrentPlayerIndex()+" was removed");
+		System.out.println("turn is before: "+turn);
+		if(turn == playerController.getPlayerList().size()){
+			turn = 0;
 		}
+		System.out.println("turn is now: "+turn);
 	}
 	
 	
@@ -218,10 +222,13 @@ public class GameController {
 		guiController.removePlayer(playerController.getCurrentPlayer(), fieldController.getFields());
 		guiController.removeOwnerShipFromPlayer(fieldController.getFields(), player);
 		fieldController.removeAllOwnershipOfPlayer(player);
+		System.out.println("player: "+playerController.getPlayerList().indexOf(player)+" was removed");
+		System.out.println("turn is before: "+turn);
 		if(turn > playerController.getPlayerList().indexOf(player)){
 			turn--;
 		}
 		playerController.getPlayerList().remove(player);
+		System.out.println("#2turn is now: "+turn);
 
 	}
 	
@@ -231,6 +238,7 @@ public class GameController {
 	 * @param player
 	 */
 	private void handlePawnPlayer(int toPay, Player player){
+		System.out.println("Starting to force pawn");
 		boolean canPay = false;
 		while(!canPay){
 			Field[] fields = fieldController.getAllOwnedProperties(player);
