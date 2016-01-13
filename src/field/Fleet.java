@@ -28,6 +28,7 @@ public class Fleet extends Ownable {
 	public boolean landOn(GameController gameController) {
 		boolean result = true;
 		Player currentPlayer = gameController.getPlayerController().getCurrentPlayer();
+		
 		// check if player has enough balance to buy field, and that field has
 		// no owner
 		if (this.owner == null && currentPlayer.getBalance() >= this.price || this.isPawn == true) {
@@ -61,7 +62,6 @@ public class Fleet extends Ownable {
 
 			// check if user has enough balance to pay
 			if (currentPlayer.getBalance() > toPay) {
-				result = currentPlayer.adjustBalance(-toPay);
 				this.owner.getAccount().adjustBalance(toPay);
 				
 			} else {
@@ -69,6 +69,7 @@ public class Fleet extends Ownable {
 				this.owner.adjustBalance(lastBalance);
 				result = false;
 			}
+			result = currentPlayer.adjustBalance(-toPay);
 		}
 		return result;
 	}

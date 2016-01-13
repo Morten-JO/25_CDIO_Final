@@ -34,7 +34,7 @@ public class TestStreet {
 		int [] testArray = new int[]{50,100,250,750,2250,4000,6000};
 		assertEquals("Hvidovrevej",vej.getName());
 		assertEquals("Ejer",vej.getDescriptionText());
-		assertEquals("Koster: 1000",vej.getSubText());
+		assertEquals("Koster1000",vej.getSubText());
 		assertEquals(4,vej.getNumber());
 		assertEquals(1000,vej.getPrice());
 		assertEquals(500,vej.getPawnPrice());
