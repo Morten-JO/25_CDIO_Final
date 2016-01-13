@@ -197,7 +197,7 @@ public class Street extends Ownable {
 	public boolean sellBuilding(GameController gameController) {
 		Player currentPlayer = gameController.getPlayerController().getCurrentPlayer();
 		int streets = this.getAmountOfStreetsInCategory(this.getStreetCategory(), gameController);
-		if (this.owner.equals(currentPlayer) && this.getAmountOfHouses() >= this.getHousesInSection(this.getStreetCategory(), gameController) / streets) {
+		if (this.owner.equals(currentPlayer) && (double)this.getAmountOfHouses() >= (double)this.getHousesInSection(this.getStreetCategory(), gameController) / streets) {
 			boolean answer = gameController.getGUIController().askYesNoQuestion(Language.Field_SellBuilding);
 			if (answer = true) {
 
