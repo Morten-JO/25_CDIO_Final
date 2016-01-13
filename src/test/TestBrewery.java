@@ -87,5 +87,25 @@ public class TestBrewery {
 		assertEquals(30000-((Brewery)gc.getFieldController().getFields()[12]).getRent(gc), gc.getPlayerController().getPlayer(1).getBalance());
 	}
 	
+	@Test
+	public void testSayYesToBuyBrewery()
+	{
+//		Tjekker om personen køber det når han lander på det, og det gør han ikke. 
+		gc.getGUIController().debugModeReturnTypeBoolean = true;
+		gc.getPlayerController().setCurrentPlayer(0);
+		gc.getFieldController().getFields()[12].landOn(gc);
+		assertEquals(null, brewery.getOwner());
+	}
+	
+	@Test
+	public void testSayNoToBuyBrewery()
+	{
+//		Tjekker om spilleren kan sige nej til at købe feltet han lander på hvilket han godt kan. 
+		gc.getGUIController().debugModeReturnTypeBoolean = false;
+		gc.getPlayerController().setCurrentPlayer(0);
+		gc.getFieldController().getFields()[12].landOn(gc);
+		assertEquals(null, brewery.getOwner());
+		
+	}
 	
 }
