@@ -3,8 +3,10 @@ package field;
 import java.util.Arrays;
 
 import controllers.GameController;
+import controllers.Language;
 import desktop_resources.GUI;
 import player.Player;
+
 
 public class Street extends Ownable {
 	private int rents[] = new int[7];
@@ -37,7 +39,7 @@ public class Street extends Ownable {
 				int priceToPay = this.price/2;
 				
 				if (currentPlayer.getBalance() >= priceToPay) {
-					boolean answer = gameController.getGUIController().askYesNoQuestion("Du har pantsat " + this.getName() + ". Vil du købe denne tilbage for " + priceToPay + " kr.");
+					boolean answer = gameController.getGUIController().askYesNoQuestion(Language.Field_HasPawned+ this.getName() + Language.Field_BuyBack+ priceToPay + Language.Field_Currency);
 					if (answer == true) { // Ja, jeg vil gerne købe
 						isPawn = false;
 						this.owner = currentPlayer;
@@ -49,7 +51,7 @@ public class Street extends Ownable {
 				
 			}else{ 
 				if (currentPlayer.getBalance() >= price) {
-				boolean answer = gameController.getGUIController().askYesNoQuestion("Vil du købe " + this.getName() + " for kr." + this.price);
+				boolean answer = gameController.getGUIController().askYesNoQuestion(Language.Field_DoYouWantToBuy + this.getName() + Language.Field_For + this.price+ "?");
 				if (answer == true) { // Ja, jeg vil gerne købe
 					isPawn = false;
 					this.owner = currentPlayer;
@@ -68,8 +70,8 @@ public class Street extends Ownable {
 				int streets = gameController.getFieldController().getOwnershipOfStreetsInCat(this.owner,
 						this.getStreetCategory());
 				gameController.getGUIController()
-						.showMessage(currentPlayer.getName() + " er landet på " + this.getName() + ". " + this.owner.getName()
-								+ " ejer dette felt og De skal betale " + getRent(gameController) + "kr. i leje");
+						.showMessage(currentPlayer.getName() + Language.Field_HasLandedOn + this.getName() + ". " + this.owner.getName()
+								+ Language.Field_OwnerOfTheStreet + getRent(gameController) + Language.Field_AmountToPay);
 				
 				int balance = currentPlayer.getBalance();
 				
@@ -151,7 +153,7 @@ public class Street extends Ownable {
 		int streets = this.getAmountOfStreetsInCategory(this.getStreetCategory(), gameController);
 		if (currentPlayer.getBalance() >= buildingPrice) {
 			boolean answer = gameController.getGUIController()
-					.askYesNoQuestion("Vil du tilføje en bygning til dette felt?");
+					.askYesNoQuestion(Language.Field_BuyBuilding);
 
 			// Gets answer, pawnstatus and the average amount of houses per
 			// street in this category
@@ -179,10 +181,16 @@ public class Street extends Ownable {
 
 	}
 
+	/**
+	 * sellBuilding. Method used by an owner of a Field to remove one building from this Field.
+	 * Method investigates amount of houses and hotels, and adjusts the amount accordingly
+	 * @param gameController
+	 * @return
+	 */
 	public boolean sellBuilding(GameController gameController) {
 		Player currentPlayer = gameController.getPlayerController().getCurrentPlayer();
 		if (this.owner.equals(currentPlayer)) {
-			boolean answer = gameController.getGUIController().askYesNoQuestion("Vil du frasælge en bygning?");
+			boolean answer = gameController.getGUIController().askYesNoQuestion(Language.Field_SellBuilding);
 			if (answer = true) {
 
 				if (this.getAmountOfHouses() > 0) {
@@ -307,7 +315,7 @@ public class Street extends Ownable {
 		if (!this.isPawn) {
 			this.isPawn = true;
 			this.getStreetCategory();
-			System.out.println(this.pawnPrice + this.amountOfHouses);
+		
 			player.adjustBalance(this.pawnPrice + sellAllBuildingsinCat(this.getStreetCategory(), gameController));
 			
 		}

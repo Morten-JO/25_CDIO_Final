@@ -1,6 +1,7 @@
 package field;
 
 import controllers.GameController;
+import controllers.Language;
 
 public class Start extends Field {
 
@@ -11,7 +12,7 @@ public class Start extends Field {
 
 	@Override
 	public boolean landOn(GameController gameController) {
-		gameController.getGUIController().showMessage("Du lander på Start, og intet sker");
+		gameController.getGUIController().showMessage(Language.Field_Start);
 		return true;
 	}
 

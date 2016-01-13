@@ -1,6 +1,7 @@
 package field;
 
 import controllers.GameController;
+import controllers.Language;
 import desktop_resources.GUI;
 import player.Player;
 
@@ -19,7 +20,7 @@ public class Brewery extends Ownable {
 		Player currentPlayer = gameController.getPlayerController().getCurrentPlayer();
 		if (this.owner == null && currentPlayer.getBalance() >= this.price || this.isPawn == true) {
 			if (gameController.getPlayerController().getCurrentPlayer().getAccount().getBalance() >= price) {
-				boolean answer = gameController.getGUIController().askYesNoQuestion("Vil du købe "+this.name+" for kr." +this.price);
+				boolean answer = gameController.getGUIController().askYesNoQuestion(Language.Field_DoYouWantToBuy+this.name+Language.Field_For +this.price+ "?");
 				if (answer == true) {
 					owner = currentPlayer;
 					this.setSubtext(this.owner.getName());
@@ -34,8 +35,8 @@ public class Brewery extends Ownable {
 		if (this.owner != null && this.owner != currentPlayer && this.owner.isJailed() == false && this.isPawn == false) {
 			int i = gameController.getFieldController().getOwnerShipOfBreweries(currentPlayer)-(gameController.getFieldController().getAmountofPawnedFleets(gameController, this.owner));
 			int pay = rents[i] * gameController.getCup().getDiceSum();
-			gameController.getGUIController().showMessage(currentPlayer.getName() + " er landet på " + this.getName() + ". " + this.owner.getName()
-			+ " ejer dette felt og De skal betale " + pay + "kr. i leje");
+			gameController.getGUIController().showMessage(currentPlayer.getName() + Language.Field_HasLandedOn+ this.getName() + ". " + this.owner.getName()
+			+ Language.Field_OwnerOfTheStreet + pay + Language.Field_AmountToPay);
 			
 			// REMOVED
 																		// -1

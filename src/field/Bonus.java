@@ -1,6 +1,7 @@
 package field;
 
 import controllers.GameController;
+import controllers.Language;;
 
 public class Bonus extends Field {
 		
@@ -21,7 +22,7 @@ public class Bonus extends Field {
 
 	@Override
 	public boolean landOn(GameController gameController) {
-		gameController.getGUIController().showMessage("Du er landet på bonusfeltet og modtager af banken kr. " +this.bonus + "!");
+		gameController.getGUIController().showMessage(Language.Field_Bonus +this.bonus + "!");
 		return gameController.getPlayerController().getPlayer(gameController.getTurn()).getAccount().adjustBalance(bonus);
 		
 		

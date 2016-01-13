@@ -1,6 +1,7 @@
 package field;
 
 import controllers.FieldController;
+import controllers.Language;
 import controllers.GameController;
 import desktop_resources.GUI;
 import player.Player;
@@ -32,7 +33,7 @@ public class Fleet extends Ownable {
 		if (this.owner == null && currentPlayer.getBalance() >= this.price || this.isPawn == true) {
 
 			boolean question = gameController.getGUIController()
-					.askYesNoQuestion("Vil du købe " + this.getName() + " for kr. " + this.getPrice());
+					.askYesNoQuestion(Language.Field_DoYouWantToBuy + this.getName() + Language.Field_For + this.getPrice() + "?");
 			// if want to buy field = true
 			if (question == true) {
 				result = currentPlayer.adjustBalance(-this.price);
@@ -52,8 +53,8 @@ public class Fleet extends Ownable {
 			Player fleetowner;
 			int fleets = gameController.getFieldController().getOwnerShipOfFleets(this.owner);
 
-			gameController.getGUIController().showMessage(currentPlayer.getName() + " er landet på " + this.getName() + ". " + this.owner.getName()
-							+ " ejer dette felt og De skal betale " + getRent(gameController) + "kr. i leje");
+			gameController.getGUIController().showMessage(currentPlayer.getName() + Language.Field_HasLandedOn + this.getName() + ". " + this.owner.getName()
+							+ Language.Field_OwnerOfTheStreet + getRent(gameController) + Language.Field_AmountToPay);
 			
 			//Are there any pawned fields among the one owned by the owner of this one? if so, adjust rent
 			int toPay = this.rents[fleets - 1-(gameController.getFieldController().getAmountofPawnedFleets(gameController, this.owner))];

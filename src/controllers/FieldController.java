@@ -18,7 +18,7 @@ public class FieldController {
 	private void addFields(){
 		gameFields[0] = new Start(Language.FieldController_StartField, Language.FieldController_PassStart, "", 0);
 		gameFields[1] = new Street(Language.FieldController_Roedovrevej, Language.FieldController_Owner, Language.FieldController_FieldPrice, 1, 1200, 600, new int[] {50, 100, 250, 750, 2250, 4000, 6000},1000, 0);
-		gameFields[2] = new Chance(Language.FieldController_Chance, "Træk et kort", "", 2);
+		gameFields[2] = new Chance(Language.FieldController_Chance, Language.FieldController_DrawChanceCard, "", 2);
 		gameFields[3] = new Street(Language.FieldController_Hvidovrevej, Language.FieldController_Owner, Language.FieldController_FieldPrice, 3, 1200, 600, new int[] {50, 100, 250, 750, 2250, 4000, 6000},1000, 0);
 		gameFields[4] = new TaxPercent(Language.FieldController_Taxfield, Language.FieldController_PayTax, "", 4, 4000, 10);
 		gameFields[5] = new Fleet(Language.FieldController_HelsingoerHelsingborg, Language.FieldController_Fleet, Language.FieldController_FieldPrice, 5, 4000, 2000, new int[]{500,1000,2000,4000});

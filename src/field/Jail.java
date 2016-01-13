@@ -1,6 +1,8 @@
 package field;
 
 import controllers.GameController;
+import controllers.Language;
+
 
 public class Jail extends Field {
 
@@ -13,7 +15,7 @@ public class Jail extends Field {
 
 	@Override
 	public boolean landOn(GameController gameController) {
-		gameController.getGUIController().showMessage("Du ryger i fængsel");
+		gameController.getGUIController().showMessage(Language.FieldController_GoToJail);
 		gameController.getPlayerController().getCurrentPlayer().setJailed(true);
 		return true;
 		

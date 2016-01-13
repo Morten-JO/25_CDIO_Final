@@ -130,7 +130,7 @@ public class Language {
 		public static final String FieldController_GedserRostock= "Gedser-Rostock";
 		public static final String FieldController_MolsLinien= "Mols-Linien";
 		public static final String FieldController_Brewery= "Bryggeri";
-		public static final String FieldController_FieldPrice= "Koster";
+		public static final String FieldController_FieldPrice= "Kr. ";
 		public static final String FieldController_StartField= "Start";
 		public static final String FieldController_Taxfield= "Statsskat";
 		public static final String FieldController_Carlsberg= "Carlsberg";
@@ -183,18 +183,23 @@ public class Language {
 	
 	//Fields
 	public static final String Field_Bonus = "Du er landet på bonusfeltet og modtager af banken kr. ";
+	public static final String Field_HasLandedOn = "er landet på";
 	public static final String Field_DoYouWantToBuy = "Vil du købe ";
-	public static final String Field_For = "for ";
+	public static final String Field_For = " for kr. ";
+	public static final String Field_AmountToPay = "kr. i leje";
 	public static final String Field_Valuta = " kr";
 	public static final String Field_ChanceField = "Du er landet på Prøv Lykken. Træk et kort";
 	public static final String Field_Start = "Du lander på Start, og intet sker";
-	public static final String Field_OwnerOfTheStreet = "ejer dette felt og";
+	public static final String Field_OwnerOfTheStreet = "ejer dette felt og De skal betale";
 	public static final String Field_HowManySreets = "andre gader i denne kategori";
-	public static final String Field_BuyHouse = "Vil du tilføje en bygning til dette felt?";
-	public static final String Field_SellHouse = "Vil du frasælge en bygning?";
+	public static final String Field_BuyBuilding = "Vil du tilføje en bygning til dette felt?";
+	public static final String Field_SellBuilding = "Vil du frasælge en bygning?";
 	public static final String Field_TaxField = "Du er landet på en skattefelt og skal betale til banken kr. ";
 	public static final String Field_PayTax4000Or10percent = "Do you want to pay";
 	public static final String Field_VisitJail = "Du lander på besøg fængsel og der sker ikke noget";
+	public static final String Field_HasPawned = "Du har pantsat ";
+	public static final String Field_BuyBack = ". Vil du købe denne tilbage for ";
+	public static final String Field_Currency = " kr. ?";
 	
 	
 	

@@ -1,6 +1,7 @@
 package field;
 
 import controllers.GameController;
+import controllers.Language; 
 
 
 public class TaxPercent extends Tax {
@@ -14,7 +15,7 @@ public class TaxPercent extends Tax {
 	@Override
 	public boolean landOn(GameController gameController){
 		
-		String answer  = gameController.getGUIController().askQuestion("Do you want to pay", "4000","10%");
+		String answer  = gameController.getGUIController().askQuestion(Language.Field_PayTax4000Or10percent);
 		if (answer == "4000"){
 			return gameController.getPlayerController().getCurrentPlayer().adjustBalance(- tax);
 		}

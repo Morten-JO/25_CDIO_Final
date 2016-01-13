@@ -49,7 +49,7 @@ public class Ownable extends Field {
 		if (!this.isPawn){
 			this.isPawn = true;
 			player.adjustBalance(this.pawnPrice);
-			System.out.println("Pantsætningsværdien er: " +this.getPawnPrice());
+		
 			//NEED TO HANDLE FIELD ISPAWN. RENT IS STILL GETTING PAYED....
 			return true;
 		}
