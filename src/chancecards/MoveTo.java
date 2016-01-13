@@ -22,7 +22,6 @@ public class MoveTo extends ChanceCard {
 			if(fieldID!=39)//townhallCC no reward for passing start
 				currentPlayer.adjustBalance(4000);
 		}
-		System.out.println("Landing on FieldID: "+fieldID);
 		//set new player pos
 		currentPlayer.setPosition(fieldID);
 		

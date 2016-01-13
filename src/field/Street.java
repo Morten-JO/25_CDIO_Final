@@ -250,12 +250,10 @@ public class Street extends Ownable {
 
 				if (((Street) gameController.getFieldController().getFields()[j]).getStreetCategory() == i) {
 					houses += ((Street) gameController.getFieldController().getFields()[j]).getAmountOfHouses();
-					if (this.hotels > 0) {
+					if (((Street) gameController.getFieldController().getFields()[j]).getAmountOfHotels() > 0) {
 						houses += maxAmountofHouses + 1;
 					}
-
 				}
-
 			}
 		}
 		return houses;

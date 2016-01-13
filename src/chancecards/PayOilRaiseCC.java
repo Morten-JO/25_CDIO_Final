@@ -17,7 +17,7 @@ public class PayOilRaiseCC extends PayMoneyCC {
 		Player currentPlayer = gc.getPlayerController().getCurrentPlayer();
 		
 		//get total amount of houses and hotels owned in a Point(houses, hotels)
-		Point buildingsOwned = FieldController.getBuildingsOwnedByPlayer(currentPlayer);
+		Point buildingsOwned = gc.getFieldController().getBuildingsOwnedByPlayer(currentPlayer);
 		
 		//amount to pay
 		amount = 500*buildingsOwned.x + 2000*buildingsOwned.y;

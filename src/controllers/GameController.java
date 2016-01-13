@@ -37,7 +37,8 @@ public class GameController {
 		while(!gameOver){
 			boolean playerRemoved = false;
 			//if 2x same dices hit 3 turns in a row, JAIL EM
-			System.out.println("players left: "+playerController.getPlayerList().size());
+			//change player, and make him hit the dice!
+			playerController.setCurrentPlayer(turn);
 			if(countDicesTheSame >= 3){
 				playerController.getCurrentPlayer().setJailed(true);
 				playerController.getCurrentPlayer().setPosition(10); 
@@ -46,8 +47,6 @@ public class GameController {
 				countDicesTheSame = 0;
 			}
 			else{
-				//change player, and make him hit the dice!
-				playerController.setCurrentPlayer(turn);
 				guiController.showMessage(playerController.getCurrentPlayer().getName()+Language.GameController_TurnsToHit);
 				cup.rollDices();
 				guiController.updateDices(cup.getSumOfDice(0), cup.getSumOfDice(1));
@@ -92,7 +91,7 @@ public class GameController {
 					
 				}
 			//if player not removed, give player a list of options that can be done
-			if(!playerRemoved){
+			if(!playerRemoved && playerController.getPlayerList().size() > 1){
 				ArrayList<String> options = new ArrayList<String>();
 				if(!playerController.getCurrentPlayer().isJailed()){
 					if(cup.isSameHit()){
@@ -202,12 +201,9 @@ public class GameController {
 		guiController.removeOwnerShipFromPlayer(fieldController.getFields(), playerController.getCurrentPlayer());
 		fieldController.removeAllOwnershipOfPlayer(playerController.getCurrentPlayer());
 		playerController.getPlayerList().remove(playerController.getCurrentPlayer());
-		System.out.println("player: "+playerController.getCurrentPlayerIndex()+" was removed");
-		System.out.println("turn is before: "+turn);
 		if(turn == playerController.getPlayerList().size()){
 			turn = 0;
 		}
-		System.out.println("turn is now: "+turn);
 	}
 	
 	
@@ -222,13 +218,11 @@ public class GameController {
 		guiController.removePlayer(playerController.getCurrentPlayer(), fieldController.getFields());
 		guiController.removeOwnerShipFromPlayer(fieldController.getFields(), player);
 		fieldController.removeAllOwnershipOfPlayer(player);
-		System.out.println("player: "+playerController.getPlayerList().indexOf(player)+" was removed");
-		System.out.println("turn is before: "+turn);
 		if(turn > playerController.getPlayerList().indexOf(player)){
 			turn--;
+			playerController.setCurrentPlayer(turn);
 		}
 		playerController.getPlayerList().remove(player);
-		System.out.println("#2turn is now: "+turn);
 
 	}
 	

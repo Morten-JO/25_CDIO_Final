@@ -8,7 +8,7 @@ import player.Player;
 
 public class FieldController {
 
-	private static Field[] gameFields = new Field[40];
+	private Field[] gameFields = new Field[40];
 	
 	
 	public FieldController(){
@@ -65,7 +65,7 @@ public class FieldController {
 	 * @param player - current player by turn
 	 * @return point obj containing (houses, hotels)
 	 */
-	public static Point getBuildingsOwnedByPlayer(Player player){
+	public Point getBuildingsOwnedByPlayer(Player player){
 		int houses = 0, hotels = 0;
 		Player owner;
 		for(int i = 0; i<gameFields.length;i++){
@@ -370,5 +370,10 @@ public class FieldController {
 				}
 			}
 			return streetsPawned;
+		}
+		
+		//is used for test!
+		public void setField(int i, Field field){
+			gameFields[i] = field;
 		}
 }

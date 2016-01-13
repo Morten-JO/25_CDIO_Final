@@ -17,7 +17,7 @@ public class PayTaxRaiseCC extends PayMoneyCC {
 		Player currentPlayer = gc.getPlayerController().getCurrentPlayer();
 		
 		//get total amount of houses and hotels owned in a Point(houses, hotels)
-		Point buildingsOwned = FieldController.getBuildingsOwnedByPlayer(currentPlayer);
+		Point buildingsOwned = gc.getFieldController().getBuildingsOwnedByPlayer(currentPlayer);
 		
 		//amount to pay
 		amount = 800*buildingsOwned.x + 2300*buildingsOwned.y;

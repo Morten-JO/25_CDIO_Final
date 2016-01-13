@@ -439,6 +439,9 @@ public class GUIController {
 	
 	
 	public void showChanceCard(String message){
+		if(isInDebugMode){
+			return;
+		}
 		GUI.displayChanceCard(message);
 	}
 }

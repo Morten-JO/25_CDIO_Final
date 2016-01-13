@@ -1,6 +1,7 @@
 package chancecards;
 
 import controllers.GameController;
+import controllers.PlayerController;
 import player.Player;
 
 public class GetMoneyFromAllCC extends GetMoneyCC {
@@ -12,12 +13,15 @@ public class GetMoneyFromAllCC extends GetMoneyCC {
 	
 	@Override
 	public boolean drawCardAction(GameController gc){
+		
+		PlayerController pc = gc.getPlayerController();
 		Player currentPlayer = gc.getPlayerController().getCurrentPlayer();
 		
-		for(Player player : gc.getPlayerController().getPlayerList()){
-			if(gc.getPlayerController().getCurrentPlayer() != player){
-				if(!(player.getAccount().adjustBalance(-amount))){
-					gc.handleRemovePlayer(player);
+		for(int i = 0; i<pc.getPlayerList().size();i++){
+			if(pc.getCurrentPlayerIndex() != i){
+				if(!(pc.getPlayer(i).getAccount().adjustBalance(-amount))){
+					gc.handleRemovePlayer(pc.getPlayer(i));
+					i--;
 				}
 				currentPlayer.adjustBalance(amount);
 			}

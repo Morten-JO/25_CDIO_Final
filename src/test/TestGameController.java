@@ -9,6 +9,9 @@ import org.junit.Test;
 import controllers.GUIController;
 import controllers.GameController;
 import controllers.Language;
+import field.Bonus;
+import field.Street;
+import field.Tax;
 
 /**
  * Date: 12/01/2016
@@ -61,14 +64,13 @@ public class TestGameController {
 	
 	@Test
 	public void testSuccesfulGame(){
+		for(int i = 0; i < 1; i++){
 			controller = new GameController();
 			controller.getPlayerController().createPlayers(new String[]{"Test","Test2", "Test3"});
-			controller.getPlayerController().getPlayer(0).adjustBalance(-29999);
-			controller.getPlayerController().getPlayer(1).adjustBalance(-29999);
-			controller.getPlayerController().getPlayer(2).adjustBalance(-29999);
 			GUIController.isInDebugMode = true;
 			GUIController.debugModeReturnTypeString = Language.GameController_EndTurn;
 			GUIController.debugModeReturnTypeBoolean = false;
 			controller.startGame();
+		}
 	}
 }
