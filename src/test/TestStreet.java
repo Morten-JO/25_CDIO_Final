@@ -269,4 +269,11 @@ public class TestStreet {
 		((Street)gc.getFieldController().getFields()[1]).buyBuilding(gc);
 		assertEquals(0,((Street)gc.getFieldController().getFields()[1]).getAmountOfHouses());
 	}
+	
+	@Test
+	public void test_RemoveAllOwnership(){
+		((Street)gc.getFieldController().getFields()[1]).setOwner(gc.getPlayerController().getPlayer(0));
+		((Street)gc.getFieldController().getFields()[1]).removeAllOwnership();
+		assertEquals(null,((Street)gc.getFieldController().getFields()[1]).getOwner());
+	}
 }
