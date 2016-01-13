@@ -103,13 +103,16 @@ public class ChanceCardController {
 	}
 	
 	public boolean drawCard(GameController gc){
+		cardsDrawn++;
+		
 		//shuffle pile after all cards have been drawn once
 		if(cardsDrawn>=chanceCards.length){
 			shuffleCards();
 			cardsDrawn = 0;
 		}
 		
-		gc.getGUIController().askQuestion(chanceCards[0].getCardDescription(), "OK");
+		gc.getGUIController().showChanceCard(chanceCards[0].getCardDescription());
+		gc.getGUIController().showMessage("");
 		
 		boolean result = false;
 		//draw card from end of pile, validate object type, do action
