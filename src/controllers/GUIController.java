@@ -213,6 +213,7 @@ public class GUIController {
 						builder.setBgColor(Color.MAGENTA);
 						break;
 				}
+				builder.setRent("");
 				list[i] = builder.build();
 			}
 			else if(arrayOfFields[i].getClass().equals(Brewery.class)){
