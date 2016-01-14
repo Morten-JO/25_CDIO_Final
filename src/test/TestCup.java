@@ -30,4 +30,12 @@ public class TestCup {
 		}
 	}
 
+	@Test
+	public void testSums(){
+		cup.rollDices();
+		int firstSum = cup.getDiceSum();
+		cup.rollDices();
+		assertEquals(firstSum, cup.getLastDiceSum());
+		
+	}
 }

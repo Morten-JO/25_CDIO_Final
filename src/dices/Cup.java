@@ -50,6 +50,7 @@ public class Cup {
 	}
 	
 	
+	/* methods not used. keep code for future flexibility
 	public int getLastSumOfDice(int index){
 		if(index < diceArray.size()){
 			return diceArray.get(index).getLastSum();
@@ -62,6 +63,7 @@ public class Cup {
 	public int getAmountOfDices(){
 		return diceArray.size();
 	}
+	*/
 	
 	public boolean isSameHit(){
 		boolean isSameHit = true;

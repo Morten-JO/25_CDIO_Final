@@ -60,7 +60,7 @@ public class Street extends Ownable {
 			}else{ 
 				if (currentPlayer.getBalance() >= price && (this.owner==null || this.isPawn == true && this.owner != currentPlayer) ) {
 				boolean answer = gameController.getGUIController().askYesNoQuestion(Language.Field_DoYouWantToBuy + this.getName() + Language.Field_For + this.price+ "?");
-				if (answer == true) { // Yes i want yo buy
+				if (answer == true) { // Yes i want to buy
 					isPawn = false;
 					this.owner = currentPlayer;
 					this.setSubtext(this.owner.getName());
