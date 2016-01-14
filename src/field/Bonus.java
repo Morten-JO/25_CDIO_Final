@@ -20,6 +20,7 @@ public class Bonus extends Field {
 		this.bonus = b;
 	}
 
+	
 	@Override
 	public boolean landOn(GameController gameController) {
 		gameController.getGUIController().showMessage(Language.Field_Bonus +this.bonus + "!");

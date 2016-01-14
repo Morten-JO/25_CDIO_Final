@@ -61,7 +61,9 @@ public class Brewery extends Ownable {
 
 		return result;
 	}
-
+	/** Returns the rent of a brewery. Considers how many breweries are owned by the player
+	 * and also how many of these are pawned.
+	 */
 	@Override
 	public int getRent(GameController gameController){
 		int rent = 0;

@@ -30,8 +30,12 @@ public class Street extends Ownable {
 	
 	
 	
-	/* (non-Javadoc)
-	 * @see field.Ownable#landOn(controllers.GameController)
+	/**The landOn method for Street 
+	 * checks for pawn status, ownership, current streetrent, amount of houses/hotels.
+	 * it determines whether or not the player landing on the field shall have the possibility of
+	 * buying the field. Otherwise a rent will be required from the owner, assuming the street isn't pawned.
+	 * The switch case is based on the amount of streets owned in a the streets category by the owner of the current street.
+	 * This allows the switch to determine the payout.
 	 */
 	@Override
 	public boolean landOn(GameController gameController) {
@@ -151,7 +155,7 @@ public class Street extends Ownable {
 
 	/**
 	 * buyBuilding method
-	 * It adds a building to a street of the players choice. It calculates the amount of houses
+	 * Adds a building to a street of the players choice. It calculates the amount of houses
 	 * on the other streets in the category and insures, that no street can contain more than one
 	 * house compared to the other streets in the category.
 	 * If there are already 4 houses it removes the houses and adds a hotel.

@@ -78,12 +78,12 @@ public class PlayerController {
 	}
 	
 	public int getTotalValueOfPlayer(Player player, FieldController controller) {
-		int value = player.getBalance() + controller.getPropertyValue(player);
+		int value = player.getBalance() + controller.getPropertyValueNotPawned(player);
 		return value;
 	}
 	
 	public int getTotalPawnValueOfPlayer(Player player, FieldController controller){
-		int value = player.getBalance() + (int)(controller.getPropertyValue(player)*0.5);
+		int value = player.getBalance() + (int)(controller.getPropertyValueNotPawned(player)*0.5);
 		return value;
 	}
 	

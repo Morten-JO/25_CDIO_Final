@@ -40,9 +40,8 @@ public class Ownable extends Field {
 		return 0;
 	}
 	
-	/* (non-Javadoc)
-	 * det virker da
-	 * @see field.Field#landOn(controllers.GameController)
+	/**
+	 * @return boolean
 	 */
 	@Override
 	public boolean landOn(GameController gameController) {
@@ -67,7 +66,7 @@ public class Ownable extends Field {
 	}
 	
 	
-	//Unpantsæt igen
+	//Unpantsï¿½t igen
 	public boolean unPawnProperty(GameController gameController, Player player){
 		for (int i = 0; i<gameController.getFieldController().getFields().length; i++){
 			if (gameController.getFieldController().getFields()[i] instanceof Ownable){

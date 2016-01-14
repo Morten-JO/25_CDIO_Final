@@ -23,7 +23,11 @@ public class Fleet extends Ownable {
 	public void setRentMultiplier(int i) {
 		rentMultiplier = i;
 	}
-
+	
+	/**The landOn method for fleet checks if the fleet is owned, if it's pawned and if the current players
+	 * balance is sufficient for buying the fleet.
+	 * if owned it handles the payment between player and owner.
+	 */
 	@Override
 	public boolean landOn(GameController gameController) {
 		boolean result = true;
@@ -74,7 +78,10 @@ public class Fleet extends Ownable {
 		rentMultiplier = 1;
 		return result;
 	}
-
+	
+	/** Calculates the rent of the fleet by determining the amount of fleets owned by the player
+	 * and then subtracting the amount of pawned fleets from  this amount.
+	 */
 	@Override
 	public int getRent(GameController gameController) {
 		int rent = 0;

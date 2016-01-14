@@ -87,7 +87,11 @@ public class FieldController {
 		Point point = new Point(houses, hotels);
 		return point;
 	}
-	
+	/** Returns the amount of properties owned by a single playerin an array
+	 * 
+	 * @param player
+	 * @return
+	 */
 	public Field[] getAllOwnedProperties(Player player){
 		ArrayList<Field> listOfProperties = new ArrayList<Field>();
 		for(int i = 0; i < gameFields.length; i++){
@@ -103,7 +107,11 @@ public class FieldController {
 		array = listOfProperties.toArray(array);
 		return array;
 	}
-	
+	/** Returns the amount of properties that are not pawned owned by a single player in an array.
+	 * 
+	 * @param player
+	 * @return
+	 */
 	public Field[] getAllOwnedPropertiesNotPawned(Player player){
 		ArrayList<Field> listOfProperties = new ArrayList<Field>();
 		for(int i = 0; i < gameFields.length; i++){
@@ -122,7 +130,10 @@ public class FieldController {
 		return array;
 	}
 	
-	
+	/** Returns the amount of fleets owned by a player.
+	 * @param player
+	 * @return
+	 */
 	public int getOwnerShipOfFleets(Player p) {
 		int count = 0;
 		for(int i = 0 ; i < gameFields.length; i++){
@@ -136,6 +147,11 @@ public class FieldController {
 		}
 		return count;
 	}
+	
+	/** Returns the amount of streets in a single streetcategory.
+	 * @param player
+	 * @return
+	 */
 	public int getOwnershipOfStreetsInCat(Player p, int cat) {
 		int count = 0;
 		for(int i = 0 ; i < gameFields.length; i++){
@@ -149,6 +165,10 @@ public class FieldController {
 		}
 		return count;
 	}
+	/** Returns the amount of unpawned Breweries owned by a player.
+	 * @param player
+	 * @return
+	 */
 	public int getOwnerShipOfBreweries(Player p) {
 		int count = 0;
 		for(int i = 0 ; i < gameFields.length; i++){
@@ -167,22 +187,11 @@ public class FieldController {
 		return gameFields;
 	}
 
-	public int getPropertyValue(Player player){
-		int amount = 0;
-		for(int i = 0; i < gameFields.length; i++){
-			if(gameFields[i] instanceof Ownable){
-				if(((Ownable)gameFields[i]).getOwner() == player){
-					if(gameFields[i] instanceof Street){
-						amount += ((Street)gameFields[i]).getAmountOfHouses() * ((Street)gameFields[i]).getBuildingPrice();
-						amount += ((Street)gameFields[i]).getAmountOfHotels() * ((Street)gameFields[i]).getBuildingPrice();
-					}
-					amount += ((Ownable)gameFields[i]).getPrice();
-				}
-			}
-		}
-		return amount;
-	}
-	
+	/** Returns the value of a property including the houses/hotels present. Takes into consideration whether or not
+	 * some of the properties are pawned.
+	 * @param player
+	 * @return
+	 */	
 	public int getPropertyValueNotPawned(Player player){
 		int amount = 0;
 		for(int i = 0; i < gameFields.length; i++){
@@ -311,6 +320,10 @@ public class FieldController {
 		return false;
 	}
 	
+	/** Returns a list of fields owned by a player that are pawned.
+	 * @param player
+	 * @return
+	 */
 	public Field[] getListOfUnPawnableProperties(Player player){
 		ArrayList<Field> pawnedProperties = new ArrayList<Field>();
 		for(int i = 0; i < gameFields.length; i++){
@@ -327,7 +340,12 @@ public class FieldController {
 		return fields;
 	}
 	
-		
+		/**Returns the amount of pawned fleets a player owns. 
+		 * Used to calculate current rent.
+		 * @param gameController
+		 * @param player
+		 * @return
+		 */
 		public int getAmountofPawnedFleets(GameController gameController, Player player){
 		int fleetsPawned = 0;
 		for (int i = 0; i < gameFields.length; i++){
@@ -342,7 +360,12 @@ public class FieldController {
 		}
 		return fleetsPawned;
 	}
-	
+		/**Returns the amount of pawned breweries a player owns. 
+		 * Used to calculate current rent.
+		 * @param gameController
+		 * @param player
+		 * @return
+		 */
 		public int getAmountofPawnedBreweries(GameController gameController, Player player){
 		int fleetsPawned = 0;
 		for (int i = 0; i < gameFields.length; i++){
@@ -357,7 +380,13 @@ public class FieldController {
 		}
 		return fleetsPawned;
 	}
-	
+		/**Returns the amount of pawned streets a player owns i a single category. 
+		 * Used to determine whether or not building houses in a category is possible
+		 * and also to calculate rent.
+		 * @param gameController
+		 * @param player
+		 * @return
+		 */
 		public int getAmountofPawnedStreetsInCategory(GameController gameController, int category){
 			int streetsPawned = 0;
 			for (int i = 0; i < gameFields.length; i++){
