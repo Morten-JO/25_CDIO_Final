@@ -23,8 +23,11 @@ public class TestCup {
 
 	@Test//min=2; max=14;
 	public void testRollDiceBoundaries() {
-		
-
+		for(int i = 0; i<10000;i++){
+			cup.rollDices();
+			if(cup.getDiceSum()<2 || cup.getDiceSum()>14)
+				assertTrue(false);
+		}
 	}
 
 }
