@@ -112,7 +112,7 @@ public class TestFleet {
 		
 		@Test
 		public void test_AllGetMethods () {
-			assertEquals(gc.getFieldController().getFields()[5].getName(),"Helsing�r-Helsingborg");
+			assertEquals(gc.getFieldController().getFields()[5].getName(),"Helsingør-Helsingborg");
 			assertEquals(gc.getFieldController().getFields()[5].getDescriptionText(),"Rederi");
 			assertEquals(gc.getFieldController().getFields()[5].getSubText(),"Kr. 4000");
 			assertEquals(gc.getFieldController().getFields()[5].getNumber(),5);
