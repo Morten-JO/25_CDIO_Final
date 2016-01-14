@@ -37,6 +37,7 @@ public class GameController {
 		while(!gameOver){
 			boolean playerRemoved = false;
 			//if same dices hit 3 turns in a row, jail that person
+			boolean jailed3Alike = false;
 			playerController.setCurrentPlayer(turn);
 			if(countDicesTheSame >= 3){
 				playerController.getCurrentPlayer().setJailed(true);
@@ -44,6 +45,7 @@ public class GameController {
 				guiController.updatePlayerPositions(playerController.getPlayerList());
 				guiController.showMessage(Language.GameController_Jailed3Alike);
 				countDicesTheSame = 0;
+				jailed3Alike = true;
 			}
 			else{
 				//if he didnt hit same dices 3 turns in a row
@@ -176,8 +178,11 @@ public class GameController {
 				}
 			}
 			//if player wasnt removed, handle turnchange
-			if(!playerRemoved){
+			if(!playerRemoved && !jailed3Alike){
 				handleTurnChange();
+			}
+			else if(jailed3Alike){
+				turnChanceInstant();
 			}
 			//update players position and balance, and check if winning conditions
 			playerRemoved = false;
@@ -276,12 +281,31 @@ public class GameController {
 		}
 	}
 	
+	
+	public void turnChanceInstant(){
+		turn++;
+		if(turn >= playerController.getPlayerList().size()){
+			turn = 0;
+		}
+		countDicesTheSame = 0;
+	}
+	
 	/**
 	 * handle jailed gameflow, if player hits 2 of the same in 3 tries, he gets out, if not then he have option to buy out for 1000
 	 */
 	private void handleIfPlayerJailed(){
 		boolean hittedOut = false;
 		int hits = 1;
+		if(playerController.getCurrentPlayer().getJailFreeCards() > 0){
+			if(guiController.askYesNoQuestion(Language.GameController_WishToUseCard)){
+				playerController.getCurrentPlayer().setJailFreeCards(playerController.getCurrentPlayer().getJailFreeCards() - 1);
+				playerController.getCurrentPlayer().setJailed(false);
+				playerController.getCurrentPlayer().setPosition(10);
+				guiController.updatePlayerPosition(playerController.getCurrentPlayer());
+				guiController.showMessage(Language.GameController_YouAreOutOfJail);
+				return;
+			}
+		}
 		if(cup.isSameHit()){
 			playerController.getCurrentPlayer().setJailed(false);
 			playerController.getCurrentPlayer().setPosition(10);
