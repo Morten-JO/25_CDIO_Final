@@ -9,7 +9,6 @@ public class Account {
 	
 	
 	/**
-	 * 
 	 * @param d - the amount to adjust
 	 * @return false if player cant play (decide if remove from game)
 	 */

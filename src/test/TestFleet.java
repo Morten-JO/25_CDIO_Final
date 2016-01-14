@@ -22,16 +22,15 @@ public class TestFleet {
 	
 	}
 
-	// tester om en spiller bliver sat til owner, hvis han vælger at købe feltet han lander på
+	// tester om en spiller bliver sat til owner, hvis han vÃ¦lger at kÃ¸be feltet han lander pÃ¥
 		@Test
 		public void test_SayYesToBuyFleet(){
 			gc.getGUIController().debugModeReturnTypeBoolean=true;
 			gc.getPlayerController().setCurrentPlayer(0);
 			((Fleet) gc.getFieldController().getFields()[5]).landOn(gc);
-			assertEquals(gc.getPlayerController().getCurrentPlayer(),((Fleet) gc.getFieldController().getFields()[5]).getOwner());
-					
+			assertEquals(gc.getPlayerController().getCurrentPlayer(),((Fleet) gc.getFieldController().getFields()[5]).getOwner());			
 		}
-		// tester om owner er null efter man har sagt nej til at købe feltet
+		// tester om owner er null efter man har sagt nej til at kÃ¸be feltet
 		@Test
 		public void test_SayNoToBuyStreet(){
 			gc.getGUIController().debugModeReturnTypeBoolean=false;
@@ -102,7 +101,7 @@ public class TestFleet {
 			assertEquals(31000,gc.getPlayerController().getPlayer(0).getBalance());
 			
 		}
-		@Test // tester at man ikke skal betale leje når man lander på et felt som er pantsat
+		@Test // tester at man ikke skal betale leje nï¿½r man lander pï¿½ et felt som er pantsat
 		public void test_PawnFleet(){
 			((Fleet) gc.getFieldController().getFields()[5]).setOwner(gc.getPlayerController().getPlayer(0));
 			((Fleet) gc.getFieldController().getFields()[5]).pawnProperty(gc, gc.getPlayerController().getPlayer(0));
@@ -113,7 +112,7 @@ public class TestFleet {
 		
 		@Test
 		public void test_AllGetMethods () {
-			assertEquals(gc.getFieldController().getFields()[5].getName(),"Helsingør-Helsingborg");
+			assertEquals(gc.getFieldController().getFields()[5].getName(),"Helsingï¿½r-Helsingborg");
 			assertEquals(gc.getFieldController().getFields()[5].getDescriptionText(),"Rederi");
 			assertEquals(gc.getFieldController().getFields()[5].getSubText(),"Kr. 4000");
 			assertEquals(gc.getFieldController().getFields()[5].getNumber(),5);
