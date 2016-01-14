@@ -474,22 +474,19 @@ public class GameController {
 								if(guiController.askYesNoQuestion(Language.GameController_DoYou+playerNames[i]+" "+Language.GameController_Buy+" "+chosenField.getName()+" "+Language.GameController_For+" "+amount+"?")){
 									if(chosenField instanceof Street){
 										if((((Street)chosenField).getAmountOfHotels() + ((Street)chosenField).getAmountOfHouses()) > 0){
-											((Street)chosenField).sellAllBuildingsinCat(((Street)chosenField).getStreetCategory(), this);
+											playerController.getCurrentPlayer().adjustBalance(((Street)chosenField).sellAllBuildingsinCat(((Street)chosenField).getStreetCategory(), this));
 											//((Street)chosenField).sellBuilding(this);
 										}
 									}
-									if(((Ownable)chosenField).getIsPawn()){
-										playerController.getCurrentPlayer().adjustBalance(amount-((Ownable)chosenField).getPawnPrice());
-									}
-									else{
-										playerController.getCurrentPlayer().adjustBalance(amount);
-									}
+									playerController.getCurrentPlayer().adjustBalance(amount);
 									((Ownable)chosenField).setOwner(players[i]);
 									players[i].adjustBalance(-amount);
 									guiController.showMessage(players[i].getName()+" "+Language.GameController_BuyGround+" "+chosenField.getName()+" "+Language.GameController_For+" "+amount+".");
+									break;
 								}
 								else{
 									guiController.showMessage(Language.GameController_Player+" "+playerNames[i]+" "+Language.GameController_DidntWantToBuy+" "+chosenField.getName()+"!");
+									break;
 								}
 							}
 							break;

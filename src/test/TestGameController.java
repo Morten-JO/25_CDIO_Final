@@ -13,19 +13,6 @@ import field.Bonus;
 import field.Street;
 import field.Tax;
 
-/**
- * Date: 12/01/2016
- *
- * Project: 25_cdio-final
- *
- * File: TestGameController.java
- *
- * Created by: Morten Jørvad
- *
- * Github: https://github.com/Mortenbaws
- *
- * Email: morten2094@gmail.com
- */
 
 public class TestGameController {
 
@@ -67,10 +54,26 @@ public class TestGameController {
 		for(int i = 0; i < 1; i++){
 			controller = new GameController();
 			controller.getPlayerController().createPlayers(new String[]{"Test","Test2", "Test3"});
+			for(int x = 0; x < controller.getFieldController().getFields().length; x++){
+				controller.getFieldController().setField(x, new Tax(Language.FieldController_Taxfield, Language.FieldController_PayTaxAmount, "", 38, -2000));
+			}
 			GUIController.isInDebugMode = true;
 			GUIController.debugModeReturnTypeString = Language.GameController_EndTurn;
 			GUIController.debugModeReturnTypeBoolean = false;
 			controller.startGame();
+			assertTrue(controller.checkIfGameIsWon());
 		}
+	}
+	
+	@Test
+	public void testHandleRemovePlayer(){
+		controller = new GameController();
+		controller.getPlayerController().createPlayers(new String[]{"Test","Test2", "Test3"});
+		controller.getPlayerController().getPlayer(0).adjustBalance(-30500);
+		GUIController.isInDebugMode = true;
+		GUIController.debugModeReturnTypeString = Language.GameController_EndTurn;
+		GUIController.debugModeReturnTypeBoolean = false;
+		controller.handleRemovePlayer(controller.getPlayerController().getPlayer(0));
+		assertEquals(controller.getPlayerController().getPlayerList().size(), 2);
 	}
 }
