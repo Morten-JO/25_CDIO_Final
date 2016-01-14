@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import controllers.GameController;
 import field.TaxPercent;
+import field.Street;
 
 public class TestTaxPercent {
 
@@ -32,7 +33,12 @@ public class TestTaxPercent {
 	public void test_LandOnTaxPercentAndPay10Percent() {
 		gc.getGUIController().debugModeReturnTypeString = "10 %";
 		((TaxPercent) gc.getFieldController().getFields()[4]).landOn(gc);
-		assertEquals(27000, gc.getPlayerController().getCurrentPlayer().getBalance());
+		((Street)gc.getFieldController().getFields()[1]).setOwner(gc.getPlayerController().getPlayer(0));
+		((Street)gc.getFieldController().getFields()[3]).setOwner(gc.getPlayerController().getPlayer(0));
+		((Street)gc.getFieldController().getFields()[1]).setAmountOfHotels(1);
+		((Street)gc.getFieldController().getFields()[3]).setAmountOfHouses(4);
+		gc.getPlayerController().getPlayer(0).adjustBalance(-11400);// hvad det koster at købe de 2 grunde plus 1 hotel og 4 huse
+		assertEquals(30000-14400, gc.getPlayerController().getCurrentPlayer().getBalance());
 	}
 
 }
