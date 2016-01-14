@@ -36,8 +36,7 @@ public class GameController {
 		
 		while(!gameOver){
 			boolean playerRemoved = false;
-			//if 2x same dices hit 3 turns in a row, JAIL EM
-			//change player, and make him hit the dice!
+			//if same dices hit 3 turns in a row, jail that person
 			playerController.setCurrentPlayer(turn);
 			if(countDicesTheSame >= 3){
 				playerController.getCurrentPlayer().setJailed(true);
@@ -47,6 +46,7 @@ public class GameController {
 				countDicesTheSame = 0;
 			}
 			else{
+				//if he didnt hit same dices 3 turns in a row
 				guiController.showMessage(playerController.getCurrentPlayer().getName()+Language.GameController_TurnsToHit);
 				cup.rollDices();
 				guiController.updateDices(cup.getSumOfDice(0), cup.getSumOfDice(1));
@@ -79,10 +79,11 @@ public class GameController {
 					playerController.getCurrentPlayer().setFirstRoundCompleted(true);
 					guiController.updateAllPlayersBalance(playerController.getPlayerList());
 					
-					
+					//check if he can afford if that field hes landed on is owned, and if he can afford it
 					checkIfPlayerCanAffordToLandOnRented();
 					
 					if(!fieldController.getFields()[playerController.getCurrentPlayer().getPosition()].landOn(this)){
+							//remove player if he couldnt afford it
 							handleRemovePlayer();
 							playerRemoved = true;
 						}
@@ -117,6 +118,7 @@ public class GameController {
 					options.add(Language.GameController_EndTurn);
 				}
 				boolean stillDoingThings = true;
+				//convert into an array, so it can be used with the gui
 				String[] array = new String[options.size()];
 				array = options.toArray(array);
 				boolean boughtHouse = false;
@@ -173,9 +175,11 @@ public class GameController {
 					array = options.toArray(array);
 				}
 			}
+			//if player wasnt removed, handle turnchange
 			if(!playerRemoved){
 				handleTurnChange();
 			}
+			//update players position and balance, and check if winning conditions
 			playerRemoved = false;
 			guiController.updateAllPlayersBalance(playerController.getPlayerList());
 			guiController.updatePlayerPositions(playerController.getPlayerList());
@@ -238,7 +242,6 @@ public class GameController {
 	 * @param player
 	 */
 	private void handlePawnPlayer(int toPay, Player player){
-		System.out.println("Starting to force pawn");
 		boolean canPay = false;
 		while(!canPay){
 			Field[] fields = fieldController.getAllOwnedProperties(player);
@@ -375,6 +378,7 @@ public class GameController {
 	 */
 	private boolean handlePlayerGameFlowBuildHouse(boolean boughtHouse){
 		boolean returnType = boughtHouse;
+		//checks weather or not he bought a house this round
 		if(boughtHouse){
 			guiController.showMessage(Language.GameController_AlreadyBoughtHouse+".");
 		}
@@ -447,6 +451,7 @@ public class GameController {
 		}
 		fieldsTrade[arrayOfTradeFields.length] = Language.GameController_Cancel;
 		String chosenInput = guiController.askDropDownQuestion(Language.GameController_GroundToTrade, fieldsTrade);
+		//if not pressed cancel, proceed with selling process
 		if(chosenInput != Language.GameController_Cancel){
 			Field chosenField = null;
 			for(int i = 0; i < fieldsTrade.length; i++){
@@ -456,7 +461,9 @@ public class GameController {
 				}
 			}
 			if(chosenField != null){
+				//confirm that u do intend to sell this property
 				if(guiController.askYesNoQuestion(Language.GameController_ConfirmWantToTrade+chosenInput+"?")){
+					//ask user how much to sell for
 					int amount = guiController.getUserIntegerInput(Language.GameController_AmountForTrade+chosenInput+"?");
 					ArrayList<Player> modifiedPlayers = new ArrayList<Player>();
 					for(int i = 0; i < playerController.getPlayerList().size(); i++){
@@ -469,6 +476,7 @@ public class GameController {
 					for(int i = 0; i < playerNames.length; i++){
 						playerNames[i] = players[i].getName();
 					}
+					//choose a player, and proceed with the process assuming he had enough money and wants to buy it
 					String playerChoice = guiController.askDropDownQuestion(Language.GameController_WhatPlayerToTrade, playerNames);
 					for(int i = 0; i < playerNames.length; i++){
 						if(playerChoice.equals(playerNames[i])){
@@ -477,7 +485,6 @@ public class GameController {
 									if(chosenField instanceof Street){
 										if((((Street)chosenField).getAmountOfHotels() + ((Street)chosenField).getAmountOfHouses()) > 0){
 											playerController.getCurrentPlayer().adjustBalance(((Street)chosenField).sellAllBuildingsinCat(((Street)chosenField).getStreetCategory(), this));
-											//((Street)chosenField).sellBuilding(this);
 										}
 									}
 									playerController.getCurrentPlayer().adjustBalance(amount);
