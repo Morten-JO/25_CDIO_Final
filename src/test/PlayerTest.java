@@ -20,8 +20,8 @@ public class PlayerTest {
 		assertEquals(player.getPosition(),0);
 		assertFalse(player.isJailed());
 		assertFalse(player.getFirstRoundCompleted());
-		
 	}
+
 	
 	@Test
 	public void test() {
