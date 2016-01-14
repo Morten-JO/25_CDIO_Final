@@ -7,6 +7,7 @@ import player.Player;
 public class PlayerController {
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private int currentPlayer = 0;
+	private int jailFreeCardsInPlayers;
 
 	public PlayerController() {
 		setCurrentPlayer(0);
@@ -50,6 +51,30 @@ public class PlayerController {
 
 	public int getCurrentPlayerIndex(){
 		return currentPlayer;
+	}
+	
+	public int getAmountOfJailFreeCardsInPlayers(){
+		int amountOfJailFreeCardsAmongstPlayers = 0;
+		for(int i = 0; i<players.size();i++){
+			amountOfJailFreeCardsAmongstPlayers += players.get(i).getJailFreeCards();
+		}
+		return amountOfJailFreeCardsAmongstPlayers;
+	}
+	
+	public void addJailFreeCard(){
+		int newInt = getCurrentPlayer().getJailFreeCards();
+		getCurrentPlayer().setJailFreeCards(newInt++);
+		
+		if(getCurrentPlayer().getJailFreeCards()>2)
+			System.out.println("Player has more than 2 jail free ccs. Handler logic must be wrong in controller");
+	}
+	
+	public void removeJailFreeCard(){
+		int newInt = getCurrentPlayer().getJailFreeCards();
+		getCurrentPlayer().setJailFreeCards(newInt--);
+		
+		if(getCurrentPlayer().getJailFreeCards()<0)
+			System.out.println("Player has less than 0 jail free ccs. Handler logic must be wrong in controller");
 	}
 	
 	public int getTotalValueOfPlayer(Player player, FieldController controller) {

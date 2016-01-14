@@ -10,7 +10,8 @@ public class JailFreeCC extends ChanceCard {
 	
 	@Override
 	public boolean drawCardAction(GameController gc){
-		//add jail option to player?
+		//adds jail free cc to current player
+		gc.getPlayerController().addJailFreeCard();
 		return true;
 	}
 }

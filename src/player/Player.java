@@ -5,6 +5,7 @@ public class Player {
 	private String name;
 	private Account acc;
 	private int position;
+	private int jailFreeCards;
 	private boolean isJailed;
 	private boolean firstRoundCompleted;
 
@@ -54,6 +55,14 @@ public class Player {
 	
 	public void setFirstRoundCompleted(boolean newBool){
 		firstRoundCompleted = newBool;
+	}
+	
+	public int getJailFreeCards(){
+		return jailFreeCards;
+	}	
+	
+	public void setJailFreeCards(int i){
+		jailFreeCards = i;
 	}
 
 }

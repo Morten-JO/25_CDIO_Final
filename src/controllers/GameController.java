@@ -50,6 +50,8 @@ public class GameController {
 				guiController.showMessage(playerController.getCurrentPlayer().getName()+Language.GameController_TurnsToHit);
 				cup.rollDices();
 				guiController.updateDices(cup.getSumOfDice(0), cup.getSumOfDice(1));
+				
+				//check if player jailed
 				if(playerController.getCurrentPlayer().isJailed()){
 					handleIfPlayerJailed();
 				}

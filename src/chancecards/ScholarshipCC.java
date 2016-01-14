@@ -2,7 +2,7 @@ package chancecards;
 
 import controllers.GameController;
 
-public class ScholarshipCC extends PayMoneyCC {
+public class ScholarshipCC extends GetMoneyCC {
 
 	public ScholarshipCC(String description, int amount) {
 		super(description, amount);

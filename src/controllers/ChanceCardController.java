@@ -111,8 +111,19 @@ public class ChanceCardController {
 			cardsDrawn = 0;
 		}
 		
+		
+		//handle if all jail free CC is in play
+		if(chanceCards[0] instanceof JailFreeCC){
+			if(gc.getPlayerController().getAmountOfJailFreeCardsInPlayers() >= 2){
+				moveCardFromTopToBottom();
+				gc.getFieldController().getFields()[2].landOn(gc);
+				return true;
+			}
+		}
+		
+		
 		gc.getGUIController().showChanceCard(chanceCards[0].getCardDescription());
-		gc.getGUIController().showMessage("");
+		gc.getGUIController().showMessage(chanceCards[0].getCardDescription());
 		
 		boolean result = false;
 		//draw card from end of pile, validate object type, do action
@@ -148,6 +159,9 @@ public class ChanceCardController {
 				e.printStackTrace();
 			}
 		}
+		
+		//set mid field to blank
+		//gc.getGUIController().showChanceCard("");
 		
 		moveCardFromTopToBottom();
 		
