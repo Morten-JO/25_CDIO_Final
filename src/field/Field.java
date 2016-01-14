@@ -17,7 +17,7 @@ public abstract class Field {
 	}
 
 	/**
-	 * Generel landOn metode
+	 * General landOn method
 	 * @param gameController
 	 * @return
 	 */

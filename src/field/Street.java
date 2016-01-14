@@ -48,7 +48,7 @@ public class Street extends Ownable {
 				//Unpawning the street
 				if (currentPlayer.getBalance() >= priceToPay) {
 					boolean answer = gameController.getGUIController().askYesNoQuestion(Language.Field_HasPawned+ this.getName() + Language.Field_BuyBack+ priceToPay + Language.Field_Currency);
-					if (answer == true) { // Ja, jeg vil gerne upantsætte
+					if (answer == true) { // Yes, i wish to unpawn
 						isPawn = false;
 						this.owner = currentPlayer;
 						this.setSubtext(this.owner.getName());
@@ -60,7 +60,7 @@ public class Street extends Ownable {
 			}else{ 
 				if (currentPlayer.getBalance() >= price && (this.owner==null || this.isPawn == true && this.owner != currentPlayer) ) {
 				boolean answer = gameController.getGUIController().askYesNoQuestion(Language.Field_DoYouWantToBuy + this.getName() + Language.Field_For + this.price+ "?");
-				if (answer == true) { // Ja, jeg vil gerne købe
+				if (answer == true) { // Yes i want yo buy
 					isPawn = false;
 					this.owner = currentPlayer;
 					this.setSubtext(this.owner.getName());
@@ -70,9 +70,9 @@ public class Street extends Ownable {
 				}
 			}
 		
-		//Er feltet ejet af en anden spiller? Beregn leje og juster spilleres konti
+		//Is this field owned by another player? Calculate rent and adjust the players account
 		if (this.owner != null && this.owner != currentPlayer && this.isPawn == false) {
-			// Er feltets ejer i fængsel?
+			// Is the owner jailed?
 			if (this.owner.isJailed() == false) {
 				//Amount of fields in same category that owner own
 				int streets = gameController.getFieldController().getOwnershipOfStreetsInCat(this.owner,

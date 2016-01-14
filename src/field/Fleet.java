@@ -55,10 +55,10 @@ public class Fleet extends Ownable {
 			int fleets = gameController.getFieldController().getOwnerShipOfFleets(this.owner);
 
 			gameController.getGUIController().showMessage(currentPlayer.getName() + Language.Field_HasLandedOn + this.getName() + ". " + this.owner.getName()
-							+ Language.Field_OwnerOfTheStreet + getRent(gameController) + Language.Field_AmountToPay);
+							+ Language.Field_OwnerOfTheStreet + getRent(gameController)*rentMultiplier + Language.Field_AmountToPay);
 			
 			//Are there any pawned fields among the one owned by the owner of this one? if so, adjust rent
-			int toPay = this.rents[fleets - 1-(gameController.getFieldController().getAmountofPawnedFleets(gameController, this.owner))];
+			int toPay = this.rents[fleets - 1-(gameController.getFieldController().getAmountofPawnedFleets(gameController, this.owner))]*rentMultiplier;
 
 			// check if user has enough balance to pay
 			if (currentPlayer.getBalance() > toPay) {
@@ -71,6 +71,7 @@ public class Fleet extends Ownable {
 			}
 			result = currentPlayer.adjustBalance(-toPay);
 		}
+		rentMultiplier = 1;
 		return result;
 	}
 
