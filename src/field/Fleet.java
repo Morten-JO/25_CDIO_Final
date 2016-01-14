@@ -1,9 +1,7 @@
 package field;
 
-import controllers.FieldController;
 import controllers.Language;
 import controllers.GameController;
-import desktop_resources.GUI;
 import player.Player;
 
 public class Fleet extends Ownable {
@@ -55,7 +53,7 @@ public class Fleet extends Ownable {
 		// check owner not NULL, currentPlayer not owner, owner not jailed. PAY
 		// ACCORDINGLY
 		if (this.owner != null && this.owner != currentPlayer && this.owner.isJailed() == false && this.isPawn == false && this.owner != currentPlayer) {
-			Player fleetowner;
+		
 			int fleets = gameController.getFieldController().getOwnerShipOfFleets(this.owner);
 
 			gameController.getGUIController().showMessage(currentPlayer.getName() + Language.Field_HasLandedOn + this.getName() + ". " + this.owner.getName()

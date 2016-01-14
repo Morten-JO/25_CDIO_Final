@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 import controllers.GameController;
 import controllers.Language;
-import desktop_resources.GUI;
 import player.Player;
 
 
@@ -35,7 +34,7 @@ public class Street extends Ownable {
 	 * it determines whether or not the player landing on the field shall have the possibility of
 	 * buying the field. Otherwise a rent will be required from the owner, assuming the street isn't pawned.
 	 * The switch case is based on the amount of streets owned in a the streets category by the owner of the current street.
-	 * This allows the switch to determine the payout.
+	 * This allows the switch to determine the payout.	
 	 */
 	@Override
 	public boolean landOn(GameController gameController) {

@@ -2,7 +2,6 @@ package field;
 
 import controllers.GameController;
 import controllers.Language;
-import desktop_resources.GUI;
 import player.Player;
 
 public class Brewery extends Ownable {
