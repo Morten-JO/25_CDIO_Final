@@ -355,6 +355,7 @@ public class GameController {
 		if(playerController.getPlayerList().size() == 1){
 			gameOver = true;
 			guiController.showMessage(playerController.getPlayerList().get(0).getName()+" "+Language.GameController_WonGameCongratulations);
+			guiController.closeGUI();
 		}
 	}
 
