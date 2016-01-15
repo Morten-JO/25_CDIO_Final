@@ -17,7 +17,7 @@ public class Language {
 		public static final String GUIController_Black = "Sort";
 		public static final String GUIController_Red = "Rød";
 		public static final String GUIController_Yellow = "Gul";
-		public static final String GUIController_Green = "Grønn";
+		public static final String GUIController_Green = "Grøn";
 		public static final String GUIController_Orange = "Orange";
 		public static final String GUIController_Blue = "Blå";
 		public static final String GUIController_Checkered = "Ternet";
@@ -54,7 +54,7 @@ public class Language {
 		public static final String GameController_TurnsToHit = "'s tur til at slå!";
 		public static final String GameController_StartBonus = "Du får 4000 for at komme over start!";
 		public static final String GameController_CantPayForLanding = "Du kan ikke betale for at lande på ";
-		public static final String GameController_WillHaveToPawn = "og bliver nød til at pantsætte!";
+		public static final String GameController_WillHaveToPawn = "og bliver nødt til at pantsætte!";
 		public static final String GameController_CastDiceAgain = "Kast terning igen";
 		public static final String GameController_EndTurn = "Slut turen";
 		public static final String GameController_Trade = "Sælg";
@@ -86,7 +86,7 @@ public class Language {
 		public static final String GameController_PayToGetOutOfJail = "Har du lyst til at betale 1000 for at komme ud af fængsel?";
 		public static final String GameController_WonGameCongratulations = "har vundet spillet, tilykke!";
 		public static final String GameController_Cancel = "Annuller";
-		public static final String GameController_UnPawn = "Upantsat";
+		public static final String GameController_UnPawn = "Upantsæt";
 		public static final String GameController_WantToUnpawn = "Hvad har du lyst til at upantsætte?";
 		public static final String GameController_ConfirmUnpawn = "Er du sikker på at du vil upantsætte?";
 		public static final String GameController_CouldBuyHouse = "Du har købt et hus på ";
@@ -97,6 +97,7 @@ public class Language {
 		public static final String GameController_HitTheHighest = "slog højest og starter!";
 		public static final String GameController_HitTheSameAndRoll = "Flere slog det samme, og skal slå igen!";
 		public static final String GameController_Missing = "Du mangler";
+		public static final String GameController_WishToUseCard = "Vil du bruge et fri fra fængsel kort for at komme ud af fængsel?";
 
 		
 		//FieldController
@@ -154,7 +155,7 @@ public class Language {
 				   + " indtil De får brug for det, eller de kan sælge det."; //x2
 	public final static String ChanceCardController_repCarTxt = "Betal kr. 3000 for reparation af Deres vogn."; //x2
 	public final static String ChanceCardController_taxRaiseTxt = "Egendomsskatterne er steget. Ekstraudgifter er: kr. 800 pr. Hus og kr. 2300 pr. Hotel";
-	public final static String ChanceCardController_dentistBillTxt = "De har modtaget deres tandlægeregning. Betal kr. 2000";
+	public final static String ChanceCardController_dentistBillTxt = "De har modtaget deres tandlï¿½geregning. Betal kr. 2000";
 	public final static String ChanceCardController_scholarshipTxt = "De modtager Matador-legatet for værdigt trængende på kr. 40.000. Ved værdigt trængende forstås, at Deres formue, dvs. Deres kontante penge + skylder + bygninger , ikke overstiger kr. 15.000.";
 	public final static String ChanceCardController_moveToStartTxt = "Ryk frem til \"START\"."; //x2
 	public final static String ChanceCardController_takeFleetTxt = "Tag med den nærmeste færge. Flyt brikken frem, og hvis De passerer \"START\", indkasser da kr. 4000.";
@@ -167,7 +168,7 @@ public class Language {
 	public final static String ChanceCardController_moveToMolsTxt = "Tag med Mols-Linien. Flyt brikken frem, og hvis De passerer \"START\", indkasser da kr. 4000.";
 	public final static String ChanceCardController_birthdayTxt = "Det er deres fødselsdag. Modtag af hver medspiller kr. 200.";
 	public final static String ChanceCardController_get200FromBank = "Værdien af egen avl fra nyttehaven udgør kr. 200, som De modtager af Banken";
-	public final static String ChanceCardController_get1000FromBank1Txt = "De har solgt nogle gamle møbler på auktion. Modtag kr. 1000 af banken";
+	public final static String ChanceCardController_get1000FromBank1Txt = "De har salgt nogle gamle møbler på auktion. Modtag kr. 1000 af banken";
 	public final static String ChanceCardController_get1000FromBank2Txt = "Deres præmieobligation er blevet udtrukket. De modtager kr. 1000 af banken"; //x2
 	public final static String ChanceCardController_get1000FromBank3Txt = "Modtag udbytte af deres aktier - kr. 1000."; //x3
 	public final static String ChanceCardController_wonLotteryTxt = "De har vundet i Klasselotteriet. Modtag kr. 500."; //x2
