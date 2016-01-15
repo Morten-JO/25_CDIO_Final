@@ -1,6 +1,5 @@
 package main;
 
-import controllers.GUIController;
 import controllers.GameController;
 
 public class Main {

@@ -572,7 +572,6 @@ public class GameController {
 		guiController.showMessage(Language.GameController_HitWhoStarts);
 		boolean foundStarter = false;
 		int[] hits = new int[playerController.getPlayerList().size()];
-		
 		while(!foundStarter){
 			for(int i = 0; i < playerController.getPlayerList().size(); i++){
 				if(hits[i] != -1){
@@ -588,6 +587,11 @@ public class GameController {
 				if(hits[i] != -1){
 					if(highest <= hits[i]){
 						highest = hits[i];
+						for(int x = 0; x < hits.length; x++){
+							if(highest > hits[x]){
+								hits[x] = -1;
+							}
+						}
 					}
 					else{
 						hits[i] = -1;
@@ -599,7 +603,7 @@ public class GameController {
 				if(hits[i] != -1){
 					if(highest == hits[i]){
 						countSame++;
-					};
+					}
 				}
 			}
 			if(countSame == 1){
