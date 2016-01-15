@@ -244,6 +244,7 @@ public class GameController {
 			turn--;
 			playerController.setCurrentPlayer(turn);
 		}
+		playerController.getPlayerList().remove(player);
 		guiController.updateAllOwnerShip(fieldController.getFields());
 		guiController.updateHouses(fieldController.getFields());
 
