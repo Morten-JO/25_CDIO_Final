@@ -136,7 +136,7 @@ public class GUIController {
 					}
 					else{
 						 Car.Builder car = new Car.Builder().primaryColor(carColor[players.size()-1]);
-						GUI.addPlayer(input, 3000, car.build());
+						GUI.addPlayer(input, 30000, car.build());
 						GUI.showMessage(input+" "+Language.GUIController_Added);
 					}
 					if(players.size() >= 6){
@@ -166,7 +166,7 @@ public class GUIController {
 				list[i] = new desktop_fields.Start.Builder().build();
 			}
 			else if(arrayOfFields[i].getClass().equals(Chance.class)){
-				list[i] = new desktop_fields.Chance.Builder().setBgColor(Color.BLACK).setFgColor(Color.GREEN).build();
+				list[i] = new desktop_fields.Chance.Builder().build();
 			}
 			else if(arrayOfFields[i].getClass().equals(Jail.class)){
 				list[i] = new desktop_fields.Jail.Builder().build();
