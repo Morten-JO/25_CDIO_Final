@@ -21,21 +21,28 @@ public class TestCup {
 	public void tearDown() throws Exception {
 	}
 
-	@Test//min=2; max=14;
+	@Test//min=2; max=12;
 	public void testRollDiceBoundaries() {
 		for(int i = 0; i<10000;i++){
 			cup.rollDices();
-			if(cup.getDiceSum()<2 || cup.getDiceSum()>14)
-				assertTrue(false);
+			assertFalse(cup.getDiceSum()<2);
+			assertFalse(cup.getDiceSum()>12);
+			assertTrue(cup.getDiceSum()<=12 && cup.getDiceSum()>=2);
 		}
 	}
 
-	@Test
-	public void testSums(){
-		cup.rollDices();
-		int firstSum = cup.getDiceSum();
-		cup.rollDices();
-		assertEquals(firstSum, cup.getLastDiceSum());
+	@Test 	// test if it is possible to get same hit with two dices.
+	public void testSameHit(){
+		int testSize = 10000;
+		int sameHit=0;
 		
+		for (int i = 0; i < testSize; i++) {
+			cup.rollDices();
+			if (cup.isSameHit()){
+				sameHit++;
+			}
+		}
+		assertTrue(sameHit > 0);				// assert Same hit is possible.
+		assertFalse(sameHit > (testSize*0.2));	// assert same hit is possible less than 20% off times rolling dices.
 	}
 }
