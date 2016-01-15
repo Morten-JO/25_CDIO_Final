@@ -86,7 +86,7 @@ public class GameController {
 					
 					if(!fieldController.getFields()[playerController.getCurrentPlayer().getPosition()].landOn(this)){
 							//remove player if he couldnt afford it
-							if(!handleRemovePlayer(playerController.getCurrentPlayer())){
+							if(!handleRemovePlayer(fieldController.getFields()[playerController.getCurrentPlayer().getPosition()] instanceof Ownable)){
 								playerRemoved = true;
 							}
 							
@@ -207,8 +207,14 @@ public class GameController {
 	}
 
 	
-/*	//Removes player from the game
-	private void handleRemovePlayer(){
+	//Removes player from the game
+	private boolean handleRemovePlayer(boolean isStreet){
+		if(!isStreet){
+			if(playerController.getTotalPawnValueOfPlayer(playerController.getCurrentPlayer(), fieldController) > -playerController.getCurrentPlayer().getBalance()){
+				handlePawnPlayer(-playerController.getCurrentPlayer().getBalance(), playerController.getCurrentPlayer());
+				return true;
+			}
+		}
 		guiController.showMessage(Language.GameController_CouldntPayOutOfGame);
 		guiController.removePlayer(playerController.getCurrentPlayer(), fieldController.getFields());
 		guiController.removeOwnerShipFromPlayer(fieldController.getFields(), playerController.getCurrentPlayer());
@@ -219,16 +225,16 @@ public class GameController {
 		}
 		guiController.updateAllOwnerShip(fieldController.getFields());
 		guiController.updateHouses(fieldController.getFields());
+		return false;
 	}
-*/
 	
 	
 	//Check if getTotalValue of player(with property) is over how much he is owed(this is only used by chance cards)
 	//then make him pawn, and if he cant then he loses
-	public boolean handleRemovePlayer(Player player){
+	public void handleRemovePlayer(Player player){
 		if(playerController.getTotalPawnValueOfPlayer(player, fieldController) > -player.getBalance()){
 			handlePawnPlayer(-player.getBalance(), player);
-			return true;
+			return;
 		}
 		guiController.showMessage(Language.GameController_CouldntPayOutOfGame);
 		guiController.removePlayer(playerController.getCurrentPlayer(), fieldController.getFields());
@@ -238,10 +244,8 @@ public class GameController {
 			turn--;
 			playerController.setCurrentPlayer(turn);
 		}
-		playerController.getPlayerList().remove(player);
 		guiController.updateAllOwnerShip(fieldController.getFields());
 		guiController.updateHouses(fieldController.getFields());
-		return false;
 
 	}
 	
