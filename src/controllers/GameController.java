@@ -86,8 +86,10 @@ public class GameController {
 					
 					if(!fieldController.getFields()[playerController.getCurrentPlayer().getPosition()].landOn(this)){
 							//remove player if he couldnt afford it
-							handleRemovePlayer();
-							playerRemoved = true;
+							if(!handleRemovePlayer(playerController.getCurrentPlayer())){
+								playerRemoved = true;
+							}
+							
 						}
 					}
 					if(cup.isSameHit()){
@@ -205,7 +207,7 @@ public class GameController {
 	}
 
 	
-	//Removes player from the game
+/*	//Removes player from the game
 	private void handleRemovePlayer(){
 		guiController.showMessage(Language.GameController_CouldntPayOutOfGame);
 		guiController.removePlayer(playerController.getCurrentPlayer(), fieldController.getFields());
@@ -218,15 +220,15 @@ public class GameController {
 		guiController.updateAllOwnerShip(fieldController.getFields());
 		guiController.updateHouses(fieldController.getFields());
 	}
-	
+*/
 	
 	
 	//Check if getTotalValue of player(with property) is over how much he is owed(this is only used by chance cards)
 	//then make him pawn, and if he cant then he loses
-	public void handleRemovePlayer(Player player){
+	public boolean handleRemovePlayer(Player player){
 		if(playerController.getTotalPawnValueOfPlayer(player, fieldController) > -player.getBalance()){
 			handlePawnPlayer(-player.getBalance(), player);
-			return;
+			return true;
 		}
 		guiController.showMessage(Language.GameController_CouldntPayOutOfGame);
 		guiController.removePlayer(playerController.getCurrentPlayer(), fieldController.getFields());
@@ -239,6 +241,7 @@ public class GameController {
 		playerController.getPlayerList().remove(player);
 		guiController.updateAllOwnerShip(fieldController.getFields());
 		guiController.updateHouses(fieldController.getFields());
+		return false;
 
 	}
 	
