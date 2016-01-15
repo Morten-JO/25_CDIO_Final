@@ -220,6 +220,7 @@ public class GameController {
 	}
 	
 	
+	
 	//Check if getTotalValue of player(with property) is over how much he is owed(this is only used by chance cards)
 	//then make him pawn, and if he cant then he loses
 	public void handleRemovePlayer(Player player){

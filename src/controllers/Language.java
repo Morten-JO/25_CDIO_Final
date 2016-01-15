@@ -2,7 +2,7 @@ package controllers;
 
 public class Language {
 
-
+		//class of strings
 
 		//GUIController
 		public static final String GUIController_WelcomeToMatador = "Velkommen til matador!";
