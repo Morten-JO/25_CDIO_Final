@@ -61,8 +61,8 @@ public class Language {
 		public static final String GameController_Pawn = "Pantsæt";
 		public static final String GameController_BuildHouse = "Byg hus";
 		public static final String GameController_WhatDoYouWantToDo = "Hvad vil du gøre?";
-		public static final String GameController_GroundToTrade= "Hvilken grund vil du bytte?";
-		public static final String GameController_ConfirmWantToTrade = "Er du sikker på at du vil bytte ";
+		public static final String GameController_GroundToTrade= "Hvilken grund vil du sælge?";
+		public static final String GameController_ConfirmWantToTrade = "Er du sikker på at du vil sælge ";
 		public static final String GameController_AmountForTrade = "Hvor meget vil du have for ";
 		public static final String GameController_WhatPlayerToTrade = "Hvad spiller vil du bytte med?";
 		public static final String GameController_DoYou = "Vil du, ";
@@ -155,7 +155,7 @@ public class Language {
 				   + " indtil De får brug for det, eller de kan sælge det."; //x2
 	public final static String ChanceCardController_repCarTxt = "Betal kr. 3000 for reparation af Deres vogn."; //x2
 	public final static String ChanceCardController_taxRaiseTxt = "Egendomsskatterne er steget. Ekstraudgifter er: kr. 800 pr. Hus og kr. 2300 pr. Hotel";
-	public final static String ChanceCardController_dentistBillTxt = "De har modtaget deres tandlï¿½geregning. Betal kr. 2000";
+	public final static String ChanceCardController_dentistBillTxt = "De har modtaget deres tandlægeregning. Betal kr. 2000";
 	public final static String ChanceCardController_scholarshipTxt = "De modtager Matador-legatet for værdigt trængende på kr. 40.000. Ved værdigt trængende forstås, at Deres formue, dvs. Deres kontante penge + skylder + bygninger , ikke overstiger kr. 15.000.";
 	public final static String ChanceCardController_moveToStartTxt = "Ryk frem til \"START\"."; //x2
 	public final static String ChanceCardController_takeFleetTxt = "Tag med den nærmeste færge. Flyt brikken frem, og hvis De passerer \"START\", indkasser da kr. 4000.";
