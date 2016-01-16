@@ -50,8 +50,7 @@ public class TestDice {
 		double tl = testSize*0.18;	// Tolerance level over 10000 rolls = 18%
 		int one = 0, two = 0, tree = 0, four = 0, five = 0, six = 0;
 		
-		for(int i=1; i< testSize; i++){
-			dice.hitDice();
+		for(int i=0; i< testSize; i++){
 			dice.hitDice();
 			if(dice.getSum() == 1) one++;
 			if(dice.getSum() == 2) two++;
@@ -61,6 +60,7 @@ public class TestDice {
 			if(dice.getSum() == 6) six++;
 		}
 		assertTrue(one<tl && two<tl && tree<tl && four<tl && five<tl && six<tl);
+		assertEquals(one+two+tree+four+five+six, testSize); 	// proofs that result of all rolls are between these numbers.
 	}
 	
 }
