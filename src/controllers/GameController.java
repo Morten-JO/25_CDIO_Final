@@ -307,7 +307,7 @@ public class GameController {
 		int hits = 1;
 		if(playerController.getCurrentPlayer().getJailFreeCards() > 0){
 			if(guiController.askYesNoQuestion(Language.GameController_WishToUseCard)){
-				playerController.getCurrentPlayer().setJailFreeCards(playerController.getCurrentPlayer().getJailFreeCards() - 1);
+				playerController.removeJailFreeCard();
 				playerController.getCurrentPlayer().setJailed(false);
 				playerController.getCurrentPlayer().setPosition(10);
 				guiController.updatePlayerPosition(playerController.getCurrentPlayer());
