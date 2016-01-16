@@ -25,8 +25,6 @@ public class TestCup {
 	public void testRollDiceBoundaries() {
 		for(int i = 0; i<10000;i++){
 			cup.rollDices();
-			assertFalse(cup.getDiceSum()<2);
-			assertFalse(cup.getDiceSum()>12);
 			assertTrue(cup.getDiceSum()<=12 && cup.getDiceSum()>=2);
 		}
 	}
