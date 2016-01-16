@@ -320,7 +320,7 @@ public class GameController {
 			for(int i = 0; i < fields.length; i++){
 				fieldNames[i] = fields[i].getName();
 			}
-			String choice = guiController.askDropDownQuestion(player.getName()+Language.GameController_WhatDoYouWantToPawnTwo+", "+Language.GameController_Missing+" "+(toPay-player.getBalance()), fieldNames);
+			String choice = guiController.askDropDownQuestion(player.getName()+Language.GameController_WhatDoYouWantToPawnTwo+", "+Language.GameController_Missing+" "+(toPay), fieldNames);
 			for(int i = 0; i < fields.length; i++){
 				if(choice == fieldNames[i]){
 					if(guiController.askYesNoQuestion(Language.GameController_ConfirmWantToPawn+" "+fieldNames[i]+"?")){
