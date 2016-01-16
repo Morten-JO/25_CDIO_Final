@@ -202,7 +202,7 @@ public class FieldController {
 							amount += ((Street)gameFields[i]).getAmountOfHouses() * ((Street)gameFields[i]).getBuildingPrice();
 							amount += ((Street)gameFields[i]).getAmountOfHotels() * ((Street)gameFields[i]).getBuildingPrice();
 						}
-						amount += ((Ownable)gameFields[i]).getPrice();
+						amount += ((Ownable)gameFields[i]).getPawnPrice();
 					}
 				}
 			}
