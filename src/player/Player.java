@@ -8,6 +8,7 @@ public class Player {
 	private int jailFreeCards;
 	private boolean isJailed;
 	private boolean firstRoundCompleted;
+	private int jailedRounds;
 
 	public Player(String name) {
 		this.name = name;
@@ -63,6 +64,14 @@ public class Player {
 	
 	public void setJailFreeCards(int i){
 		jailFreeCards = i;
+	}
+	
+	public void setJailedRounds(int jailedRounds){
+		this.jailedRounds = jailedRounds;
+	}
+	
+	public int getJailedRounds(){
+		return jailedRounds;
 	}
 
 }

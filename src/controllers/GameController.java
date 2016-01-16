@@ -360,13 +360,12 @@ public class GameController {
 	 * handle jailed gameflow, if player hits 2 of the same in 3 tries, he gets out, if not then he have option to buy out for 1000
 	 */
 	private void handleIfPlayerJailed(){
-		boolean hittedOut = false;
-		int hits = 1;
 		if(playerController.getCurrentPlayer().getJailFreeCards() > 0){
 			if(guiController.askYesNoQuestion(Language.GameController_WishToUseCard)){
 				playerController.removeJailFreeCard();
 				playerController.getCurrentPlayer().setJailed(false);
 				playerController.getCurrentPlayer().setPosition(10);
+				playerController.getCurrentPlayer().setJailedRounds(0);
 				guiController.updatePlayerPosition(playerController.getCurrentPlayer());
 				guiController.showMessage(Language.GameController_YouAreOutOfJail);
 				return;
@@ -375,39 +374,23 @@ public class GameController {
 		if(cup.isSameHit()){
 			playerController.getCurrentPlayer().setJailed(false);
 			playerController.getCurrentPlayer().setPosition(10);
-			hittedOut = true;
+			playerController.getCurrentPlayer().setJailedRounds(0);
+			guiController.showMessage(Language.GameController_YouAreOutOfJail);
 		}
-		while(!hittedOut){
-			guiController.showMessage(Language.GameController_YouHave+" "+(3-hits)+" "+Language.GameController_AttemptsOutOfJail);
-			guiController.showMessage(Language.GameController_RollTheDice);
-			if(isInTestMode)
-				cup.rollDices();
-			guiController.updateDices(cup.getSumOfDice(0), cup.getSumOfDice(1));
-			if(cup.isSameHit()){
-				playerController.getCurrentPlayer().setJailed(false);
-				playerController.getCurrentPlayer().setPosition(10);
-				hittedOut = true;
-				guiController.showMessage(Language.GameController_YouAreOutOfJail);
-			}
-			else{
-				hits++;
-			}
-			if(hits >= 3){
-				hittedOut = true;
-			}
-		}
+		playerController.getCurrentPlayer().setJailedRounds(playerController.getCurrentPlayer().getJailedRounds()+1);
 		if(playerController.getCurrentPlayer().isJailed()){
-			if(playerController.getCurrentPlayer().getBalance() >= 1000){
-				boolean askQuestion = guiController.askYesNoQuestion(Language.GameController_PayToGetOutOfJail);
-				if(askQuestion){
-					playerController.getCurrentPlayer().adjustBalance(-1000);
-					playerController.getCurrentPlayer().setJailed(false);
-					playerController.getCurrentPlayer().setPosition(10);
-					guiController.updateAllPlayersBalance(playerController.getPlayerList());
+			if(playerController.getCurrentPlayer().getJailedRounds() >= 3){
+				if(playerController.getCurrentPlayer().getBalance() >= 1000){
+					boolean askQuestion = guiController.askYesNoQuestion(Language.GameController_PayToGetOutOfJail);
+					if(askQuestion){
+						playerController.getCurrentPlayer().adjustBalance(-1000);
+						playerController.getCurrentPlayer().setJailed(false);
+						playerController.getCurrentPlayer().setPosition(10);
+						playerController.getCurrentPlayer().setJailedRounds(0);
+						guiController.updateAllPlayersBalance(playerController.getPlayerList());
+						guiController.showMessage(Language.GameController_YouAreOutOfJail);
+					}
 				}
-			}
-			else{
-				guiController.showMessage(Language.GameController_YouAreOutOfJail);
 			}
 		}
 			
