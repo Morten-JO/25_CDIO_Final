@@ -17,7 +17,7 @@ public class MoveX extends ChanceCard {
 		Player currentPlayer = gc.getPlayerController().getCurrentPlayer();
 		int positionTo = currentPlayer.getPosition() + amountToMove;
 		
-		if(positionTo>40){
+		if(positionTo>39){
 			positionTo -= 40;
 			//check if we PASSED start field
 			if(positionTo>0)

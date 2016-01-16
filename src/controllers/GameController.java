@@ -18,6 +18,7 @@ public class GameController {
 	private Cup cup; 
 	private boolean gameOver;
 	private int countDicesTheSame = 0;
+	private boolean isInTestMode=false; //is working but beware that brewery rent wont work due to dices not being rolled
 	
 	public GameController(){
 		fieldController = new FieldController();
@@ -50,6 +51,57 @@ public class GameController {
 			else{
 				//if he didnt hit same dices 3 turns in a row
 				guiController.showMessage(playerController.getCurrentPlayer().getName()+Language.GameController_TurnsToHit);
+				//********____________________
+				if(isInTestMode){
+					int i = guiController.getUserIntegerInput("Enter number of fields you want to move");
+					//cup.rollDices();
+					//guiController.updateDices(cup.getSumOfDice(0), cup.getSumOfDice(1));
+					
+					//check if player jailed
+					if(playerController.getCurrentPlayer().isJailed()){
+						handleIfPlayerJailed();
+					}
+					else{
+						//handle change position, and handle giving player 4000 bonus for getting over start
+						boolean startBonus = false;
+							int newPosition = playerController.getCurrentPlayer().getPosition() + i;
+								if(newPosition > 39){
+									newPosition -= 40;
+									if(newPosition >= 1){
+										startBonus = true;
+							}
+						}
+						else if(playerController.getCurrentPlayer().getPosition() == 0){
+							startBonus = true;
+						}
+						playerController.getCurrentPlayer().setPosition(newPosition);
+						guiController.updatePlayerPositions(playerController.getPlayerList());
+							if(playerController.getCurrentPlayer().getFirstRoundCompleted()){
+								if(startBonus){
+									playerController.getCurrentPlayer().adjustBalance(4000);
+									guiController.showMessage(Language.GameController_StartBonus);
+							}
+						}
+						playerController.getCurrentPlayer().setFirstRoundCompleted(true);
+						guiController.updateAllPlayersBalance(playerController.getPlayerList());
+						
+						//check if he can afford if that field hes landed on is owned, and if he can afford it
+						checkIfPlayerCanAffordToLandOnRented();
+						
+						if(!fieldController.getFields()[playerController.getCurrentPlayer().getPosition()].landOn(this)){
+								//remove player if he couldnt afford it
+								if(!handleRemovePlayer(fieldController.getFields()[playerController.getCurrentPlayer().getPosition()] instanceof Ownable)){
+									playerRemoved = true;
+								}
+								
+							}
+						}
+						if(cup.isSameHit()){
+							countDicesTheSame++;
+						}
+						
+				}else{
+				//*****---------------------------
 				cup.rollDices();
 				guiController.updateDices(cup.getSumOfDice(0), cup.getSumOfDice(1));
 				
@@ -95,6 +147,11 @@ public class GameController {
 					if(cup.isSameHit()){
 						countDicesTheSame++;
 					}
+					
+					
+					
+				}//ELSE END FOR TESTMODE!!****
+					
 					
 				}
 			//if player not removed, give player a list of options that can be done
@@ -323,7 +380,8 @@ public class GameController {
 		while(!hittedOut){
 			guiController.showMessage(Language.GameController_YouHave+" "+(3-hits)+" "+Language.GameController_AttemptsOutOfJail);
 			guiController.showMessage(Language.GameController_RollTheDice);
-			cup.rollDices();
+			if(isInTestMode)
+				cup.rollDices();
 			guiController.updateDices(cup.getSumOfDice(0), cup.getSumOfDice(1));
 			if(cup.isSameHit()){
 				playerController.getCurrentPlayer().setJailed(false);
