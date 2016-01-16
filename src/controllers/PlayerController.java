@@ -48,7 +48,8 @@ public class PlayerController {
 	public boolean adjustBalance(int i, int amount){
 		return players.get(i).getAcc().adjustBalance(amount);
 	}*/
-
+	
+	//used for loop in getmoneyfromallCC, because "for each"-loop was crashing due to mutating array being looped. had to use regular for
 	public int getCurrentPlayerIndex(){
 		return currentPlayer;
 	}
@@ -61,6 +62,7 @@ public class PlayerController {
 		return amountOfJailFreeCardsAmongstPlayers;
 	}
 	
+	//adds jail free card to current player
 	public void addJailFreeCard(){
 		int newInt = getCurrentPlayer().getJailFreeCards();
 		getCurrentPlayer().setJailFreeCards(newInt++);
@@ -69,6 +71,7 @@ public class PlayerController {
 			System.out.println("Player has more than 2 jail free ccs. Handler logic must be wrong in controller");
 	}
 	
+	//removes jail free card from current player
 	public void removeJailFreeCard(){
 		int newInt = getCurrentPlayer().getJailFreeCards();
 		getCurrentPlayer().setJailFreeCards(newInt--);
@@ -77,13 +80,13 @@ public class PlayerController {
 			System.out.println("Player has less than 0 jail free ccs. Handler logic must be wrong in controller");
 	}
 	
-	public int getTotalValueOfPlayer(Player player, FieldController controller) {
-		int value = player.getBalance() + controller.getPropertyValueNotPawned(player);
+	public int getTotalValueOfPlayer(Player player, FieldController fc) {
+		int value = player.getBalance() + fc.getPropertyValueNotPawned(player);
 		return value;
 	}
 	
-	public int getTotalPawnValueOfPlayer(Player player, FieldController controller){
-		int value = player.getBalance() + (int)(controller.getPropertyValueNotPawned(player)*0.5);
+	public int getTotalPawnValueOfPlayer(Player player, FieldController fc){
+		int value = player.getBalance() + (int)(fc.getPropertyValueNotPawned(player)*0.5);
 		return value;
 	}
 	

@@ -28,7 +28,7 @@ public class GetMoneyFromAllCC extends GetMoneyCC {
 					currentPlayer.adjustBalance(amount);
 				}
 			}
-			//IMPORTANT!! NEED TO HANDLE IF PLAYER CANT PAY. CANNOT RETURN FALSE OR METHOD WILL EXIT
+			//IMPORTANT!! NEED TO HANDLE IF PLAYER CANT PAY. CANNOT RETURN FALSE OR METHOD WILL EXIT**FIXED WITH HANDLEREMOVEPLAYER() IN GC 
 		}
 		return true;
 	}
