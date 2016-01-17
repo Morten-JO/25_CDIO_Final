@@ -24,20 +24,24 @@ public class Cup {
 		}
 	}
 	
-	/**
-	 * used for manually setting amount to move. used for testing purposes.
-	 * Note: if user enters 12, and only 12, it shall be perceived as "2 of same"
-	 * @param i - amount to move/set
-	 */
-	public void rollDicesCustom(int i){
-			if(i==12){
-				diceArray.get(0).setDiceForTest(6);
-				diceArray.get(1).setDiceForTest(6);
-			}else if(i>39)
-				diceArray.get(0).setDiceForTest(39);
-			else
-				diceArray.get(0).setDiceForTest(i);
-	}
+	 /**
+	  * used for manually setting amount to move. used for testing purposes.
+	  * Note: if user enters 12, and only 12, it shall be perceived as "2 of same"
+	  * works by settings dices to (6,6) at 12. X => (X,0)
+	  * @param i - amount to move/set
+	  */
+	 public void rollDicesCustom(int i){
+	   if(i==12){
+	    diceArray.get(0).setDiceForTest(6);
+	    diceArray.get(1).setDiceForTest(6);
+	   }else if(i>39){
+	    diceArray.get(0).setDiceForTest(39);
+	    diceArray.get(1).setDiceForTest(0);
+	   }else{
+	    diceArray.get(0).setDiceForTest(i);
+	    diceArray.get(1).setDiceForTest(0);
+	   }
+	 }
 	
 	public int getDiceSum(){
 		int sum = 0;

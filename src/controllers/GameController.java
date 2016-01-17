@@ -51,21 +51,35 @@ public class GameController {
 			else{
 				//if he didnt hit same dices 3 turns in a row
 				guiController.showMessage(playerController.getCurrentPlayer().getName()+Language.GameController_TurnsToHit);
-				
-				//********____________________TESTMODEBLOCK
 				if(isInTestMode){
 					int i = guiController.getUserIntegerInput("Enter number of fields you want to move");
 					cup.rollDicesCustom(i);
-					//guiController.updateDices(cup.getSumOfDice(0), cup.getSumOfDice(1));
-					
-					//check if player jailed
-					if(playerController.getCurrentPlayer().isJailed()){
-						handleIfPlayerJailed();
+				}
+				else{
+					cup.rollDices();
+				}
+				guiController.updateDices(cup.getSumOfDice(0), cup.getSumOfDice(1));
+				
+				//check if player jailed
+				if(playerController.getCurrentPlayer().isJailed()){
+					handleIfPlayerJailed();
+				}
+				else{
+					if(cup.isSameHit()){
+						countDicesTheSame++;
+					}
+					if(countDicesTheSame >= 3){
+						playerController.getCurrentPlayer().setJailed(true);
+						playerController.getCurrentPlayer().setPosition(10); 
+						guiController.updatePlayerPositions(playerController.getPlayerList());
+						guiController.showMessage(Language.GameController_Jailed3Alike);
+						countDicesTheSame = 0;
+						jailed3Alike = true;
 					}
 					else{
 						//handle change position, and handle giving player 4000 bonus for getting over start
 						boolean startBonus = false;
-							int newPosition = playerController.getCurrentPlayer().getPosition() + i;
+							int newPosition = playerController.getCurrentPlayer().getPosition() + cup.getDiceSum();
 								if(newPosition > 39){
 									newPosition -= 40;
 									if(newPosition >= 1){
@@ -90,72 +104,15 @@ public class GameController {
 						checkIfPlayerCanAffordToLandOnRented();
 						
 						if(!fieldController.getFields()[playerController.getCurrentPlayer().getPosition()].landOn(this)){
-								//remove player if he couldnt afford it
-								if(!handleRemovePlayer(fieldController.getFields()[playerController.getCurrentPlayer().getPosition()] instanceof Ownable)){
-									playerRemoved = true;
-								}
-								
-							}
-						}
-						if(cup.isSameHit()){
-							countDicesTheSame++;
-						}
-						
-				}else{
-				//*****---------------------------TESTMODEBLOCK
-					
-				cup.rollDices();
-				guiController.updateDices(cup.getSumOfDice(0), cup.getSumOfDice(1));
-				
-				//check if player jailed
-				if(playerController.getCurrentPlayer().isJailed()){
-					handleIfPlayerJailed();
-				}
-				else{
-					//handle change position, and handle giving player 4000 bonus for getting over start
-					boolean startBonus = false;
-						int newPosition = playerController.getCurrentPlayer().getPosition() + cup.getDiceSum();
-							if(newPosition > 39){
-								newPosition -= 40;
-								if(newPosition >= 1){
-									startBonus = true;
-						}
-					}
-					else if(playerController.getCurrentPlayer().getPosition() == 0){
-						startBonus = true;
-					}
-					playerController.getCurrentPlayer().setPosition(newPosition);
-					guiController.updatePlayerPositions(playerController.getPlayerList());
-						if(playerController.getCurrentPlayer().getFirstRoundCompleted()){
-							if(startBonus){
-								playerController.getCurrentPlayer().adjustBalance(4000);
-								guiController.showMessage(Language.GameController_StartBonus);
-						}
-					}
-					playerController.getCurrentPlayer().setFirstRoundCompleted(true);
-					guiController.updateAllPlayersBalance(playerController.getPlayerList());
-					
-					//check if he can afford if that field hes landed on is owned, and if he can afford it
-					checkIfPlayerCanAffordToLandOnRented();
-					
-					if(!fieldController.getFields()[playerController.getCurrentPlayer().getPosition()].landOn(this)){
 							//remove player if he couldnt afford it
 							if(!handleRemovePlayer(fieldController.getFields()[playerController.getCurrentPlayer().getPosition()] instanceof Ownable)){
 								playerRemoved = true;
 							}
-							
 						}
 					}
-					if(cup.isSameHit()){
-						countDicesTheSame++;
-					}
-					
-					
-					
-				}//ELSE END FOR TESTMODE!!****
-					
-					
 				}
+			}//ELSE END FOR TESTMODE!!****
+			
 			//if player not removed, give player a list of options that can be done
 			if(!playerRemoved && playerController.getPlayerList().size() > 1){
 				ArrayList<String> options = new ArrayList<String>();
