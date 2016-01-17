@@ -166,7 +166,7 @@ public class GUIController {
 				list[i] = new desktop_fields.Start.Builder().build();
 			}
 			else if(arrayOfFields[i].getClass().equals(Chance.class)){
-				list[i] = new desktop_fields.Chance.Builder().setBgColor(Color.DARK_GRAY).setFgColor(Color.WHITE).build();
+				list[i] = new desktop_fields.Chance.Builder().setBgColor(Color.BLACK).setFgColor(Color.WHITE).build();
 			}
 			else if(arrayOfFields[i].getClass().equals(Jail.class)){
 				list[i] = new desktop_fields.Jail.Builder().build();
