@@ -337,7 +337,7 @@ public class GameController {
 	
 	//if not same hit, switch turn
 	public void handleTurnChange(){
-		if(cup.isSameHit()){}
+		if(cup.isSameHit() && !playerController.getCurrentPlayer().isJailed()){}
 		else{
 			turn++;
 			if(turn >= playerController.getPlayerList().size()){
