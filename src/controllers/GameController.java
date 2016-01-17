@@ -18,7 +18,7 @@ public class GameController {
 	private Cup cup; 
 	private boolean gameOver;
 	private int countDicesTheSame = 0;
-	private boolean isInTestMode=false; //is working but beware that brewery rent wont work due to dices not being rolled
+	private boolean isInTestMode=true; //is working but beware that brewery rent wont work due to dices not being rolled
 	
 	public GameController(){
 		fieldController = new FieldController();
@@ -51,10 +51,11 @@ public class GameController {
 			else{
 				//if he didnt hit same dices 3 turns in a row
 				guiController.showMessage(playerController.getCurrentPlayer().getName()+Language.GameController_TurnsToHit);
-				//********____________________
+				
+				//********____________________TESTMODEBLOCK
 				if(isInTestMode){
 					int i = guiController.getUserIntegerInput("Enter number of fields you want to move");
-					//cup.rollDices();
+					cup.rollDicesCustom(i);
 					//guiController.updateDices(cup.getSumOfDice(0), cup.getSumOfDice(1));
 					
 					//check if player jailed
@@ -101,7 +102,8 @@ public class GameController {
 						}
 						
 				}else{
-				//*****---------------------------
+				//*****---------------------------TESTMODEBLOCK
+					
 				cup.rollDices();
 				guiController.updateDices(cup.getSumOfDice(0), cup.getSumOfDice(1));
 				

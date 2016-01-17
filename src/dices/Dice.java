@@ -14,6 +14,11 @@ public class Dice {
 		return (int)(Math.random() * sides)+1;
 	}
 	
+	public void setDiceForTest(int i){
+		lastsum = sum;
+		sum = i;
+	}
+	
 	public void hitDice(){
 		lastsum = sum;
 		sum = diceRoll();
