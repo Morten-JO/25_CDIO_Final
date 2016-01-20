@@ -81,12 +81,12 @@ public class PlayerController {
 	}
 	
 	public int getTotalValueOfPlayer(Player player, FieldController fc) {
-		int value = player.getBalance() + fc.getPropertyValueNotPawned(player);
+		int value = player.getBalance() + fc.getPropertyValueOfNotPawned(player);
 		return value;
 	}
 	
 	public int getTotalPawnValueOfPlayer(Player player, FieldController fc){
-		int value = player.getBalance() + (int)(fc.getPropertyValueNotPawned(player));
+		int value = (int)(fc.getPropertyPawnValueOfNotPawned(player));//+balance. DEPRECATED
 		return value;
 	}
 	

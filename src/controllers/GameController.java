@@ -18,7 +18,7 @@ public class GameController {
 	private Cup cup; 
 	private boolean gameOver;
 	private int countDicesTheSame = 0;
-	private boolean isInTestMode=false; //is working but beware that brewery rent wont work due to dices not being rolled
+	private boolean isInTestMode=true; //is working but beware that brewery rent wont work due to dices not being rolled
 	
 	public GameController(){
 		fieldController = new FieldController();
@@ -123,7 +123,7 @@ public class GameController {
 					else{
 						options.add(Language.GameController_EndTurn);
 					}
-					if(fieldController.getPropertyValueNotPawned(playerController.getCurrentPlayer()) > 0){
+					if(fieldController.getPropertyPawnValueOfNotPawned(playerController.getCurrentPlayer()) > 0){
 						options.add(Language.GameController_Trade);
 						options.add(Language.GameController_Pawn);
 					}
@@ -174,7 +174,7 @@ public class GameController {
 						else{
 							options.add(Language.GameController_EndTurn);
 						}
-						if(fieldController.getPropertyValueNotPawned(playerController.getCurrentPlayer()) > 0){
+						if(fieldController.getPropertyPawnValueOfNotPawned(playerController.getCurrentPlayer()) > 0){
 							options.add(Language.GameController_Trade);
 							options.add(Language.GameController_Pawn);
 						}
@@ -246,7 +246,8 @@ public class GameController {
 	
 	
 	//Check if getTotalValue of player(with property) is over how much he is owed(this is only used by chance cards)
-	//then make him pawn, and if he cant then he loses
+	//then make him pawn, and if he cant then he looses
+	//-not specified on currentPlayer. Can remove anyone
 	public void handleRemovePlayer(Player player){
 		if(playerController.getTotalPawnValueOfPlayer(player, fieldController) > -player.getBalance()){
 			handlePawnPlayer(-player.getBalance(), player);
@@ -274,15 +275,16 @@ public class GameController {
 	private void handlePawnPlayer(int toPay, Player player){
 		boolean canPay = false;
 		while(!canPay){
-			Field[] fields = fieldController.getAllOwnedProperties(player);
+			Field[] fields = fieldController.getAllOwnedPropertiesNotPawned(player);
 			String[] fieldNames = new String[fields.length];
 			for(int i = 0; i < fields.length; i++){
 				fieldNames[i] = fields[i].getName();
 			}
-			String choice = guiController.askDropDownQuestion(player.getName()+Language.GameController_WhatDoYouWantToPawnTwo+", "+Language.GameController_Missing+" "+(toPay), fieldNames);
+			String choice = guiController.askDropDownQuestion(player.getName()+Language.GameController_WhatDoYouWantToPawnTwo+Language.GameController_Missing+" "+(toPay-playerController.getCurrentPlayer().getBalance()), fieldNames);
 			for(int i = 0; i < fields.length; i++){
-				if(choice == fieldNames[i]){
+				if(choice.equals(fieldNames[i])){
 					if(guiController.askYesNoQuestion(Language.GameController_ConfirmWantToPawn+" "+fieldNames[i]+"?")){
+						//this will add money to balance if successful (pawn)
 						((Ownable)fields[i]).pawnProperty(this, player);
 					}
 				}
@@ -542,6 +544,7 @@ public class GameController {
 	}
 	
 	/**
+	 * (Method is called before landOn, hence before any transactions are made)
 	 * Check if a player can afford to pay money if he lands on a field he has to pay rent for, if not then 
 	 * have him pawn what he owns.
 	 * This is used so landOn functionally in fields works, and so that it doesnt take his money
@@ -555,9 +558,10 @@ public class GameController {
 				if(((Ownable)fieldController.getFields()[playerController.getCurrentPlayer().getPosition()]).getOwner() != playerController.getCurrentPlayer()){
 					if(!((Ownable)fieldController.getFields()[playerController.getCurrentPlayer().getPosition()]).getIsPawn()){
 						if(!(playerController.getCurrentPlayer().getBalance() >= ((Ownable)fieldController.getFields()[playerController.getCurrentPlayer().getPosition()]).getRent(this))){
-							if(playerController.getTotalPawnValueOfPlayer(playerController.getCurrentPlayer(), fieldController) > ((Ownable)fieldController.getFields()[playerController.getCurrentPlayer().getPosition()]).getRent(this)){
+							//totalpawnvalue+playerbal>field rent
+							if(playerController.getTotalPawnValueOfPlayer(playerController.getCurrentPlayer(), fieldController)+playerController.getCurrentPlayer().getBalance() > ((Ownable)fieldController.getFields()[playerController.getCurrentPlayer().getPosition()]).getRent(this)){
 								guiController.showMessage(Language.GameController_CantPayForLanding+fieldController.getFields()[playerController.getCurrentPlayer().getPosition()].getName()+" "+Language.GameController_WillHaveToPawn);
-								handlePawnPlayer(((Ownable)fieldController.getFields()[playerController.getCurrentPlayer().getPosition()]).getRent(this), playerController.getCurrentPlayer());
+								handlePawnPlayer(((Ownable)fieldController.getFields()[playerController.getCurrentPlayer().getPosition()]).getRent(this)-playerController.getCurrentPlayer().getBalance(), playerController.getCurrentPlayer());
 							}
 						}
 					}

@@ -187,12 +187,13 @@ public class FieldController {
 		return gameFields;
 	}
 
-	/** Returns the value of a property including the houses/hotels present. Takes into consideration whether or not
+	/**GETS TOTAL PAWN VALUE FOR PROPERTIES THAT HAS NOT YET BEEN PAWNED 
+	 * Returns the value of a property including the houses/hotels present. Takes into consideration whether or not
 	 * some of the properties are pawned.
 	 * @param player
 	 * @return
 	 */	
-	public int getPropertyValueNotPawned(Player player){
+	public int getPropertyPawnValueOfNotPawned(Player player){
 		int amount = 0;
 		for(int i = 0; i < gameFields.length; i++){
 			if(gameFields[i] instanceof Ownable){
@@ -203,6 +204,29 @@ public class FieldController {
 							amount += ((Street)gameFields[i]).getAmountOfHotels() * ((Street)gameFields[i]).getBuildingPrice();
 						}
 						amount += ((Ownable)gameFields[i]).getPawnPrice();
+					}
+				}
+			}
+		}
+		return amount;
+	}
+	
+	/**GETS TOTAL VALUE FOR PROPERTIES THAT HAS NOT YET BEEN PAWNED 
+	 *
+	 * @param player
+	 * @return
+	 */	
+	public int getPropertyValueOfNotPawned(Player player){
+		int amount = 0;
+		for(int i = 0; i < gameFields.length; i++){
+			if(gameFields[i] instanceof Ownable){
+				if(((Ownable)gameFields[i]).getOwner() == player){
+					if(!((Ownable)gameFields[i]).getIsPawn()){
+						if(gameFields[i] instanceof Street){
+							amount += ((Street)gameFields[i]).getAmountOfHouses() * ((Street)gameFields[i]).getBuildingPrice();
+							amount += ((Street)gameFields[i]).getAmountOfHotels() * ((Street)gameFields[i]).getBuildingPrice();
+						}
+						amount += ((Ownable)gameFields[i]).getPrice();
 					}
 				}
 			}
